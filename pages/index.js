@@ -23,7 +23,7 @@ export default function Home() {
               src="https://booksy-public.s3.amazonaws.com/US.mp4"
               type="video/mp4"
             />
-            Your browser does not support HTML5 video.
+            Your browser does not supports HTML5 video.
           </video>
         </div>
       </div>
