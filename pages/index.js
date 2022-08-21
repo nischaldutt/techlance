@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import Typewriter from "typewriter-effect";
 
 import Navbar from "../components/Navbar";
 
@@ -25,6 +26,46 @@ export default function Home() {
             />
             Your browser does not supports HTML5 video.
           </video>
+        </div>
+
+        <div className="border border-black z-20 w-auto absolute top-1/4 left-1/2">
+          <div className="text-white text-6xl text-bold border border-red-900">
+            <Typewriter
+              onInit={(typewriter) => {
+                typewriter
+                  .typeString("Be free")
+                  .pauseFor(1000)
+                  .deleteChars(4)
+
+                  .typeString("brave")
+                  .pauseFor(1000)
+                  .deleteChars(5)
+
+                  .typeString("bold")
+                  .pauseFor(1000)
+                  .deleteChars(4)
+
+                  .typeString("yourself")
+                  .pauseFor(1000)
+                  .deleteChars(8)
+
+                  .typeString("confident")
+                  .pauseFor(1000)
+                  .deleteChars(9)
+
+                  .typeString("colorful")
+                  .pauseFor(1000)
+                  .deleteChars(8)
+                  .start();
+              }}
+              options={{
+                autoStart: true,
+                loop: true,
+              }}
+            />
+          </div>
+
+          <div>Discover and book beauty & wellness professionals near you</div>
         </div>
       </div>
     </>

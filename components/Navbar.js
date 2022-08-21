@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
+import { MdAccountCircle } from "react-icons/md";
 
 export default function Navbar({ headers }) {
   const [active, setActive] = useState(false);
@@ -47,7 +48,8 @@ export default function Navbar({ headers }) {
           <div className="w-full flex flex-col items-start lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto lg:items-center lg:h-auto">
             <Link href="/">
               <a className="w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 lg:inline-flex lg:w-auto">
-                Log In / Sign Up
+                <MdAccountCircle size="30" />
+                {"  "}Log In / Sign Up
               </a>
             </Link>
 
@@ -58,7 +60,7 @@ export default function Navbar({ headers }) {
             </Link>
 
             <Link href="/">
-              <a className="w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 lg:inline-flex lg:w-auto">
+              <a className="w-full px-3 py-2 rounded text-black font-bold bg-white items-center justify-center hover:bg-green-600 lg:inline-flex lg:w-auto">
                 For Business
               </a>
             </Link>
