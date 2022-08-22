@@ -1,8 +1,22 @@
 import Head from "next/head";
 import Image from "next/image";
 import Typewriter from "typewriter-effect";
+import { BiSearchAlt } from "react-icons/bi";
+import { GoLocation } from "react-icons/go";
 
 import Navbar from "../components/Navbar";
+
+const servicesMenu = [
+  "Psychotherapy",
+  "Yoga",
+  "Hair Salons",
+  "Spa & Massage",
+  "Nail Spa",
+  "Brows & Lashes",
+  "Body Art",
+  "Bridal Makeup",
+  "More",
+];
 
 export default function Home() {
   return (
@@ -13,9 +27,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="flex justify-center">
+      <div className="relative h-[30rem] flex justify-center">
         <div className="w-full absolute top-0 left-0 z-0">
-          <video autoPlay muted loop className="w-full object-cover h-[32rem]">
+          <video
+            autoPlay
+            muted
+            loop
+            className="w-full object-cover h-[32rem] brightness-[0.75]"
+          >
             <source
               src="https://booksy-public.s3.amazonaws.com/horizontal_.webm"
               type="video/webm"
@@ -28,8 +47,8 @@ export default function Home() {
           </video>
         </div>
 
-        <div className="border border-black z-20 w-auto absolute top-1/4 left-1/2">
-          <div className="text-white text-6xl text-bold border border-red-900">
+        <div className="z-20 absolute w-full sm:w-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="sm:py-2 text-white text-2xl sm:text-4xl text-center font-bold">
             <Typewriter
               onInit={(typewriter) => {
                 typewriter
@@ -65,8 +84,31 @@ export default function Home() {
             />
           </div>
 
-          <div>Discover and book beauty & wellness professionals near you</div>
+          <div className="py-2 text-white text-center sm:text-xl">
+            Discover and book beauty & wellness professionals near you
+          </div>
+
+          <div className="m-2 sm:w-[36rem] md:w-[45rem] p-2 sm:p-4 text-xs text-gray-500 font-bold bg-white rounded-lg grid grid-cols-2 border border-gray">
+            <div
+              className="inline-flex items-center"
+              onClick={() => console.log("hi")}
+            >
+              <BiSearchAlt size="20" />
+              <div className="ml-2">Book your services...</div>
+            </div>
+
+            <div className="border-l pl-2 inline-flex items-center">
+              <GoLocation size="20" />
+              <div className="ml-2">India</div>
+            </div>
+          </div>
         </div>
+
+        {/* <div className="border border-black z-30">
+          {servicesMenu.map((service) => {
+            return <div key={service}>{service}</div>;
+          })}
+        </div> */}
       </div>
     </>
   );
