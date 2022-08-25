@@ -5,18 +5,9 @@ import { BiSearchAlt } from "react-icons/bi";
 import { GoLocation } from "react-icons/go";
 
 import Navbar from "../components/Navbar";
+import assets from "../assets";
 
-const servicesMenu = [
-  "Psychotherapy",
-  "Yoga",
-  "Hair Salons",
-  "Spa & Massage",
-  "Nail Spa",
-  "Brows & Lashes",
-  "Body Art",
-  "Bridal Makeup",
-  "More",
-];
+const { ServicesSvg } = assets;
 
 export default function Home() {
   return (
@@ -103,12 +94,97 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* <div className="border border-black z-30">
-          {servicesMenu.map((service) => {
-            return <div key={service}>{service}</div>;
-          })}
-        </div> */}
+      <div className="border-4 border-red-900 flex direction-column justify-center items-center my-8">
+        <div className="border-4 border-green-900 grid grid-cols-2 py-12 text-gray-900 w-3/5">
+          <div className="border-4 border-red-900 text-justify">
+            <h1 className="text-4xl font-bold mb-8">
+              Appointments done better
+            </h1>
+            <div className="text-lg">
+              Looking for your next appointment with a local barber, hair
+              stylist, massage therapist or nail artist? Need appointment
+              booking for a beard trim, an eyebrow wax, or a deep tissue
+              massage?
+            </div>
+            <br />
+            <div className="text-lg">
+              Booksy is a free beauty scheduling app and makes appointments easy
+              to find and book within seconds. No more phone tag. Book anytime,
+              from anywhere, 24/7.
+            </div>
+            <br />
+            <div className="text-lg">
+              Discover top businesses in your area and book instantly with
+              Booksy.
+            </div>
+          </div>
+          <div className="border-4 border-red-900 grid place-items-center">
+            <ServicesSvg className="text-[20vw]" />
+          </div>
+        </div>
+      </div>
+
+      <div className="border-4 border-red-900 flex direction-column justify-center items-center my-8">
+        <div className="border-4 border-green-900 grid grid-cols-2 py-12 text-gray-900 w-3/5">
+          <div className="border-4 border-red-900 grid place-items-center">
+            <ServicesSvg className="text-[20vw]" />
+          </div>
+
+          <div className="border-4 border-red-900 text-justify">
+            <h1 className="text-4xl font-bold mb-8">
+              Appointments done better
+            </h1>
+            <div className="text-lg">
+              Looking for your next appointment with a local barber, hair
+              stylist, massage therapist or nail artist? Need appointment
+              booking for a beard trim, an eyebrow wax, or a deep tissue
+              massage?
+            </div>
+            <br />
+            <div className="text-lg">
+              Booksy is a free beauty scheduling app and makes appointments easy
+              to find and book within seconds. No more phone tag. Book anytime,
+              from anywhere, 24/7.
+            </div>
+            <br />
+            <div className="text-lg">
+              Discover top businesses in your area and book instantly with
+              Booksy.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="border-4 border-red-900 flex direction-column justify-center items-center my-8">
+        <div className="border-4 border-green-900 grid grid-cols-2 py-12 text-gray-900 w-3/5">
+          <div className="border-4 border-red-900 text-justify">
+            <h1 className="text-4xl font-bold mb-8">
+              Appointments done better
+            </h1>
+            <div className="text-lg">
+              Looking for your next appointment with a local barber, hair
+              stylist, massage therapist or nail artist? Need appointment
+              booking for a beard trim, an eyebrow wax, or a deep tissue
+              massage?
+            </div>
+            <br />
+            <div className="text-lg">
+              Booksy is a free beauty scheduling app and makes appointments easy
+              to find and book within seconds. No more phone tag. Book anytime,
+              from anywhere, 24/7.
+            </div>
+            <br />
+            <div className="text-lg">
+              Discover top businesses in your area and book instantly with
+              Booksy.
+            </div>
+          </div>
+          <div className="border-4 border-red-900 grid place-items-center">
+            <ServicesSvg className="text-[20vw]" />
+          </div>
+        </div>
       </div>
     </>
   );
