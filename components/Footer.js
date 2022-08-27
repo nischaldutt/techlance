@@ -73,7 +73,7 @@ export default function Footer() {
             </a>
           </Link>
 
-          <div className="text-xs text-gray-300 sm:ml-8 py-2 sm:py-0">
+          <div className="text-[10px] text-gray-300 sm:ml-8 py-2 sm:py-0">
             © 2022 Techlance Inc. All rights reserved
           </div>
         </div>

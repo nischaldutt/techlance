@@ -80,7 +80,7 @@ export default function Home() {
             Discover and book beauty & wellness professionals near you
           </div>
 
-          <div className="m-2 sm:w-[36rem] md:w-[45rem] p-2 sm:p-4 text-xs text-gray-500 font-bold bg-white rounded-lg grid grid-cols-2 border border-gray">
+          <div className="m-4 sm:w-[36rem] md:w-[45rem] p-2 sm:p-4 text-[10px] sm:text-xs text-gray-500 font-bold bg-white rounded-lg grid grid-cols-2 border border-gray cursor-pointer">
             <div
               className="inline-flex items-center"
               onClick={() => console.log("hi")}
