@@ -5,6 +5,7 @@ import { BiSearchAlt } from "react-icons/bi";
 import { GoLocation } from "react-icons/go";
 
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import assets from "../assets";
 
 const { ServicesSvg } = assets;
@@ -96,60 +97,59 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="border-4 border-red-900 flex direction-column justify-center items-center my-8">
-        <div className="border-4 border-green-900 grid grid-cols-2 py-12 text-gray-900 w-3/5">
-          <div className="border-4 border-red-900 text-justify">
-            <h1 className="text-4xl font-bold mb-8">
+      <div className="flex direction-column justify-center items-center my-8 bg-sky-blue-100">
+        <div className="flex flex-col md:flex-row md:justify-around py-12 text-gray-900 w-[90%] 2xl:w-3/5">
+          <div className="text-justify md:w-1/2">
+            <h1 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-6">
               Appointments done better
             </h1>
-            <div className="text-lg">
+            <div className="text-sm lg:text-base">
               Looking for your next appointment with a local barber, hair
               stylist, massage therapist or nail artist? Need appointment
               booking for a beard trim, an eyebrow wax, or a deep tissue
               massage?
             </div>
             <br />
-            <div className="text-lg">
+            <div className="text-sm lg:text-base">
               Booksy is a free beauty scheduling app and makes appointments easy
               to find and book within seconds. No more phone tag. Book anytime,
               from anywhere, 24/7.
             </div>
             <br />
-            <div className="text-lg">
+            <div className="text-sm lg:text-base">
               Discover top businesses in your area and book instantly with
               Booksy.
             </div>
           </div>
-          <div className="border-4 border-red-900 grid place-items-center">
-            <ServicesSvg className="text-[20vw]" />
+          <div className="grid place-items-center md:w-2/5">
+            <ServicesSvg className="text-[80vw] xs:text-[60vw] sm:text-[20rem] md:text-[30vw] lg:text-[24rem]" />
           </div>
         </div>
       </div>
 
-      <div className="border-4 border-red-900 flex direction-column justify-center items-center my-8">
-        <div className="border-4 border-green-900 grid grid-cols-2 py-12 text-gray-900 w-3/5">
-          <div className="border-4 border-red-900 grid place-items-center">
-            <ServicesSvg className="text-[20vw]" />
+      <div className="flex direction-column justify-center items-center my-8 bg-[#FAFAFA]">
+        <div className="flex flex-col md:flex-row md:justify-around py-12 text-gray-900 w-[90%] 2xl:w-3/5">
+          <div className="grid place-items-center md:w-2/5">
+            <ServicesSvg className="text-[80vw] xs:text-[60vw] sm:text-[20rem] md:text-[30vw] lg:text-[24rem]" />
           </div>
-
-          <div className="border-4 border-red-900 text-justify">
-            <h1 className="text-4xl font-bold mb-8">
+          <div className="text-justify md:w-1/2">
+            <h1 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-6">
               Appointments done better
             </h1>
-            <div className="text-lg">
+            <div className="text-sm lg:text-base">
               Looking for your next appointment with a local barber, hair
               stylist, massage therapist or nail artist? Need appointment
               booking for a beard trim, an eyebrow wax, or a deep tissue
               massage?
             </div>
             <br />
-            <div className="text-lg">
+            <div className="text-sm lg:text-base">
               Booksy is a free beauty scheduling app and makes appointments easy
               to find and book within seconds. No more phone tag. Book anytime,
               from anywhere, 24/7.
             </div>
             <br />
-            <div className="text-lg">
+            <div className="text-sm lg:text-base">
               Discover top businesses in your area and book instantly with
               Booksy.
             </div>
@@ -157,35 +157,37 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="border-4 border-red-900 flex direction-column justify-center items-center my-8">
-        <div className="border-4 border-green-900 grid grid-cols-2 py-12 text-gray-900 w-3/5">
-          <div className="border-4 border-red-900 text-justify">
-            <h1 className="text-4xl font-bold mb-8">
+      <div className="flex direction-column justify-center items-center my-8">
+        <div className="flex flex-col md:flex-row md:justify-around py-12 text-gray-900 w-[90%] 2xl:w-3/5">
+          <div className="text-justify md:w-1/2">
+            <h1 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-6">
               Appointments done better
             </h1>
-            <div className="text-lg">
+            <div className="text-sm lg:text-base">
               Looking for your next appointment with a local barber, hair
               stylist, massage therapist or nail artist? Need appointment
               booking for a beard trim, an eyebrow wax, or a deep tissue
               massage?
             </div>
             <br />
-            <div className="text-lg">
+            <div className="text-sm lg:text-base">
               Booksy is a free beauty scheduling app and makes appointments easy
               to find and book within seconds. No more phone tag. Book anytime,
               from anywhere, 24/7.
             </div>
             <br />
-            <div className="text-lg">
+            <div className="text-sm lg:text-base">
               Discover top businesses in your area and book instantly with
               Booksy.
             </div>
           </div>
-          <div className="border-4 border-red-900 grid place-items-center">
-            <ServicesSvg className="text-[20vw]" />
+          <div className="grid place-items-center md:w-2/5">
+            <ServicesSvg className="text-[80vw] xs:text-[60vw] sm:text-[20rem] md:text-[30vw] lg:text-[24rem]" />
           </div>
         </div>
       </div>
+
+      <Footer />
     </>
   );
 }
