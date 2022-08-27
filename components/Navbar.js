@@ -1,9 +1,22 @@
 import Link from "next/link";
-import { useState } from "react";
+import React from "react";
 import { MdAccountCircle } from "react-icons/md";
+import { BiSearchAlt } from "react-icons/bi";
+import { GoLocation } from "react-icons/go";
+import { AiOutlineCalendar } from "react-icons/ai";
 
 export default function Navbar({ headers }) {
-  const [active, setActive] = useState(false);
+  const [isScrolled, setIsScrolled] = React.useState(false);
+  const [active, setActive] = React.useState(false);
+
+  React.useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  });
+
+  const handleScroll = () => {
+    window.scrollY <= 420 ? setIsScrolled(false) : setIsScrolled(true);
+  };
 
   const handleClick = () => {
     setActive(!active);
@@ -11,10 +24,14 @@ export default function Navbar({ headers }) {
 
   return (
     <>
-      <nav className="flex w-full items-center flex-wrap bg-transparent p-3 fixed z-10">
+      <nav
+        className={`flex w-full items-center flex-wrap ${
+          isScrolled ? "bg-black" : "bg-transparent"
+        } transition-colors ease-out duration-500 p-3 fixed z-10`}
+      >
         <Link href="/">
-          <a className="inline-flex items-center p-2 mr-4">
-            <span className="font-['Bebas_Neue'] text-5xl text-white font-bold uppercase tracking-wide">
+          <a className="inline-flex items-center p-2 mr-4 animate-pulse">
+            <span className="font-['Bebas_Neue'] text-3xl sm:text-5xl text-white font-bold uppercase tracking-wide">
               Techlance
             </span>
           </a>
@@ -45,22 +62,58 @@ export default function Navbar({ headers }) {
             active ? "" : "hidden"
           } w-full lg:inline-flex lg:flex-grow lg:w-auto`}
         >
+          <div className="flex-grow">
+            <div
+              className={`${
+                isScrolled ? "" : "hidden"
+              } border border-gray-400 w-[30vw] rounded-lg text-gray-300 grid grid-cols-3 text-[11px] font-black mx-auto cursor-pointer`}
+            >
+              <div
+                className="border-r border-gray-400 p-3 inline-flex items-center gap-2"
+                onClick={() => {
+                  console.log("handle1");
+                }}
+              >
+                <BiSearchAlt size="14" />
+                Book a Service
+              </div>
+              <div
+                className="border-r border-gray-400 p-3 inline-flex items-center gap-2"
+                onClick={() => {
+                  console.log("handle2");
+                }}
+              >
+                <GoLocation size="14" />
+                India
+              </div>
+              <div
+                className="border-r border-gray-400 p-3 inline-flex items-center gap-2"
+                onClick={() => {
+                  console.log("handle3");
+                }}
+              >
+                <AiOutlineCalendar size="14" />
+                When?
+              </div>
+            </div>
+          </div>
+
           <div className="w-full flex flex-col items-start lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto lg:items-center lg:h-auto">
             <Link href="/">
-              <a className="w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 lg:inline-flex lg:w-auto">
-                <MdAccountCircle size="30" />
-                {"  "}Log In / Sign Up
+              <a className="w-full px-3 py-2 rounded text-white text-sm font-bold items-center justify-center hover:bg-green-600 lg:inline-flex lg:w-auto">
+                <MdAccountCircle size="25" />
+                <span className="ml-[10px]">Log In / Sign Up</span>
               </a>
             </Link>
 
             <Link href="/">
-              <a className="w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 lg:inline-flex lg:w-auto">
+              <a className="w-full px-3 py-2 rounded text-white text-sm font-bold items-center justify-center hover:bg-green-600 lg:inline-flex lg:w-auto">
                 India
               </a>
             </Link>
 
             <Link href="/">
-              <a className="w-full px-3 py-2 rounded text-black font-bold bg-white items-center justify-center hover:bg-green-600 lg:inline-flex lg:w-auto">
+              <a className="w-full px-3 py-2 uppercase rounded text-black text-xs font-bold bg-white items-center justify-center hover:bg-green-600 lg:inline-flex lg:w-auto">
                 For Business
               </a>
             </Link>
