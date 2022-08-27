@@ -38,7 +38,7 @@ export default function Navbar({ headers }) {
         </Link>
 
         <button
-          className="inline-flex p-3 hover:bg-green-600 rounded lg:hidden text-white ml-auto outline-none"
+          className="inline-flex p-3 hover:bg-gray-900 rounded lg:hidden text-white ml-auto outline-none"
           onClick={handleClick}
         >
           <svg
@@ -64,9 +64,7 @@ export default function Navbar({ headers }) {
         >
           <div className="flex-grow">
             <div
-              className={`${
-                isScrolled ? "" : "hidden"
-              } border border-gray-400 w-[30vw] rounded-lg text-gray-300 grid grid-cols-3 text-[11px] font-black mx-auto cursor-pointer`}
+              className={`sm:hidden border border-gray-400 w-[30vw] rounded-lg text-gray-300 grid grid-cols-3 text-[11px] font-black mx-auto cursor-pointer`}
             >
               <div
                 className="border-r border-gray-400 p-3 inline-flex items-center gap-2"
