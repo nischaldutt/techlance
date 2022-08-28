@@ -1,11 +1,3 @@
-import ServicesSvg from "./svg/Services.svg";
-import Bookings from "./svg/Bookings.svg";
-import Reminders from "./svg/Reminders.svg";
-
-const assets = {
-  ServicesSvg,
-  Bookings,
-  Reminders,
-};
-
-export default assets;
+export { default as Services } from "./svg/Services.svg";
+export { default as Bookings } from "./svg/Services.svg";
+export { default as Reminders } from "./svg/Services.svg";
