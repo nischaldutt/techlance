@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BsInstagram, BsTwitter, BsFacebook } from "react-icons/bs";
+
 const leftList = [
   {
     label: "Blog",

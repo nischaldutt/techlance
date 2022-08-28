@@ -100,20 +100,20 @@ export default function Navbar({ headers }) {
 
           <div className="w-full flex flex-col items-start lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto lg:items-center lg:h-auto">
             <Link href="/">
-              <a className="w-full px-3 py-2 rounded text-white text-sm font-bold items-center justify-center hover:bg-green-600 lg:inline-flex lg:w-auto">
+              <a className="w-full px-3 py-2 rounded text-white text-sm font-bold items-center justify-center lg:inline-flex lg:w-auto">
                 <MdAccountCircle size="25" />
                 <span className="ml-[10px]">Log In / Sign Up</span>
               </a>
             </Link>
 
             <Link href="/">
-              <a className="w-full px-3 py-2 rounded text-white text-sm font-bold items-center justify-center hover:bg-green-600 lg:inline-flex lg:w-auto">
+              <a className="w-full px-3 py-2 rounded text-white text-sm font-bold items-center justify-center lg:inline-flex lg:w-auto">
                 India
               </a>
             </Link>
 
             <Link href="/">
-              <a className="w-full px-3 py-2 uppercase rounded text-black text-xs font-bold bg-white items-center justify-center hover:bg-green-600 lg:inline-flex lg:w-auto">
+              <a className="w-full px-3 py-2 uppercase rounded text-black text-xs font-bold bg-white items-center justify-center lg:inline-flex lg:w-auto">
                 For Business
               </a>
             </Link>
