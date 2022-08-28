@@ -1,17 +1,13 @@
-import { BsGoogle, BsTwitter, BsFacebook, BsBullseye } from "react-icons/bs";
+import Link from "next/link";
+import { BsGoogle, BsTwitter, BsFacebook } from "react-icons/bs";
 
 import SocialButton from "./SocialButton";
 
 export default function SigninForm() {
   return (
-    <div className="px-8 sm:px-12 py-8">
-      <div className="text-2xl font-bold pb-4">
-        <BsBullseye />
-      </div>
-      <div className="text-3xl sm:text-4xl font-bold py-2">
-        Sign in to your account
-      </div>
-      <div className="text-gray-500 py-2">Sign in with</div>
+    <div className="px-8 sm:px-12 py-16 shadow-xl rounded-lg border bg-white sm:w-[30rem]">
+      <div className="text-3xl font-bold py-2">Sign in to your account</div>
+      <div className="text-gray-500 py-2 text-sm">Sign in with</div>
 
       <div className="grid grid-cols-3 gap-4">
         <SocialButton SocialIcon={<BsGoogle />} />
@@ -21,7 +17,7 @@ export default function SigninForm() {
 
       <div className="grid grid-cols-3 gap-1 items-center py-4">
         <hr />
-        <div className="text-gray-500 text-xs sm:text-sm">Or continue with</div>
+        <div className="text-gray-500 text-xs">Or continue with</div>
         <hr />
       </div>
 
@@ -38,7 +34,7 @@ export default function SigninForm() {
           id="email-address"
           autoComplete="email"
           placeholder="john_doe@gmail.com"
-          className="mt-1 p-2 block w-full shadow-sm sm:text-sm border
+          className="mt-1 p-2 block w-full shadow-sm text-sm border
           border-gray-300 rounded-md text-gray-700"
         />
       </div>
@@ -55,7 +51,7 @@ export default function SigninForm() {
           name="password"
           id="password"
           placeholder="**********"
-          className="mt-1 p-2 block w-full shadow-sm sm:text-sm border
+          className="mt-1 p-2 block w-full shadow-sm text-sm border
           border-gray-300 rounded-md text-gray-700"
         />
       </div>
@@ -68,14 +64,14 @@ export default function SigninForm() {
             type="checkbox"
             className="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded"
           />
-          <div className="ml-2 text-sm">
+          <div className="ml-2 text-xs">
             <label htmlFor="remember" className="font-medium text-gray-700">
               Remember me
             </label>
           </div>
         </div>
 
-        <div className="text-primary text-xs sm:text-sm flex justify-end">
+        <div className="text-primary text-xs flex justify-end">
           Forgot your password?
         </div>
       </div>
@@ -83,11 +79,19 @@ export default function SigninForm() {
       <div className="w-full py-2">
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold 
+          className="bg-sky-600 hover:bg-sky-600 text-white font-bold 
           py-2 px-4 rounded w-full"
         >
           Sign in
         </button>
+      </div>
+
+      <div className="w-full py-2 text-right">
+        <Link href="/signup">
+          <a className="text-xs text-sky-600 font-bold">
+            Don&apos;t have and account? Sign up
+          </a>
+        </Link>
       </div>
     </div>
   );
