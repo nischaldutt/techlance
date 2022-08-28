@@ -1,15 +1,15 @@
 import Head from "next/head";
 import Image from "next/image";
 
-import { SigninForm } from "../components";
+import { SignupForm } from "../components";
 import { Signin as SigninSvg } from "../assets";
 
 export default function Signin() {
   return (
     <>
       <Head>
-        <title>Sign in</title>
-        <meta name="description" content="Sign in to your Techlance account" />
+        <title>Sign up</title>
+        <meta name="description" content="Sign up to your Techlance account" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -19,7 +19,7 @@ export default function Signin() {
         </div>
 
         <div className="">
-          <SigninForm />
+          <SignupForm />
         </div>
       </div>
     </>

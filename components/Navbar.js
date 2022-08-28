@@ -1,13 +1,21 @@
 import Link from "next/link";
 import React from "react";
+import { useRouter } from "next/router";
+
 import { MdAccountCircle } from "react-icons/md";
 import { BiSearchAlt } from "react-icons/bi";
 import { GoLocation } from "react-icons/go";
 import { AiOutlineCalendar } from "react-icons/ai";
 
 export default function Navbar({ headers }) {
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [active, setActive] = React.useState(false);
+  const [isHome, setIsHome] = React.useState(true);
+
+  React.useEffect(() => {
+    router.pathname === "/" ? setIsHome(true) : setIsHome(false);
+  }, [router.pathname]);
 
   React.useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -26,8 +34,10 @@ export default function Navbar({ headers }) {
     <>
       <nav
         className={`flex w-full items-center flex-wrap ${
-          isScrolled ? "bg-black" : "bg-transparent"
-        } transition-colors ease-out duration-500 p-3 fixed z-10`}
+          isScrolled || !isHome ? "bg-black" : "bg-transparent"
+        } transition-colors ease-out duration-500 p-3 ${
+          isHome ? "fixed" : ""
+        } z-10`}
       >
         <Link href="/">
           <a className="inline-flex items-center p-2 mr-4 animate-pulse">
@@ -65,7 +75,7 @@ export default function Navbar({ headers }) {
           <div className="flex-grow">
             <div
               className={`hidden border border-gray-400 w-[30vw] rounded-lg text-gray-300 ${
-                isScrolled ? "lg:grid" : ""
+                isScrolled || !isHome ? "lg:grid" : ""
               } grid-cols-3 text-[11px] font-black mx-auto cursor-pointer`}
             >
               <div
@@ -99,21 +109,21 @@ export default function Navbar({ headers }) {
           </div>
 
           <div className="w-full flex flex-col items-start lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto lg:items-center lg:h-auto">
-            <Link href="/">
-              <a className="w-full px-3 py-2 rounded text-white text-sm font-bold items-center justify-center hover:bg-green-600 lg:inline-flex lg:w-auto">
+            <Link href="/signin">
+              <a className="w-full px-3 py-2 rounded text-white text-sm font-bold items-center justify-center lg:inline-flex lg:w-auto">
                 <MdAccountCircle size="25" />
                 <span className="ml-[10px]">Log In / Sign Up</span>
               </a>
             </Link>
 
             <Link href="/">
-              <a className="w-full px-3 py-2 rounded text-white text-sm font-bold items-center justify-center hover:bg-green-600 lg:inline-flex lg:w-auto">
+              <a className="w-full px-3 py-2 rounded text-white text-sm font-bold items-center justify-center lg:inline-flex lg:w-auto">
                 India
               </a>
             </Link>
 
             <Link href="/">
-              <a className="w-full px-3 py-2 uppercase rounded text-black text-xs font-bold bg-white items-center justify-center hover:bg-green-600 lg:inline-flex lg:w-auto">
+              <a className="w-full px-3 py-2 uppercase rounded text-black text-xs font-bold bg-white items-center justify-center lg:inline-flex lg:w-auto">
                 For Business
               </a>
             </Link>

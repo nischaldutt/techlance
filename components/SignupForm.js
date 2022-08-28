@@ -1,13 +1,13 @@
 import Link from "next/link";
-import { BsGoogle, BsTwitter, BsFacebook } from "react-icons/bs";
+import { BsGoogle, BsTwitter, BsFacebook, BsBullseye } from "react-icons/bs";
 
 import SocialButton from "./SocialButton";
 
-export default function SigninForm() {
+export default function SignupForm() {
   return (
     <div className="px-8 sm:px-12 py-16 shadow-xl rounded-lg border bg-white sm:w-[30rem]">
-      <div className="text-3xl font-bold py-2">Sign in to your account</div>
-      <div className="text-gray-500 py-2 text-sm">Sign in with</div>
+      <div className="text-3xl font-bold py-2">Sign up to your account</div>
+      <div className="text-gray-500 py-2 text-sm">Sign up with</div>
 
       <div className="grid grid-cols-3 gap-4">
         <SocialButton SocialIcon={<BsGoogle />} />
@@ -19,6 +19,23 @@ export default function SigninForm() {
         <hr />
         <div className="text-gray-500 text-xs">Or continue with</div>
         <hr />
+      </div>
+
+      <div className="pb-4">
+        <label
+          htmlFor="name"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Name
+        </label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Your name"
+          className="mt-1 p-2 block w-full shadow-sm text-sm border
+          border-gray-300 rounded-md text-gray-700"
+        />
       </div>
 
       <div className="pb-2">
@@ -56,42 +73,14 @@ export default function SigninForm() {
         />
       </div>
 
-      <div className="grid grid-cols-2 py-4">
-        <div className="flex items-center">
-          <input
-            id="remember"
-            name="remember"
-            type="checkbox"
-            className="focus:ring-primary h-4 w-4 text-primary border-gray-300 rounded"
-          />
-          <div className="ml-2 text-xs">
-            <label htmlFor="remember" className="font-medium text-gray-700">
-              Remember me
-            </label>
-          </div>
-        </div>
-
-        <div className="text-primary text-xs flex justify-end">
-          Forgot your password?
-        </div>
-      </div>
-
       <div className="w-full py-2">
         <button
           type="submit"
           className="bg-sky-600 hover:bg-sky-600 text-white font-bold 
           py-2 px-4 rounded w-full"
         >
-          Sign in
+          Create account
         </button>
-      </div>
-
-      <div className="w-full py-2 text-right">
-        <Link href="/signup">
-          <a className="text-xs text-sky-600 font-bold">
-            Don&apos;t have and account? Sign up
-          </a>
-        </Link>
       </div>
     </div>
   );

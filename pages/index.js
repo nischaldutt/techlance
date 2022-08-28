@@ -1,14 +1,7 @@
 import Head from "next/head";
-import Image from "next/image";
-import Typewriter from "typewriter-effect";
-import { BiSearchAlt } from "react-icons/bi";
-import { GoLocation } from "react-icons/go";
 
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import assets from "../assets";
-
-const { ServicesSvg, Bookings, Reminders } = assets;
+import { HomeHeroComponent, Footer } from "../components";
+import { Services, Bookings, Reminders } from "../assets";
 
 export default function Home() {
   return (
@@ -19,83 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="relative h-[30rem] flex justify-center">
-        <div className="w-full absolute top-0 left-0 z-0">
-          <video
-            autoPlay
-            muted
-            loop
-            className="w-full object-cover h-[32rem] brightness-[0.75]"
-          >
-            <source
-              src="https://booksy-public.s3.amazonaws.com/horizontal_.webm"
-              type="video/webm"
-            />
-            <source
-              src="https://booksy-public.s3.amazonaws.com/US.mp4"
-              type="video/mp4"
-            />
-            Your browser does not supports HTML5 video.
-          </video>
-        </div>
-
-        <div className="z-20 absolute w-full sm:w-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <div className="sm:py-2 text-white text-2xl sm:text-4xl text-center font-bold">
-            <Typewriter
-              onInit={(typewriter) => {
-                typewriter
-                  .typeString("Be free")
-                  .pauseFor(1000)
-                  .deleteChars(4)
-
-                  .typeString("brave")
-                  .pauseFor(1000)
-                  .deleteChars(5)
-
-                  .typeString("bold")
-                  .pauseFor(1000)
-                  .deleteChars(4)
-
-                  .typeString("yourself")
-                  .pauseFor(1000)
-                  .deleteChars(8)
-
-                  .typeString("confident")
-                  .pauseFor(1000)
-                  .deleteChars(9)
-
-                  .typeString("colorful")
-                  .pauseFor(1000)
-                  .deleteChars(8)
-                  .start();
-              }}
-              options={{
-                autoStart: true,
-                loop: true,
-              }}
-            />
-          </div>
-
-          <div className="py-2 text-white text-center sm:text-xl">
-            Discover and book beauty & wellness professionals near you
-          </div>
-
-          <div className="m-4 sm:w-[36rem] md:w-[45rem] p-2 sm:p-4 text-[10px] sm:text-xs text-gray-500 font-bold bg-white rounded-lg grid grid-cols-2 border border-gray cursor-pointer">
-            <div
-              className="inline-flex items-center"
-              onClick={() => console.log("hi")}
-            >
-              <BiSearchAlt size="20" />
-              <div className="ml-2">Book your services...</div>
-            </div>
-
-            <div className="border-l pl-2 inline-flex items-center">
-              <GoLocation size="20" />
-              <div className="ml-2">India</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <HomeHeroComponent />
 
       <div className="flex direction-column justify-center items-center my-8 bg-sky-blue-100">
         <div className="flex flex-col md:flex-row md:justify-around py-12 text-gray-900 w-[90%] 2xl:w-3/5">
@@ -121,7 +38,7 @@ export default function Home() {
             </div>
           </div>
           <div className="grid place-items-center md:w-2/5">
-            <ServicesSvg className="text-[80vw] xs:text-[60vw] sm:text-[20rem] md:text-[30vw] lg:text-[24rem]" />
+            <Services className="text-[80vw] xs:text-[60vw] sm:text-[20rem] md:text-[30vw] lg:text-[24rem]" />
           </div>
         </div>
       </div>
