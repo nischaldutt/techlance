@@ -33,7 +33,7 @@ export default function Navbar({ headers }) {
   return (
     <>
       <nav
-        className={`flex w-full items-center flex-wrap ${
+        className={`flex w-full justify-center items-center flex-wrap ${
           isScrolled || !isHome ? "bg-black" : "bg-transparent"
         } transition-colors ease-out duration-500 p-3 ${
           isHome ? "fixed" : ""
