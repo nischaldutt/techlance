@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 
 import { HomeHeroComponent, Footer } from "../components";
 import { Services, Bookings, Reminders } from "../assets";
