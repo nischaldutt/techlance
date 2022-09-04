@@ -1,7 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
 
-import { HomeHeroComponent, Footer, ServiceCard } from "../components";
+import {
+  HomeHeroComponent,
+  Footer,
+  ServiceCard,
+  CardSlider,
+} from "../components";
 import { Services, Bookings, Reminders } from "../assets";
 
 export default function Home() {

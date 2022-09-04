@@ -6,7 +6,7 @@ const ServiceCard = () => {
       <div className="rounded-lg bg-white max-w-sm">
         <a href="#" data-mdb-ripple="true" data-mdb-ripple-color="light">
           <div className="relative">
-            <div className="absolute right-0 rounded-tr-lg z-10 bg-[rgba(0,0,0,0.5)] text-white text-center p-1">
+            <div className="absolute right-0 rounded-tr-lg rounded-bl-lg z-10 bg-[rgba(0,0,0,0.5)] text-white text-center p-1">
               <div className="font-bold text-lg">5.0</div>
               <div className="text-[11px]">568 Reviews</div>
             </div>

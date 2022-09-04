@@ -5,3 +5,4 @@ export { default as SigninForm } from "./SigninForm";
 export { default as SocialButton } from "./SocialButton";
 export { default as SignupForm } from "./SignupForm";
 export { default as ServiceCard } from "./ServiceCard";
+export { default as CardSlider } from "./CardSlider";
