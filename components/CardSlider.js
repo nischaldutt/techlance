@@ -1,69 +1,71 @@
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
 import ServiceCard from "./ServiceCard";
+
+const responsive = {
+  xxl: {
+    breakpoint: { max: 5000, min: 2500 },
+    items: 4,
+    partialVisibilityGutter: 40,
+  },
+  xl: {
+    breakpoint: { max: 1280, min: 1024 },
+    items: 4,
+  },
+  lg: {
+    breakpoint: { max: 1024, min: 768 },
+    items: 3,
+  },
+  md: {
+    breakpoint: { max: 768, min: 640 },
+    items: 2,
+  },
+  sm: {
+    breakpoint: { max: 640, min: 475 },
+    items: 2,
+    // partialVisibilityGutter: 120,
+  },
+  xs: {
+    breakpoint: { max: 475, min: 380 },
+    items: 1,
+    partialVisibilityGutter: 80,
+  },
+  xxs: {
+    breakpoint: { max: 380, min: 0 },
+    items: 1,
+    partialVisibilityGutter: 20,
+  },
+};
 
 const CardSlider = () => {
   return (
-    <div
-      id="carouselExampleCaptions"
-      className="carousel slide relative border border-black"
-      data-bs-ride="carousel"
-    >
-      <div className="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
-        <button
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide-to="0"
-          className="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleCaptions"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
-        ></button>
-      </div>
-      <div className="carousel-inner relative w-full overflow-hidden">
-        <div className="carousel-item active relative float-left w-full">
-          <ServiceCard />
-        </div>
-        <div className="carousel-item relative float-left w-full">
-          <ServiceCard />
-        </div>
-        <div className="carousel-item relative float-left w-full">
-          <ServiceCard />
-        </div>
-      </div>
-      <button
-        className="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
-        type="button"
-        data-bs-target="#carouselExampleCaptions"
-        data-bs-slide="prev"
+    <div className="border border-black mx-auto">
+      <Carousel
+        partialVisible={true}
+        responsive={responsive}
+        ssr={true}
+        infinite={true}
+        autoPlay={true}
+        autoPlaySpeed={5000}
+        keyBoardControl={true}
+        customTransition="transform 300ms ease-in-out"
+        transitionDuration={500}
+        containerClass="carousel-container"
+        removeArrowOnDeviceType={["xxs", "xs", "sm", "md"]}
+        itemClass=""
       >
-        <span
-          className="carousel-control-prev-icon inline-block bg-no-repeat"
-          aria-hidden="true"
-        ></span>
-        <span className="visually-hidden">Previous</span>
-      </button>
-      <button
-        className="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
-        type="button"
-        data-bs-target="#carouselExampleCaptions"
-        data-bs-slide="next"
-      >
-        <span
-          className="carousel-control-next-icon inline-block bg-no-repeat"
-          aria-hidden="true"
-        ></span>
-        <span className="visually-hidden">Next</span>
-      </button>
+        <ServiceCard />
+        <ServiceCard />
+        <ServiceCard />
+        <ServiceCard />
+        <ServiceCard />
+        <ServiceCard />
+        <ServiceCard />
+        <ServiceCard />
+        <ServiceCard />
+        <ServiceCard />
+      </Carousel>
     </div>
   );
 };
