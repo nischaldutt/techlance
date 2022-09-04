@@ -20,7 +20,7 @@ export default function Home() {
 
       <HomeHeroComponent />
 
-      <ServiceCard />
+      <CardSlider />
 
       <div className="flex direction-column justify-center items-center my-8 bg-sky-blue-100">
         <div className="flex flex-col md:flex-row md:justify-around py-12 text-gray-900 w-[90%] 2xl:w-3/5">
