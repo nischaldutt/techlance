@@ -7,7 +7,7 @@ import { BiSearchAlt } from "react-icons/bi";
 import { GoLocation } from "react-icons/go";
 import { AiOutlineCalendar } from "react-icons/ai";
 
-export default function Navbar({ headers }) {
+export default function Navbar() {
   const router = useRouter();
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [active, setActive] = React.useState(false);

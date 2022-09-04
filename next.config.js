@@ -4,7 +4,13 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["tailwindui.com", "images.unsplash.com", "mdbcdn.b-cdn.net"],
+    domains: [
+      "tailwindui.com",
+      "images.unsplash.com",
+      "mdbcdn.b-cdn.net",
+      "mdbootstrap.com",
+      "d2zdpiztbgorvt.cloudfront.net",
+    ],
   },
   webpack(config) {
     // configuring @svgr/webpack to use svgs as components
