@@ -1,60 +1,77 @@
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
+import {
+  BsFillArrowLeftCircleFill,
+  BsFillArrowRightCircleFill,
+} from "react-icons/bs";
 import ServiceCard from "./ServiceCard";
 
-const responsive = {
-  xxl: {
-    breakpoint: { max: 5000, min: 2500 },
-    items: 4,
-    partialVisibilityGutter: 40,
-  },
-  xl: {
-    breakpoint: { max: 1280, min: 1024 },
-    items: 4,
-  },
-  lg: {
-    breakpoint: { max: 1024, min: 768 },
-    items: 3,
-  },
-  md: {
-    breakpoint: { max: 768, min: 640 },
-    items: 2,
-  },
-  sm: {
-    breakpoint: { max: 640, min: 475 },
-    items: 2,
-    // partialVisibilityGutter: 120,
-  },
-  xs: {
-    breakpoint: { max: 475, min: 380 },
-    items: 1,
-    partialVisibilityGutter: 80,
-  },
-  xxs: {
-    breakpoint: { max: 380, min: 0 },
-    items: 1,
-    partialVisibilityGutter: 20,
-  },
-};
+function SampleNextArrow({ className, style, onClick }) {
+  return (
+    <BsFillArrowRightCircleFill
+      className={className}
+      style={{ ...style, display: "block", color: "#a5a5a5" }}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow({ className, style, onClick }) {
+  return (
+    <BsFillArrowLeftCircleFill
+      className={className}
+      style={{
+        ...style,
+        display: "block",
+        color: "#a5a5a5",
+      }}
+      onClick={onClick}
+    />
+  );
+}
 
 const CardSlider = () => {
+  var settings = {
+    className: "slider variable-width",
+    variableWidth: true,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    arrows: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          arrows: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          arrows: true,
+        },
+      },
+      {
+        breakpoint: 475,
+        settings: {
+          arrows: false,
+        },
+      },
+    ],
+  };
+
   return (
-    <div className="border border-black mx-auto">
-      <Carousel
-        partialVisible={true}
-        responsive={responsive}
-        ssr={true}
-        infinite={true}
-        autoPlay={true}
-        autoPlaySpeed={5000}
-        keyBoardControl={true}
-        customTransition="transform 300ms ease-in-out"
-        transitionDuration={500}
-        containerClass="carousel-container"
-        removeArrowOnDeviceType={["xxs", "xs", "sm", "md"]}
-        itemClass=""
-      >
+    <div className="border border-black mx-auto w-[98vw] xs:w-[90vw] 2xl:w-3/5">
+      <Slider {...settings}>
         <ServiceCard />
         <ServiceCard />
         <ServiceCard />
@@ -64,8 +81,7 @@ const CardSlider = () => {
         <ServiceCard />
         <ServiceCard />
         <ServiceCard />
-        <ServiceCard />
-      </Carousel>
+      </Slider>
     </div>
   );
 };
