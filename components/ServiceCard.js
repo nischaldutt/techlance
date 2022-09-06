@@ -22,7 +22,7 @@ const ServiceCard = () => {
             </div>
 
             <div className="py-1">
-              <h5 className="text-gray-900 text-sm font-bold">
+              <h5 className="text-gray-700 text-sm font-bold">
                 Roy Master Barber
               </h5>
               <p className="text-gray-700 text-xs">

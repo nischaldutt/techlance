@@ -13,10 +13,10 @@ export default function ServicePage() {
       </Head>
 
       <div className="border border-black flex justify-between w-3/5 mx-auto mt-8">
-        <div className="border border-black w-3/5">
+        <div className="border border-black">
           <Carousal />
         </div>
-        <div className="border border-black w-1/5">
+        <div className="border border-black w-[30%]">
           <div className="border border-black">Contact & Business Hours</div>
         </div>
       </div>

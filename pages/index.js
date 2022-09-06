@@ -20,9 +20,14 @@ export default function Home() {
 
       <HomeHeroComponent />
 
-      <CardSlider />
+      <div className="border border-black py-8">
+        <div className="pb-6 text-gray-700 text-xl font-bold mx-auto w-[98vw] xs:w-[90vw] 2xl:w-3/5">
+          Recommended
+        </div>
+        <CardSlider />
+      </div>
 
-      <div className="flex direction-column justify-center items-center my-8 bg-sky-blue-100">
+      <div className="border border-black flex direction-column justify-center items-center my-8 bg-sky-blue-100">
         <div className="flex flex-col md:flex-row md:justify-around py-12 text-gray-900 w-[90%] 2xl:w-3/5">
           <div className="md:w-1/2">
             <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-6">

@@ -29,45 +29,34 @@ const Carousal = () => {
           aria-label="Slide 3"
         ></button>
       </div>
-      <div className="carousel-inner relative w-[48rem] overflow-hidden">
-        <div className="carousel-item active relative float-left w-[48rem]">
-          <Image
-            src="https://d2zdpiztbgorvt.cloudfront.net/region1/us/173102/biz_photo/a0c65af40bdf488c9ed98b92bd6780-roy-master-barber-biz-photo-c89d068112214cb2a81d03576c3b58-booksy.jpeg?size=640x427"
-            className="block w-full"
-            alt="..."
-            width={768}
-            height={530}
-          />
-          <div className="carousel-caption hidden md:block absolute text-center">
-            <h5 className="text-xl">First slide label</h5>
-            <p>Some representative placeholder content for the first slide.</p>
-          </div>
+      <div className="carousel-inner relative w-[48rem] overflow-hidden rounded-lg">
+        <div className="absolute right-0 rounded-tr-lg rounded-bl-lg z-10 bg-[rgba(0,0,0,0.8)] text-white text-center p-2">
+          <div className="font-bold text-2xl">5.0</div>
+          <div className="text-sm">568 Reviews</div>
         </div>
-        <div className="carousel-item relative float-left w-[800px]">
+        <div className="carousel-item active relative float-left w-[50rem] h-[530px]">
           <Image
             src="https://d2zdpiztbgorvt.cloudfront.net/region1/us/173102/biz_photo/a0c65af40bdf488c9ed98b92bd6780-roy-master-barber-biz-photo-c89d068112214cb2a81d03576c3b58-booksy.jpeg?size=640x427"
             className="block w-full"
             alt="..."
-            width={800}
-            height={530}
+            layout="fill"
           />
-          <div className="carousel-caption hidden md:block absolute text-center">
-            <h5 className="text-xl">Second slide label</h5>
-            <p>Some representative placeholder content for the second slide.</p>
-          </div>
         </div>
-        <div className="carousel-item relative float-left w-[800px]">
+        <div className="carousel-item relative float-left w-[50rem] h-[530px]">
+          <Image
+            src="https://d2zdpiztbgorvt.cloudfront.net/region1/us/398145/biz_photo/4665e1bd66b74e108a4f8d8cfa775c-yoko-dapper-cuts-biz-photo-0448cad1ebdb4af6a7cd5324b0fb29-booksy.jpeg?size=640x427"
+            className="block w-full"
+            alt="..."
+            layout="fill"
+          />
+        </div>
+        <div className="carousel-item relative float-left w-[50rem] h-[530px]">
           <Image
             src="https://d2zdpiztbgorvt.cloudfront.net/region1/us/173102/biz_photo/a0c65af40bdf488c9ed98b92bd6780-roy-master-barber-biz-photo-c89d068112214cb2a81d03576c3b58-booksy.jpeg?size=640x427"
             className="block w-full"
             alt="..."
-            width={800}
-            height={530}
+            layout="fill"
           />
-          <div className="carousel-caption hidden md:block absolute text-center">
-            <h5 className="text-xl">Third slide label</h5>
-            <p>Some representative placeholder content for the third slide.</p>
-          </div>
         </div>
       </div>
       <button
