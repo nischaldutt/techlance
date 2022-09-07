@@ -7,3 +7,4 @@ export { default as SignupForm } from "./SignupForm";
 export { default as ServiceCard } from "./ServiceCard";
 export { default as CardSlider } from "./CardSlider";
 export { default as Carousal } from "./Carousal";
+export { default as Accordion } from "./Accordion";
