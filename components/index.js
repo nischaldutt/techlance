@@ -8,3 +8,6 @@ export { default as ServiceCard } from "./ServiceCard";
 export { default as CardSlider } from "./CardSlider";
 export { default as Carousal } from "./Carousal";
 export { default as Accordion } from "./Accordion";
+export { default as Collapse } from "./Collapse";
+export { default as ServiceListItem } from "./ServiceListItem";
+export { default as Gallery } from "./Gallery";

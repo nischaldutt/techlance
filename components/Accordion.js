@@ -36,7 +36,7 @@ const Accordion = () => {
           aria-labelledby="headingOne"
           data-bs-parent="#accordionExample"
         >
-          <div clclassNameass="accordion-body py-4 px-5">
+          <div className="accordion-body py-4 px-5">
             <strong>This is the first accordion body.</strong> It is shown by
             default, until the collapse plugin adds the appropriate classes that
             we use to style each element. These classes control the overall

@@ -13,7 +13,7 @@ module.exports = {
     extend: {
       colors: {
         primary: "#0B1D27",
-        secondary: "#983333",
+        secondary: "#00A3AD",
       },
       keyframes: {
         float: {

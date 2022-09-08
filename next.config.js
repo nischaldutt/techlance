@@ -10,6 +10,7 @@ const nextConfig = {
       "mdbcdn.b-cdn.net",
       "mdbootstrap.com",
       "d2zdpiztbgorvt.cloudfront.net",
+      "mdbcdn.b-cdn.net",
     ],
   },
   webpack(config) {
