@@ -60,7 +60,7 @@ export default function ServicePage() {
             <div className="uppercase pt-6 py-3 font-bold">
               Venue Health & Safety Rules
             </div>
-            <ul className="border-border-black text-sm grid grid-cols-1">
+            <ul className="border-border-black text-xs grid grid-cols-1">
               <li className="inline-flex py-2">
                 <MdOutlineHealthAndSafety
                   size={20}
