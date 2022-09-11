@@ -11,6 +11,7 @@ const nextConfig = {
       "mdbootstrap.com",
       "d2zdpiztbgorvt.cloudfront.net",
       "mdbcdn.b-cdn.net",
+      "maps.googleapis.com",
     ],
   },
   webpack(config) {
@@ -29,6 +30,9 @@ const nextConfig = {
     });
 
     return config;
+  },
+  env: {
+    NEXT_PUBLIC_GOOGLE_API_KEY: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
   },
 };
 
