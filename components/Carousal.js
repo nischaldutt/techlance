@@ -14,6 +14,7 @@ const Carousal = () => {
             alt="..."
             layout="fill"
             objectFit="cover"
+            priority
           />
         </div>
         <div className="carousel-item active relative float-left w-full h-56">
