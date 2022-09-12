@@ -3,7 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { MdOutlineHealthAndSafety } from "react-icons/md";
 import { AiFillCar, AiOutlinePhone } from "react-icons/ai";
-import { BsPhone } from "react-icons/bs";
+import { BsPhone, BsInstagram } from "react-icons/bs";
+import { GiEarthAmerica } from "react-icons/gi";
+import { BiShareAlt } from "react-icons/bi";
+import { FiFacebook } from "react-icons/fi";
 
 import {
   Accordion,
@@ -15,6 +18,29 @@ import {
   StaticMap,
   Footer,
 } from "../../components";
+
+const socialPlatforms = [
+  {
+    name: "Instagram",
+    icon: <BsInstagram size="20" />,
+    profileLink: "/",
+  },
+  {
+    name: "Facebook",
+    icon: <FiFacebook size="20" />,
+    profileLink: "/",
+  },
+  {
+    name: "Web",
+    icon: <GiEarthAmerica size="20" />,
+    profileLink: "/",
+  },
+  {
+    name: "Share",
+    icon: <BiShareAlt size="20" />,
+    profileLink: "/",
+  },
+];
 
 const AboutSection = () => {
   return (
@@ -83,6 +109,28 @@ const ContactInformation = () => {
   );
 };
 
+const SocialLinks = () => {
+  return (
+    <div className="py-2">
+      <div className="uppercase text-gray-700 text-sm font-bold pb-4">
+        Social Media & Share
+      </div>
+      <div className="flex justify-between">
+        {socialPlatforms.map((social) => {
+          return (
+            <Link href={social.profileLink} key={social.name}>
+              <a className="text-gray-700 text-xs grid place-items-center gap-2">
+                {social.icon}
+                {social.name}
+              </a>
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
 const tabs = [
   {
     title: "Details",
@@ -95,6 +143,7 @@ const tabs = [
           <AboutSection />
           <HealthSafetyRules />
           <ContactInformation />
+          <SocialLinks />
         </div>
       </>
     ),
