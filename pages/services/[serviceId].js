@@ -19,6 +19,27 @@ import {
   Footer,
 } from "../../components";
 
+const galleryImages = [
+  {
+    src: "https://images.unsplash.com/photo-1661956602153-23384936a1d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1661956602153-23384936a1d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1661956602153-23384936a1d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1661956602153-23384936a1d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1661956602153-23384936a1d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1661956602153-23384936a1d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+  },
+];
+
 const socialPlatforms = [
   {
     name: "Instagram",
@@ -101,7 +122,7 @@ const ContactInformation = () => {
           <BsPhone size="20" className="text-gray-700 mr-1" />
           +91987654321
         </div>
-        <button className="border border-gray-300 rounded-lg p-1">
+        <button className="border border-gray-300 rounded-lg shadow-lg p-1">
           <AiOutlinePhone size="20" className="text-gray-700" />
         </button>
       </div>
@@ -154,7 +175,16 @@ const tabs = [
   },
   {
     title: "Portfolio",
-    content: "working or not just show this",
+    content: (
+      <>
+        <div className="py-4 text-gray-700">
+          <div className="uppercase pt-6 py-3 underline-offset-8 font-bold">
+            See Our Work
+          </div>
+          <Gallery images={galleryImages} />
+        </div>
+      </>
+    ),
   },
 ];
 
@@ -208,13 +238,6 @@ export default function ServicePage() {
         <div className="text-gray-700">
           <div className="border border-black">Contact & Business Hours</div>
         </div>
-      </div>
-
-      <div className="py-4 text-gray-700">
-        <div className="uppercase pt-6 py-3 underline underline-offset-8 font-bold">
-          See Our Work
-        </div>
-        <Gallery />
       </div>
 
       <Footer />
