@@ -15,6 +15,7 @@ import {
   CustomTabs,
   Gallery,
   ServiceListItem,
+  RatingStats,
   StaticMap,
   Footer,
 } from "../../components";
@@ -171,7 +172,11 @@ const tabs = [
   },
   {
     title: "Reviews",
-    content: "working or not just show this",
+    content: (
+      <>
+        <RatingStats />
+      </>
+    ),
   },
   {
     title: "Portfolio",
