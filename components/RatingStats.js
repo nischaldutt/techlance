@@ -32,14 +32,14 @@ const UnfilledStar = () => {
   );
 };
 
-const StatsBar = ({ starLabel, filledWidth, percentOfUsers }) => {
+const StatsBar = ({ starLabel, filledWidth }) => {
   return (
     <div className="flex justify-center items-center mt-4">
       <span className="text-sm font-medium">{starLabel} star</span>
       <div className="mx-4 w-2/4 h-5 bg-gray-200 rounded dark:bg-gray-700">
         <div className={`h-5 bg-yellow-400 rounded w-[${filledWidth}%]`}></div>
       </div>
-      <span className="text-sm font-medium">{percentOfUsers}%</span>
+      <span className="text-sm font-medium">{filledWidth}%</span>
     </div>
   );
 };
@@ -64,11 +64,15 @@ const RatingStats = () => {
       </p>
 
       <div className="">
-        <StatsBar starLabel={5} filledWidth={70} percentOfUsers={70} />
-        <StatsBar starLabel={4} filledWidth={17} percentOfUsers={17} />
-        <StatsBar starLabel={3} filledWidth={8} percentOfUsers={8} />
-        <StatsBar starLabel={2} filledWidth={4} percentOfUsers={4} />
-        <StatsBar starLabel={1} filledWidth={1} percentOfUsers={1} />
+        {[70, 17, 8, 4, 1].map((filledPercent, index) => {
+          return (
+            <StatsBar
+              key={filledPercent}
+              starLabel={index + 1}
+              filledWidth={filledPercent}
+            />
+          );
+        })}
       </div>
     </div>
   );

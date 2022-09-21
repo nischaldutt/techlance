@@ -12,7 +12,6 @@ import {
   Accordion,
   Carousal,
   Collapse,
-  CustomTabs,
   Gallery,
   ServiceListItem,
   RatingStats,
@@ -236,9 +235,7 @@ export default function ServicePage() {
             </div>
           </div>
 
-          <div className="py-4">
-            <CustomTabs tabs={tabs} />
-          </div>
+          <div className="py-4">{/* <CustomTabs tabs={tabs} /> */}</div>
         </div>
         <div className="text-gray-700">
           <div className="border border-black">Contact & Business Hours</div>

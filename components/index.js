@@ -11,6 +11,5 @@ export { default as Accordion } from "./Accordion";
 export { default as Collapse } from "./Collapse";
 export { default as ServiceListItem } from "./ServiceListItem";
 export { default as Gallery } from "./Gallery";
-export { default as CustomTabs } from "./CustomTabs";
 export { default as StaticMap } from "./StaticMap";
 export { default as RatingStats } from "./RatingStats";
