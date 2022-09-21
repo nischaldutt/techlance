@@ -70,7 +70,7 @@ const CardSlider = () => {
   };
 
   return (
-    <div className="border border-black mx-auto w-[98vw] xs:w-[90vw] 2xl:w-3/5">
+    <div className="mx-auto w-[98vw] xs:w-[90vw] 2xl:w-3/5">
       <Slider {...settings}>
         <ServiceCard />
         <ServiceCard />

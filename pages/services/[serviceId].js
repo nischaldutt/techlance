@@ -88,7 +88,7 @@ const HealthSafetyRules = () => {
       <div className="uppercase py-3 font-bold">
         Venue Health & Safety Rules
       </div>
-      <ul className="border-border-black text-xs grid grid-cols-1">
+      <ul className="border-border-black text-xs grid grid-cols-2">
         <li className="inline-flex py-2">
           <MdOutlineHealthAndSafety size={20} className="text-secondary mr-1" />
           Contactless Payment Available
@@ -157,38 +157,17 @@ const tabs = [
     title: "Details",
     content: (
       <>
-        <div className="flex justify-center py-2">
-          <StaticMap />
-        </div>
-        <div className="grid gap-2">
-          <AboutSection />
-          <HealthSafetyRules />
-          <ContactInformation />
-          <SocialLinks />
-        </div>
+        <div className="grid gap-2"></div>
       </>
     ),
   },
   {
     title: "Reviews",
-    content: (
-      <>
-        <RatingStats />
-      </>
-    ),
+    content: <></>,
   },
   {
     title: "Portfolio",
-    content: (
-      <>
-        <div className="py-4 text-gray-700">
-          <div className="uppercase pt-6 py-3 underline-offset-8 font-bold">
-            See Our Work
-          </div>
-          <Gallery images={galleryImages} />
-        </div>
-      </>
-    ),
+    content: <></>,
   },
 ];
 
@@ -200,8 +179,8 @@ export default function ServicePage() {
         <meta name="description" content="Service name" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="border border-black flex justify-between flex-col w-[90vw] mx-auto my-8">
-        <div className="border border-green-500">
+      <div className="border border-red-500 flex justify-between w-3/5 mx-auto my-8">
+        <div className="border border-green-500 w-[58%]">
           <Carousal />
 
           <div className="py-2">
@@ -235,10 +214,33 @@ export default function ServicePage() {
             </div>
           </div>
 
+          <div className="py-4 text-gray-700">
+            <div className="uppercase pt-6 py-3 underline-offset-8 font-bold">
+              See Our Work
+            </div>
+            <Gallery images={galleryImages} />
+          </div>
+
+          <HealthSafetyRules />
+
+          <div className="py-4 text-gray-700">
+            <div className="uppercase pt-6 py-3 underline-offset-8 font-bold">
+              Reviews
+            </div>
+            <RatingStats />
+          </div>
+
           <div className="py-4">{/* <CustomTabs tabs={tabs} /> */}</div>
         </div>
-        <div className="text-gray-700">
-          <div className="border border-black">Contact & Business Hours</div>
+
+        <div className="text-gray-700 sticky bg-gray-50 border border-black w-[38%]">
+          <div className="">
+            <StaticMap />
+          </div>
+
+          <AboutSection />
+          <ContactInformation />
+          <SocialLinks />
         </div>
       </div>
 

@@ -8,7 +8,7 @@ const Carousal = () => {
       data-bs-ride="carousel"
     >
       <div className="carousel-inner relative w-full overflow-hidden">
-        <div className="carousel-item active relative float-left w-full h-56">
+        <div className="carousel-item active relative float-left w-full h-96">
           <Image
             src="https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg"
             alt="..."
@@ -17,7 +17,7 @@ const Carousal = () => {
             priority
           />
         </div>
-        <div className="carousel-item active relative float-left w-full h-56">
+        <div className="carousel-item active relative float-left w-full h-96">
           <Image
             src="https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg"
             alt="..."
@@ -25,7 +25,7 @@ const Carousal = () => {
             objectFit="cover"
           />
         </div>
-        <div className="carousel-item active relative float-left w-full h-56">
+        <div className="carousel-item active relative float-left w-full h-96">
           <Image
             src="https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg"
             alt="..."

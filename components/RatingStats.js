@@ -34,10 +34,13 @@ const UnfilledStar = () => {
 
 const StatsBar = ({ starLabel, filledWidth }) => {
   return (
-    <div className="flex justify-center items-center mt-4">
+    <div className="flex items-center mt-4">
       <span className="text-sm font-medium">{starLabel} star</span>
-      <div className="mx-4 w-2/4 h-5 bg-gray-200 rounded dark:bg-gray-700">
-        <div className={`h-5 bg-yellow-400 rounded w-[${filledWidth}%]`}></div>
+      <div className="mx-4 w-1/2 h-5 bg-gray-200 rounded dark:bg-gray-900">
+        <div
+          className={`h-5 bg-yellow-400 rounded w-[${filledWidth}%]`}
+          style={{ width: `${filledWidth}%` }}
+        ></div>
       </div>
       <span className="text-sm font-medium">{filledWidth}%</span>
     </div>
@@ -46,8 +49,8 @@ const StatsBar = ({ starLabel, filledWidth }) => {
 
 const RatingStats = () => {
   return (
-    <div className="border border-black">
-      <div className="flex flex-col justify-center items-center">
+    <div className="">
+      <div className="flex flex-col">
         <p className="ml-2 text-xl font-bold text-gray-900 dark:text-white">
           4.95/5
         </p>
@@ -59,7 +62,7 @@ const RatingStats = () => {
         </div>
       </div>
 
-      <p className="text-sm font-medium text-gray-500 dark:text-gray-400 border border-black">
+      <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
         1,745 global ratings
       </p>
 

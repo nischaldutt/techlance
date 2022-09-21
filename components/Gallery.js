@@ -3,19 +3,24 @@ import Image from "next/image";
 
 const Gallery = ({ images }) => {
   return (
-    <section className="grid gird-cols-1 gap-2">
+    <section className="grid grid-cols-3 gap-2 relative border border-black">
       {images.map((image, index) => {
         return index < 5 ? (
-          <Image
-            key={index}
-            src={image.src}
-            width={280}
-            height={200}
-            objectFit="cover"
-            alt="..."
-          />
+          <div key={index} className="relative w-full h-[150px]">
+            <Image
+              src={image.src}
+              layout="fill"
+              objectFit="cover"
+              alt="..."
+              className="rounded-lg"
+            />
+          </div>
         ) : null;
       })}
+
+      <div className="border border-black grid place-items-center rounded-lg">
+        <p>See More</p>
+      </div>
     </section>
   );
 };
