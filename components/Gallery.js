@@ -3,10 +3,10 @@ import Image from "next/image";
 
 const Gallery = ({ images }) => {
   return (
-    <section className="grid grid-cols-3 gap-2 relative border border-black">
+    <section className="grid grid-cols-3 gap-2 relative">
       {images.map((image, index) => {
         return index < 5 ? (
-          <div key={index} className="relative w-full h-[150px]">
+          <div key={index} className="relative w-full h-[80px] xs:h-[120px]">
             <Image
               src={image.src}
               layout="fill"

@@ -152,25 +152,6 @@ const SocialLinks = () => {
   );
 };
 
-const tabs = [
-  {
-    title: "Details",
-    content: (
-      <>
-        <div className="grid gap-2"></div>
-      </>
-    ),
-  },
-  {
-    title: "Reviews",
-    content: <></>,
-  },
-  {
-    title: "Portfolio",
-    content: <></>,
-  },
-];
-
 export default function ServicePage() {
   return (
     <>
@@ -179,8 +160,8 @@ export default function ServicePage() {
         <meta name="description" content="Service name" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="border border-red-500 flex justify-between w-3/5 mx-auto my-8">
-        <div className="border border-green-500 w-[58%]">
+      <div className="flex flex-col items-center md:items-stretch md:flex-row lg:w-4/5 2xl:w-3/5 2xl:justify-between mx-auto my-8 ">
+        <div className="px-2 2xl:px-0 sm:w-4/5 md:w-3/5 2xl:w-[65%]">
           <Carousal />
 
           <div className="py-2">
@@ -229,18 +210,16 @@ export default function ServicePage() {
             </div>
             <RatingStats />
           </div>
-
-          <div className="py-4">{/* <CustomTabs tabs={tabs} /> */}</div>
         </div>
 
-        <div className="text-gray-700 sticky bg-gray-50 border border-black w-[38%]">
-          <div className="">
-            <StaticMap />
-          </div>
+        <div className="text-gray-700 bg-gray-50 sm:w-4/5 md:w-2/5 2xl:w-[32%]">
+          <StaticMap />
 
-          <AboutSection />
-          <ContactInformation />
-          <SocialLinks />
+          <div className="p-4 grid gap-4 sticky-top">
+            <AboutSection />
+            <ContactInformation />
+            <SocialLinks />
+          </div>
         </div>
       </div>
 
