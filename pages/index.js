@@ -27,6 +27,28 @@ export default function Home() {
         <CardSlider />
       </div>
 
+      <div className="border border-black">
+        <div className="bg-gray-100 w-3/5 h-96 mx-auto">
+          <div className="text-center">Get Inspired with Techlance</div>
+          <div className="text-center">
+            Explore various world-class services
+          </div>
+
+          <div className="border border-black overflow-visible flex">
+            <div className="border border-black w-max px-4 pt-8 pb-4 transition-[margin_0.2s] hover:mt-[-8px]">
+              <div className="border-2 border-red-500">
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                  className="rounded-full w-32"
+                  alt="Avatar"
+                />
+              </div>
+              <div>Hair</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="flex direction-column justify-center items-center my-8 bg-sky-blue-100">
         <div className="flex flex-col md:flex-row md:justify-around py-12 text-gray-900 w-[90%] 2xl:w-3/5">
           <div className="md:w-1/2">
