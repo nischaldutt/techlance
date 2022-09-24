@@ -4,7 +4,15 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["tailwindui.com", "images.unsplash.com"],
+    domains: [
+      "tailwindui.com",
+      "images.unsplash.com",
+      "mdbcdn.b-cdn.net",
+      "mdbootstrap.com",
+      "d2zdpiztbgorvt.cloudfront.net",
+      "mdbcdn.b-cdn.net",
+      "maps.googleapis.com",
+    ],
   },
   webpack(config) {
     // configuring @svgr/webpack to use svgs as components
@@ -22,6 +30,9 @@ const nextConfig = {
     });
 
     return config;
+  },
+  env: {
+    NEXT_PUBLIC_GOOGLE_API_KEY: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
   },
 };
 

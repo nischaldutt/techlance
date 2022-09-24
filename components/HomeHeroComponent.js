@@ -5,7 +5,7 @@ import { GoLocation } from "react-icons/go";
 
 export default function HomeHeroComponent() {
   return (
-    <div className="relative h-[30rem] flex justify-center">
+    <div className="relative h-[30rem] flex justify-center mb-8">
       <div className="w-full absolute top-0 left-0 z-0">
         <video
           autoPlay
