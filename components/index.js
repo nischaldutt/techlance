@@ -13,3 +13,4 @@ export { default as ServiceListItem } from "./ServiceListItem";
 export { default as Gallery } from "./Gallery";
 export { default as StaticMap } from "./StaticMap";
 export { default as RatingStats } from "./RatingStats";
+export { default as CategoriesSlider } from "./CategoriesSlider";
