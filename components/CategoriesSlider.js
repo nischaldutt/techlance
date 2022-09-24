@@ -13,7 +13,7 @@ const Category = () => {
           objectFit="contain"
         />
       </div>
-      <div>Hair</div>
+      <div>Hair Saloon</div>
     </div>
   );
 };
