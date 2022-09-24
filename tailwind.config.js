@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const defaultTheme = require("tailwindcss/defaultTheme");
+const plugin = require("tailwindcss/plugin");
 
 module.exports = {
   mode: "jit",
@@ -27,5 +28,23 @@ module.exports = {
       ...defaultTheme.screens,
     },
   },
-  plugins: [require("tw-elements/dist/plugin")],
+  plugins: [
+    require("tw-elements/dist/plugin"),
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        ".scrollbar-hide": {
+          /* IE and Edge */
+          "-ms-overflow-style": "none",
+
+          /* Firefox */
+          "scrollbar-width": "none",
+
+          /* Safari and Chrome */
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        },
+      });
+    }),
+  ],
 };
