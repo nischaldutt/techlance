@@ -215,7 +215,7 @@ export default function ServicePage() {
         <div className="text-gray-700 bg-gray-50 sm:w-4/5 md:w-2/5 2xl:w-[32%]">
           <StaticMap />
 
-          <div className="p-4 grid gap-4 sticky-top">
+          <div className="p-4 grid gap-4 sticky-top z-20">
             <AboutSection />
             <ContactInformation />
             <SocialLinks />
