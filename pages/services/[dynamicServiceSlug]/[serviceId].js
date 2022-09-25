@@ -13,7 +13,7 @@ import {
   Carousal,
   Collapse,
   Gallery,
-  ServiceListItem,
+  ServiceNavHeader,
   RatingStats,
   StaticMap,
   Footer,
@@ -160,6 +160,9 @@ export default function ServicePage() {
         <meta name="description" content="Service name" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <ServiceNavHeader />
+
       <div className="flex flex-col items-center md:items-stretch md:flex-row lg:w-4/5 2xl:w-3/5 2xl:justify-between mx-auto my-8 ">
         <div className="px-2 2xl:px-0 sm:w-4/5 md:w-3/5 2xl:w-[65%]">
           <Carousal />
@@ -215,7 +218,7 @@ export default function ServicePage() {
         <div className="text-gray-700 bg-gray-50 sm:w-4/5 md:w-2/5 2xl:w-[32%]">
           <StaticMap />
 
-          <div className="p-4 grid gap-4 sticky-top">
+          <div className="p-4 grid gap-4 sticky-top top-20 z-20">
             <AboutSection />
             <ContactInformation />
             <SocialLinks />
