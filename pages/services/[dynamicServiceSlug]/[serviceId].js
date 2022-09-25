@@ -17,7 +17,7 @@ import {
   RatingStats,
   StaticMap,
   Footer,
-} from "../../components";
+} from "../../../components";
 
 const galleryImages = [
   {
