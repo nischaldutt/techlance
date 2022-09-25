@@ -2,9 +2,9 @@ import Link from "next/link";
 
 const ServiceListItem = () => {
   return (
-    <div className="py-2 flex justify-between text-xs">
+    <div className="py-2 flex justify-between text-xs border-b border-gray-300">
       <div className="">
-        <div className="text-sm font-bold">Haircut</div>
+        <div className="text-sm font-bold text-gray-800">Haircut</div>
         <div className="">Does not include eyebrows</div>
       </div>
 

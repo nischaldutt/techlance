@@ -14,3 +14,4 @@ export { default as Gallery } from "./Gallery";
 export { default as StaticMap } from "./StaticMap";
 export { default as RatingStats } from "./RatingStats";
 export { default as CategoriesSlider } from "./CategoriesSlider";
+export { default as ServiceSearchCard } from "./ServiceSearchCard";
