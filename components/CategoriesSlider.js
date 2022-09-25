@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Category = () => {
   return (
-    <Link href="/">
+    <Link href={`/services/hair-salon`}>
       <div className="bg-white cursor-pointer rounded-lg shadow-lg drop-shadow-lg grid place-items-center shrink-0 w-[170px] h-[207px] px-4 pt-8 pb-4 transition-[margin] duration-300 hover:mt-[-8px]">
         <div className="relative w-[97px] h-[97px]">
           <Image

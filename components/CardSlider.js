@@ -22,11 +22,7 @@ function SamplePrevArrow({ className, style, onClick }) {
   return (
     <BsFillArrowLeftCircleFill
       className={className}
-      style={{
-        ...style,
-        display: "block",
-        color: "#a5a5a5",
-      }}
+      style={{ ...style, display: "block", color: "#a5a5a5" }}
       onClick={onClick}
     />
   );

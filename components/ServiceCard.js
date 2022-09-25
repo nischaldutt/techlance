@@ -5,7 +5,7 @@ const ServiceCard = () => {
   return (
     <div className="flex justify-center w-[275px]">
       <div className="rounded-lg bg-white max-w-sm">
-        <Link href="/services/barber">
+        <Link href="/services/hair-salon/salon1">
           <a data-mdb-ripple="true" data-mdb-ripple-color="light">
             <div className="relative">
               <div className="absolute right-0 rounded-tr-lg rounded-bl-lg z-10 bg-[rgba(0,0,0,0.5)] text-white text-center p-1">
