@@ -13,8 +13,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#0B1D27",
-        secondary: "#00A3AD",
+        // primary: "#0B1D27",
+        // secondary: "#00A3AD",
+        primary: {
+          100: "#02554B",
+          500: "#042825",
+          900: "#011B18",
+        },
+        secondary: {
+          500: "#FAF4E7",
+          900: "#E2B355",
+        },
       },
       keyframes: {
         float: {
