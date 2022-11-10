@@ -22,7 +22,7 @@ const services = [
 const ModalMenu = ({ showModalMenu, onClose }) => {
   return (
     <nav
-      className={`fixed flex top-0 left-0 w-full p-10 z-50 h-screen bg-black text-white bg-opacity-100 transform delay-100 transition-all duration-300 ${
+      className={`fixed flex top-0 left-0 w-full p-10 z-50 h-screen bg-primary-900 text-white bg-opacity-100 transform delay-100 transition-all duration-300 ${
         showModalMenu
           ? "opacity-100 translate-x-0"
           : "opacity-0 -translate-x-full"
@@ -75,7 +75,7 @@ export default function Navbar() {
     <nav>
       <div
         className={`flex w-full justify-center items-center flex-wrap ${
-          isScrolled || !isHome ? "bg-black" : "bg-transparent"
+          isScrolled || !isHome ? "bg-primary-500" : "bg-transparent"
         } transition-colors ease-out duration-500 p-3 ${
           isHome ? "fixed" : ""
         } z-10`}
@@ -187,7 +187,7 @@ export default function Navbar() {
       <div
         className={`${
           isHome ? "hidden" : "lg:flex"
-        } bg-black pb-6 hidden justify-center`}
+        } bg-primary-500 pb-6 hidden justify-center`}
       >
         <ui className="list-none flex lg:w-full xl:w-4/5 2xl:w-3/5 justify-between">
           {services.map((service) => {

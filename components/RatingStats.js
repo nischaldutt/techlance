@@ -4,7 +4,7 @@ const FilledStar = () => {
   return (
     <svg
       aria-hidden="true"
-      className="w-8 h-8 text-yellow-400"
+      className="w-8 h-8 text-secondary-900"
       fill="currentColor"
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@ const StatsBar = ({ starLabel, filledWidth }) => {
       <span className="text-sm font-medium">{starLabel} star</span>
       <div className="mx-4 w-1/2 h-5 bg-gray-200 rounded dark:bg-gray-900">
         <div
-          className={`h-5 bg-yellow-400 rounded w-[${filledWidth}%]`}
+          className={`h-5 bg-secondary-900 rounded w-[${filledWidth}%]`}
           style={{ width: `${filledWidth}%` }}
         ></div>
       </div>

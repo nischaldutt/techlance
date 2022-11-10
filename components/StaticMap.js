@@ -15,14 +15,14 @@ const StaticMap = () => {
       <Link href="/">
         <div className="border border-gray-300 flex justify-between items-center rounded-lg cursor-pointer bg-white absolute bottom-8 w-[90%] px-4 py-1 shadow-lg">
           <div className="">
-            <div className="text-gray-700 font-bold text-sm">
+            <div className="text-primary-100 font-bold text-sm">
               Sam the Barber
             </div>
             <div className="text-gray-500 text-xs">
               2267 Main st, Fort Myers, 33901
             </div>
           </div>
-          <FaLocationArrow className="text-gray-400" />
+          <FaLocationArrow className="text-primary-100" />
         </div>
       </Link>
     </div>
