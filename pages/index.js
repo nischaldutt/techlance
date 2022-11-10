@@ -21,7 +21,7 @@ export default function Home() {
       <HomeHeroComponent />
 
       <div className="py-8">
-        <div className="pb-6 text-gray-700 text-xl font-bold mx-auto w-[98vw] xs:w-[90vw] 2xl:w-3/5">
+        <div className="pb-6 text-primary-100 text-xl font-bold mx-auto w-[98vw] xs:w-[90vw] 2xl:w-3/5">
           Recommended
         </div>
         <CardSlider />
@@ -32,7 +32,7 @@ export default function Home() {
       <div className="flex direction-column justify-center items-center my-8 bg-sky-blue-100">
         <div className="flex flex-col md:flex-row md:justify-around py-12 text-gray-900 w-[90%] 2xl:w-3/5">
           <div className="md:w-1/2">
-            <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-6">
+            <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-6 text-primary-100">
               Appointments done better
             </h3>
             <div className="text-sm lg:text-base text-justify">
@@ -64,7 +64,7 @@ export default function Home() {
             <Reminders className="text-[80vw] xs:text-[60vw] sm:text-[20rem] md:text-[30vw] lg:text-[24rem]" />
           </div>
           <div className="md:w-1/2">
-            <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-6">
+            <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-6 text-primary-100">
               Something come up? We&apos;ve got you.
             </h3>
             <div className="text-sm lg:text-base text-justify">
@@ -83,7 +83,7 @@ export default function Home() {
       <div className="flex direction-column justify-center items-center my-8">
         <div className="flex flex-col md:flex-row md:justify-around py-12 text-gray-900 w-[90%] 2xl:w-3/5">
           <div className="md:w-1/2">
-            <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-6">
+            <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-6 text-primary-100">
               Book with the best, near you
             </h3>
             <div className="text-sm lg:text-base text-justify">

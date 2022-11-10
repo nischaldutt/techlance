@@ -13,12 +13,16 @@ export default function HomeHeroComponent() {
           loop
           className="w-full object-cover h-[32rem] brightness-[0.75]"
         >
-          <source
+          {/* <source
             src="https://booksy-public.s3.amazonaws.com/horizontal_.webm"
             type="video/webm"
           />
           <source
             src="https://booksy-public.s3.amazonaws.com/US.mp4"
+            type="video/mp4"
+          /> */}
+          <source
+            src="https://cdn.coverr.co/videos/coverr-woman-with-blue-nails-typing-on-a-laptop-805/1080p.mp4"
             type="video/mp4"
           />
           Your browser does not supports HTML5 video.

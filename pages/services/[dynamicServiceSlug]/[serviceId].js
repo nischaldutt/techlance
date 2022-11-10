@@ -90,19 +90,31 @@ const HealthSafetyRules = () => {
       </div>
       <ul className="border-border-black text-xs grid grid-cols-2">
         <li className="inline-flex py-2">
-          <MdOutlineHealthAndSafety size={20} className="text-secondary mr-1" />
+          <MdOutlineHealthAndSafety
+            size={20}
+            className="text-primary-100 mr-1"
+          />
           Contactless Payment Available
         </li>
         <li className="inline-flex py-2">
-          <MdOutlineHealthAndSafety size={20} className="text-secondary mr-1" />
+          <MdOutlineHealthAndSafety
+            size={20}
+            className="text-primary-100 mr-1"
+          />
           Disinfection between clients
         </li>
         <li className="inline-flex py-2">
-          <MdOutlineHealthAndSafety size={20} className="text-secondary mr-1" />
+          <MdOutlineHealthAndSafety
+            size={20}
+            className="text-primary-100 mr-1"
+          />
           Barbicide COVID-19 Certified
         </li>
         <li className="inline-flex py-2">
-          <MdOutlineHealthAndSafety size={20} className="text-secondary mr-1" />
+          <MdOutlineHealthAndSafety
+            size={20}
+            className="text-primary-100 mr-1"
+          />
           Employees wear disposable gloves
         </li>
       </ul>
@@ -119,11 +131,11 @@ const ContactInformation = () => {
 
       <div className="text-sm py-3 flex justify-between">
         <div className="text-black inline-flex">
-          <BsPhone size="20" className="text-gray-700 mr-1" />
+          <BsPhone size="20" className="text-primary-100 mr-1" />
           +91987654321
         </div>
         <button className="border border-gray-300 rounded-lg shadow-lg p-1">
-          <AiOutlinePhone size="20" className="text-gray-700" />
+          <AiOutlinePhone size="20" className="text-primary-100" />
         </button>
       </div>
     </div>
@@ -140,7 +152,7 @@ const SocialLinks = () => {
         {socialPlatforms.map((social) => {
           return (
             <Link href={social.profileLink} key={social.name}>
-              <a className="text-gray-700 text-xs grid place-items-center gap-2">
+              <a className="text-primary-100 text-xs grid place-items-center gap-2">
                 {social.icon}
                 {social.name}
               </a>
@@ -168,9 +180,11 @@ export default function ServicePage() {
           <Carousal />
 
           <div className="py-2">
-            <div className="px-3 py-1 rounded-full text-gray-700 bg-gray-200 text-xs inline-flex justify-between w-max cursor-pointer">
+            <div className="px-3 py-1 rounded-full text-white bg-primary-100 text-xs inline-flex justify-between w-max cursor-pointer">
               <AiFillCar size="15" />
-              <span className="ml-1">Traveling Service</span>
+              <span className="ml-1 font-bold text-[10px]">
+                Traveling Service
+              </span>
             </div>
           </div>
 

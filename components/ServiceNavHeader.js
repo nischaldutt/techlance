@@ -35,7 +35,7 @@ const ServiceNavHeader = () => {
           </div>
 
           <div className="py-1 flex-grow">
-            <div className="text-base font-bold text-gray-600">
+            <div className="text-base font-bold text-primary-100">
               New Era Cuts
             </div>
             <div className="text-gray-500 text-xs py-1">
@@ -43,11 +43,11 @@ const ServiceNavHeader = () => {
             </div>
           </div>
 
-          <AiOutlineHeart size="40" className="text-gray-400" />
+          <AiFillHeart size="40" className="text-primary-100" />
         </div>
 
         <div className="w-[32%] md:w-[40%] 2xl:w-[32%]">
-          <button className="bg-secondary text-white text-xs font-bold rounded-lg w-full py-3">
+          <button className="bg-primary-100 text-white text-xs font-bold rounded-lg w-full py-3">
             Book now
           </button>
         </div>
