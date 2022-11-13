@@ -131,11 +131,14 @@ const ContactInformation = () => {
 
       <div className="text-sm py-3 flex justify-between">
         <div className="text-black inline-flex">
-          <BsPhone size="20" className="text-primary-100 mr-1" />
+          <BsPhone size="20" className="text-gray-700 mr-1" />
           +91987654321
         </div>
-        <button className="border border-gray-300 rounded-lg shadow-lg p-1">
-          <AiOutlinePhone size="20" className="text-primary-100" />
+        <button className="border border-gray-300 hover:border-primary-100 rounded-lg shadow-lg p-1">
+          <AiOutlinePhone
+            size="20"
+            className="text-gray-700 hover:text-primary-100"
+          />
         </button>
       </div>
     </div>
@@ -152,7 +155,7 @@ const SocialLinks = () => {
         {socialPlatforms.map((social) => {
           return (
             <Link href={social.profileLink} key={social.name}>
-              <a className="text-primary-100 text-xs grid place-items-center gap-2">
+              <a className="text-gray-700 hover:text-primary-100 font-bold text-xs grid place-items-center gap-2">
                 {social.icon}
                 {social.name}
               </a>

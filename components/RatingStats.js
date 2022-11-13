@@ -51,9 +51,7 @@ const RatingStats = () => {
   return (
     <div className="">
       <div className="flex flex-col">
-        <p className="ml-2 text-xl font-bold text-gray-900 dark:text-white">
-          4.95/5
-        </p>
+        <p className="ml-2 text-xl font-bold text-gray-900">4.95/5</p>
         <div className="flex items-center mb-3">
           {[1, 2, 3, 4].map((n) => {
             return <FilledStar key={n} />;
@@ -62,16 +60,14 @@ const RatingStats = () => {
         </div>
       </div>
 
-      <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-        1,745 global ratings
-      </p>
+      <p className="text-sm font-medium text-gray-500">1,745 global ratings</p>
 
       <div className="">
         {[70, 17, 8, 4, 1].map((filledPercent, index) => {
           return (
             <StatsBar
               key={filledPercent}
-              starLabel={index + 1}
+              starLabel={5 - index}
               filledWidth={filledPercent}
             />
           );

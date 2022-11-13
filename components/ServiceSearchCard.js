@@ -17,7 +17,7 @@ const ServiceInfo = () => {
 const ServiceSearchCard = () => {
   return (
     <Link href="/services/hair-salon/salon1">
-      <div className="cursor-pointer flex flex-col md:flex-row gap-8 shadow-lg my-4 rounded-lg pb-4">
+      <div className="cursor-pointer flex flex-col md:flex-row gap-8 shadow-lg my-4 rounded-lg pb-4 px-2">
         <div className="">
           <div className="relative">
             <div className="absolute right-0 rounded-tr-lg rounded-bl-lg z-10 bg-[rgba(0,0,0,0.5)] text-white text-center p-1">

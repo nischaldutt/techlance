@@ -22,7 +22,7 @@ const services = [
 const ModalMenu = ({ showModalMenu, onClose }) => {
   return (
     <nav
-      className={`fixed flex top-0 left-0 w-full p-10 z-50 h-screen bg-primary-900 text-white bg-opacity-100 transform delay-100 transition-all duration-300 ${
+      className={`fixed flex top-0 left-0 w-full p-10 z-[100] h-screen bg-primary-900 text-white bg-opacity-100 transform delay-100 transition-all duration-300 ${
         showModalMenu
           ? "opacity-100 translate-x-0"
           : "opacity-0 -translate-x-full"
@@ -35,8 +35,11 @@ const ModalMenu = ({ showModalMenu, onClose }) => {
       <ul className="list-none w-full flex flex-col items-start mt-8">
         {services.map((service) => {
           return (
-            <Link href="/services/hair-salon/salon1" key={service}>
-              <li className="text-xl font-bold py-2" onClick={onClose}>
+            <Link href="/services/hair-salon" key={service}>
+              <li
+                className="text-xl font-bold py-2 cursor-pointer"
+                onClick={onClose}
+              >
                 {service}
               </li>
             </Link>
@@ -53,6 +56,14 @@ export default function Navbar() {
   const [active, setActive] = React.useState(false);
   const [isHome, setIsHome] = React.useState(true);
   const [showModalMenu, setShowModalMenu] = React.useState(false);
+
+  React.useEffect(() => {
+    router.events.on("routeChangeComplete", () => {
+      if (active) {
+        setActive(!active);
+      }
+    });
+  }, [router.events, active]);
 
   React.useEffect(() => {
     router.pathname === "/" ? setIsHome(true) : setIsHome(false);
@@ -75,13 +86,13 @@ export default function Navbar() {
     <nav>
       <div
         className={`flex w-full justify-center items-center flex-wrap ${
-          isScrolled || !isHome ? "bg-primary-500" : "bg-transparent"
+          isScrolled || !isHome || active ? "bg-primary-500" : "bg-transparent"
         } transition-colors ease-out duration-500 p-3 ${
           isHome ? "fixed" : ""
-        } z-10`}
+        } z-[100]`}
       >
         <Link href="/">
-          <a className="inline-flex items-center p-2 mr-4 animate-pulse">
+          <a className=" inline-flex items-center p-2 mr-4 animate-pulse">
             <span className="font-['Bebas_Neue'] text-3xl sm:text-5xl text-white font-bold uppercase tracking-wide">
               Techlance
             </span>
@@ -110,13 +121,13 @@ export default function Navbar() {
 
         <div
           className={`${
-            active ? "" : "hidden"
-          } w-full lg:inline-flex lg:flex-grow lg:w-auto`}
+            active ? "h-40 lg:h-auto" : "h-0"
+          } w-full lg:inline-flex lg:items-center lg:flex-grow lg:w-auto transition-all duration-500 ease-in-out`}
         >
           <div className="flex-grow">
             <div
               className={`hidden border border-gray-400 w-[30vw] rounded-lg text-gray-300 ${
-                isScrolled || !isHome ? "lg:grid" : ""
+                isScrolled || !isHome ? "lg:grid" : "hidden"
               } grid-cols-3 text-[11px] font-black mx-auto cursor-pointer`}
             >
               <div
@@ -149,37 +160,51 @@ export default function Navbar() {
             </div>
           </div>
 
-          <div className="w-full flex flex-col items-start lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto lg:items-center lg:h-auto">
+          <div
+            className={`${
+              active ? "" : "hidden"
+            } bg-gray-100 rounded-lg w-full flex flex-col items-start lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto lg:items-center lg:h-auto`}
+          >
             <Link href="/signin">
-              <a className="w-full px-3 py-2 rounded text-white text-sm font-bold flex items-center lg:inline-flex lg:w-auto">
-                <MdAccountCircle size="25" />
-                <span className="ml-[10px]">Log In / Sign Up</span>
+              <a
+                className="border-2 w-full px-3 py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
+                onClick={handleClick}
+              >
+                {/* <MdAccountCircle size="20" /> */}
+                <span className="">Log In / Sign Up</span>
               </a>
             </Link>
 
             <Link href="/">
-              <a className="w-full px-3 py-2 rounded text-white text-sm font-bold flex items-center lg:inline-flex lg:w-auto">
+              <a
+                className="border-2 w-full px-3 py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
+                onClick={handleClick}
+              >
                 India
               </a>
             </Link>
 
             <Link href="/">
-              <div>
-                <a className="w-full px-3 py-2 uppercase rounded text-black text-xs font-bold bg-white flex items-center lg:inline-flex lg:w-auto">
-                  For Business
-                </a>
-              </div>
+              <a
+                className="border-2 w-full px-3 py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
+                onClick={handleClick}
+              >
+                For Business
+              </a>
             </Link>
 
-            <button
-              className="lg:hidden w-full px-3 py-2 rounded text-white text-sm font-bold flex items-center lg:w-auto"
+            <a
+              className="border-2 w-full px-3 py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
               onClick={() => setShowModalMenu(true)}
             >
               Services
-            </button>
+            </a>
             <ModalMenu
               showModalMenu={showModalMenu}
-              onClose={() => setShowModalMenu(false)}
+              onClose={() => {
+                handleClick();
+                setShowModalMenu(false);
+              }}
             />
           </div>
         </div>

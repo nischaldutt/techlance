@@ -6,7 +6,7 @@ export default function SocialButton({ SocialIcon }) {
         rounded-md shadow-sm leading-4 font-medium hover:bg-gray-50 
         focus:outline-none focus:ring-2 focus:ring-offset-2 
         focus:ring-gray-500 text-xl text-gray-500 
-        hover:text-gray-900 flex justify-center`}
+        hover:text-primary-100 flex justify-center`}
     >
       {SocialIcon}
     </button>
