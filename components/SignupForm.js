@@ -6,7 +6,9 @@ import SocialButton from "./SocialButton";
 export default function SignupForm() {
   return (
     <div className="px-8 sm:px-12 py-16 shadow-xl rounded-lg border bg-white sm:w-[30rem]">
-      <div className="text-3xl font-bold py-2">Sign up to your account</div>
+      <div className="text-3xl font-bold py-2 text-primary-100">
+        Sign up to your account
+      </div>
       <div className="text-gray-500 py-2 text-sm">Sign up with</div>
 
       <div className="grid grid-cols-3 gap-4">
@@ -76,7 +78,7 @@ export default function SignupForm() {
       <div className="w-full py-2">
         <button
           type="submit"
-          className="bg-sky-600 hover:bg-sky-600 text-white font-bold 
+          className="bg-primary-100 hover:bg-gray-300 hover hover:text-primary-100 text-white font-bold 
           py-2 px-4 rounded w-full"
         >
           Create account

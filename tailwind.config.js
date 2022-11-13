@@ -31,6 +31,9 @@ module.exports = {
           "50%": { transform: "translatey(-20px)" },
         },
       },
+      transitionProperty: {
+        height: "height",
+      },
     },
     screens: {
       xs: "475px",

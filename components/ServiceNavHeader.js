@@ -18,7 +18,7 @@ const ServiceNavHeader = () => {
 
   return (
     <div
-      className={`bg-white shadow-lg py-4 px-2 z-10 ${
+      className={`bg-white shadow-lg py-4 px-2 z-50 ${
         isScrolled ? "sticky-top" : "hidden"
       }`}
     >
