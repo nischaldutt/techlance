@@ -55,7 +55,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [active, setActive] = React.useState(false);
   const [isHome, setIsHome] = React.useState(true);
-  const [showModalMenu, setShowModalMenu] = React.useState(false);
+  // const [showModalMenu, setShowModalMenu] = React.useState(false);
 
   React.useEffect(() => {
     router.events.on("routeChangeComplete", () => {
@@ -193,23 +193,26 @@ export default function Navbar() {
               </a>
             </Link>
 
-            <a
-              className="border-2 w-full px-3 py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
-              onClick={() => setShowModalMenu(true)}
-            >
-              Services
-            </a>
-            <ModalMenu
+            <Link href="/services">
+              <a
+                className="border-2 w-full px-3 py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
+                // onClick={() => setShowModalMenu(true)}
+              >
+                Services
+              </a>
+            </Link>
+
+            {/* <ModalMenu
               showModalMenu={showModalMenu}
               onClose={() => {
                 handleClick();
                 setShowModalMenu(false);
               }}
-            />
+            /> */}
           </div>
         </div>
       </div>
-      <div
+      {/* <div
         className={`${
           isHome ? "hidden" : "lg:flex"
         } bg-primary-500 pb-6 hidden justify-center`}
@@ -225,7 +228,7 @@ export default function Navbar() {
             );
           })}
         </ui>
-      </div>
+      </div> */}
     </nav>
   );
 }
