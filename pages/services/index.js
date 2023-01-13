@@ -2,46 +2,9 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 
-import {
-  GiAutoRepair,
-  GiVacuumCleaner,
-  GiWashingMachine,
-} from "react-icons/gi";
-import { BiCabinet } from "react-icons/bi";
-import { BsFillTreeFill, BsSnow } from "react-icons/bs";
+import { Footer } from "../../components";
 
-const categories = [
-  {
-    name: "Cleaning",
-    icon: <GiVacuumCleaner className="text-5xl text-primary-100" />,
-    label: "Cleaning",
-  },
-  {
-    name: "Indoors",
-    icon: <BiCabinet className="text-5xl text-primary-100" />,
-    label: "Indoors",
-  },
-  {
-    name: "Install",
-    icon: <GiWashingMachine className="text-5xl text-primary-100" />,
-    label: "Install",
-  },
-  {
-    name: "Outdoors",
-    icon: <BsFillTreeFill className="text-5xl text-primary-100" />,
-    label: "Outdoors",
-  },
-  {
-    name: "Repair",
-    icon: <GiAutoRepair className="text-5xl text-primary-100" />,
-    label: "Repair",
-  },
-  {
-    name: "Seasonal",
-    icon: <BsSnow className="text-5xl text-primary-100" />,
-    label: "Seasonal",
-  },
-];
+import { categories, servicesList } from "../data";
 
 const ServiceCategory = ({ icon, label }) => {
   return (
@@ -52,25 +15,26 @@ const ServiceCategory = ({ icon, label }) => {
   );
 };
 
-// apply css styles on one class but effects should be on another class as well
-
-const ServiceType = () => {
+const ServiceType = ({ name, image }) => {
   return (
-    <section className="flex justify-center w-[275px] transform transition duration-500 hover:-translate-y-2">
+    <section className="group flex justify-center w-[275px] transform transition duration-500 hover:-translate-y-2">
       <div className="rounded-lg bg-white max-w-sm">
         <Link href="#">
           <a>
             <div className="relative">
               <Image
                 className="rounded-lg"
-                src="https://d2zdpiztbgorvt.cloudfront.net/region1/us/173102/biz_photo/a0c65af40bdf488c9ed98b92bd6780-roy-master-barber-biz-photo-c89d068112214cb2a81d03576c3b58-booksy.jpeg?size=640x427"
-                alt=""
+                src={image}
+                alt={name}
                 width={275}
                 height={180}
+                objectFit="cover"
               />
 
               <div className="w-full absolute bottom-1 rounded-bl-lg rounded-br-lg right-0 text-white text-right p-4 bg-gradient-to-t from-zinc-900 to-transparent">
-                <div className="font-bold text-lg">Appliance Repair</div>
+                <div className="font-bold text-lg transform transition duration-500 group-hover:-translate-y-2">
+                  {name}
+                </div>
               </div>
             </div>
           </a>
@@ -90,7 +54,7 @@ export default function Services() {
       </Head>
 
       <main>
-        <section className="p-4 bg-gray-100 flex justify-center">
+        <section className="px-4 py-12 bg-gray-100 flex justify-center">
           <div className="w-1/2 flex justify-between">
             {categories.map((category) => {
               return (
@@ -104,10 +68,24 @@ export default function Services() {
           </div>
         </section>
 
-        <section className="border-2 border-black">
-          <ServiceType />
+        <section className="px-4 py-12 bg-white flex justify-center">
+          <section className="w-1/2 grid grid-cols-[repeat(3,_minmax(0,_275px))] justify-between gap-6">
+            {servicesList.map((service) => {
+              return (
+                <ServiceType
+                  key={service.id}
+                  name={service.name}
+                  image={service.image}
+                />
+              );
+            })}
+          </section>
         </section>
       </main>
+
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 }
