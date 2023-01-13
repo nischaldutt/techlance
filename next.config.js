@@ -12,6 +12,7 @@ const nextConfig = {
       "d2zdpiztbgorvt.cloudfront.net",
       "mdbcdn.b-cdn.net",
       "maps.googleapis.com",
+      "plus.unsplash.com",
     ],
   },
   webpack(config) {
