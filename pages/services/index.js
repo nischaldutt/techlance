@@ -1,3 +1,4 @@
+import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
@@ -6,11 +7,14 @@ import { Footer } from "../../components";
 
 import { categories, servicesList } from "../data";
 
-const ServiceCategory = ({ icon, label }) => {
+const ServiceCategory = ({ icon, label, onToggle }) => {
   return (
-    <div className="bg-white rounded-lg flex flex-col justify-center items-center w-36 py-8 shadow-md hover:shadow-lg cursor-pointer transform transition duration-500 hover:scale-110">
+    <div
+      className="bg-white rounded-lg flex flex-col justify-center items-center w-32 py-6 shadow-md hover:shadow-lg cursor-pointer transform transition duration-500 hover:scale-110"
+      onClick={() => onToggle(label.toLowerCase())}
+    >
       {icon}
-      <div className="pt-6">{label}</div>
+      <div className="pt-4 font-semibold">{label}</div>
     </div>
   );
 };
@@ -45,6 +49,41 @@ const ServiceType = ({ name, image }) => {
 };
 
 export default function Services() {
+  const [currentServices, setCurrentServices] = React.useState(servicesList);
+  const [filterValue, setFilterValue] = React.useState("");
+
+  React.useEffect(() => {
+    function filterServices() {
+      if (!filterValue) {
+        return setCurrentServices(() => servicesList);
+      }
+
+      const newServices = servicesList.reduce((accumulator, service) => {
+        if (
+          service.categories.findIndex(
+            (category) => category.toLowerCase() === filterValue
+          ) > -1
+        ) {
+          accumulator.push(service);
+        }
+
+        return accumulator;
+      }, []);
+
+      return setCurrentServices(() => newServices);
+    }
+
+    filterServices();
+  }, [filterValue]);
+
+  function onToggle(serviceClicked) {
+    if (serviceClicked === filterValue) {
+      setFilterValue(() => "");
+    } else {
+      setFilterValue(() => serviceClicked);
+    }
+  }
+
   return (
     <>
       <Head>
@@ -54,14 +93,15 @@ export default function Services() {
       </Head>
 
       <main>
-        <section className="px-4 py-12 bg-gray-100 flex justify-center">
-          <div className="w-1/2 flex justify-between">
+        <section className="px-4 py-20 bg-gray-100 flex justify-center">
+          <div className="w-[45%] flex justify-between">
             {categories.map((category) => {
               return (
                 <ServiceCategory
                   key={category.label}
                   icon={category.icon}
                   label={category.label}
+                  onToggle={onToggle}
                 />
               );
             })}
@@ -69,8 +109,8 @@ export default function Services() {
         </section>
 
         <section className="px-4 py-12 bg-white flex justify-center">
-          <section className="w-1/2 grid grid-cols-[repeat(3,_minmax(0,_275px))] justify-between gap-6">
-            {servicesList.map((service) => {
+          <section className="w-[45%] grid grid-cols-[repeat(3,_minmax(0,_275px))] justify-between gap-6">
+            {currentServices.map((service) => {
               return (
                 <ServiceType
                   key={service.id}
