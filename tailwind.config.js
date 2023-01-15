@@ -36,6 +36,7 @@ module.exports = {
       },
     },
     screens: {
+      xxs: "360px",
       xs: "475px",
       ...defaultTheme.screens,
       threeXl: "1920px",

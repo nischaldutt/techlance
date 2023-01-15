@@ -87,6 +87,7 @@ export default function Services() {
     }
   }
 
+  console.log({ categories });
   return (
     <>
       <Head>
@@ -98,7 +99,7 @@ export default function Services() {
       <div className="flex flex-col justify-between min-h-[100vh]">
         <main>
           <section className="px-4 py-20 bg-gray-100 flex justify-center">
-            <div className="w-full lg:w-[85%] xl:w-[75%] 2xl:w-[60%] threeXl:w-[45%] flex flex-wrap justify-between">
+            <div className="w-full xxs:w-4/5 xs:w-3/5 lg:w-[85%] xl:w-[75%] 2xl:w-[60%] threeXl:w-[45%] flex flex-wrap justify-between">
               {categories.map((category) => {
                 return (
                   <div key={category.label} className="py-4">
