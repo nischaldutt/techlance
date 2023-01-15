@@ -1,10 +1,18 @@
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import { CardSlider, ServiceSearchCard, Footer } from "../../components";
 
 export default function AvailableServices() {
+  const router = useRouter();
+
+  function bookServiceHandler(serviceId) {
+    console.log({ serviceId });
+    router.push(`/service_booking/${serviceId}`);
+  }
+
   return (
     <>
       <Head>
@@ -26,7 +34,12 @@ export default function AvailableServices() {
 
         <div className="mx-auto w-full md:w-[90%] lg:w-4/5 xl:w-3/5">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((searchResult) => {
-            return <ServiceSearchCard key={searchResult} />;
+            return (
+              <ServiceSearchCard
+                key={searchResult}
+                bookServiceHandler={bookServiceHandler}
+              />
+            );
           })}
         </div>
       </div>
