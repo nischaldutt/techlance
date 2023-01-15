@@ -7,10 +7,13 @@ import { Footer } from "../../components";
 
 import { categories, servicesList } from "../data";
 
-const ServiceCategory = ({ icon, label, onToggle }) => {
+const ServiceCategory = ({ icon, label, onToggle, activeFilterValue }) => {
+  const activeStyles =
+    label.toLowerCase() === activeFilterValue ? "scale-125" : "scale-100";
+
   return (
     <div
-      className="bg-white rounded-lg flex flex-col justify-center items-center w-32 py-6 shadow-md hover:shadow-lg cursor-pointer transform transition duration-500 hover:scale-110"
+      className={`${activeStyles} bg-white rounded-lg flex flex-col justify-center items-center w-32 py-6 shadow-md hover:shadow-lg cursor-pointer transform transition duration-500`}
       onClick={() => onToggle(label.toLowerCase())}
     >
       {icon}
@@ -94,22 +97,24 @@ export default function Services() {
 
       <main>
         <section className="px-4 py-20 bg-gray-100 flex justify-center">
-          <div className="w-[45%] flex justify-between">
+          <div className="w-full lg:w-[85%] xl:w-[75%] 2xl:w-[60%] threeXl:w-[45%] flex flex-wrap justify-between">
             {categories.map((category) => {
               return (
-                <ServiceCategory
-                  key={category.label}
-                  icon={category.icon}
-                  label={category.label}
-                  onToggle={onToggle}
-                />
+                <div key={category.label} className="py-4">
+                  <ServiceCategory
+                    icon={category.icon}
+                    label={category.label}
+                    onToggle={onToggle}
+                    activeFilterValue={filterValue}
+                  />
+                </div>
               );
             })}
           </div>
         </section>
 
         <section className="px-4 py-12 bg-white flex justify-center">
-          <section className="w-[45%] grid grid-cols-[repeat(3,_minmax(0,_275px))] justify-between gap-6">
+          <section className="w-full grid grid-cols-[repeat(1,_minmax(0,_275px))] sm:grid-cols-[repeat(2,_minmax(0,_275px))] lg:grid-cols-[repeat(3,_minmax(0,_275px))] justify-center gap-6">
             {currentServices.map((service) => {
               return (
                 <ServiceType
