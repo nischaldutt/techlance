@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { Footer } from "../../components";
 
-import { categories, servicesList } from "../data";
+import { categories, servicesList } from "../../data";
 
 const ServiceCategory = ({ icon, label, onToggle, activeFilterValue }) => {
   const activeStyles =
