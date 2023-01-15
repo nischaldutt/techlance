@@ -37,7 +37,7 @@ const rightList = [
 
 export default function Footer() {
   return (
-    <div className="bg-primary-500 p-6">
+    <div className="bg-primary-500 p-6 select-none">
       <div className="border-b border-gray-500 flex justify-between sm:justify-start pb-6 text-xs">
         <ul className="text-gray-300 flex flex-col sm:flex-row">
           {leftList.map((footer) => {

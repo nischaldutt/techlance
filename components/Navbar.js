@@ -85,7 +85,7 @@ export default function Navbar() {
   return (
     <nav>
       <div
-        className={`flex w-full justify-center items-center flex-wrap ${
+        className={`select-none flex w-full justify-center items-center flex-wrap ${
           isScrolled || !isHome || active ? "bg-primary-500" : "bg-transparent"
         } transition-colors ease-out duration-500 p-3 ${
           isHome ? "fixed" : ""
