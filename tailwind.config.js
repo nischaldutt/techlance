@@ -38,6 +38,7 @@ module.exports = {
     screens: {
       xs: "475px",
       ...defaultTheme.screens,
+      threeXl: "1920px",
     },
   },
   plugins: [
