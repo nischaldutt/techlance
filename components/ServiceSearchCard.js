@@ -5,25 +5,27 @@ import { ServiceListItem } from "../components";
 
 const ServiceInfo = () => {
   return (
-    <div className="border-b border-gray-300 py-1">
-      <div className="text-xl font-bold text-gray-800">New Era Cuts</div>
-      <div className="text-gray-700 text-xs py-1">
-        3338 fairmount Ave, New era cuts, San Diego, 92105
+    <Link href="/services/hair-salon/salon1">
+      <div className="border-b border-gray-300 py-1 cursor-pointer">
+        <div className="text-xl font-bold text-gray-800">New Era Cuts</div>
+        <div className="text-gray-700 text-xs py-1">
+          3338 fairmount Ave, New era cuts, San Diego, 92105
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
-const ServiceSearchCard = () => {
+const ServiceSearchCard = ({ bookServiceHandler }) => {
   return (
-    <Link href="/services/hair-salon/salon1">
-      <div className="cursor-pointer flex flex-col md:flex-row gap-8 shadow-lg my-4 rounded-lg pb-4 px-2">
-        <div className="">
-          <div className="relative">
-            <div className="absolute right-0 rounded-tr-lg rounded-bl-lg z-10 bg-[rgba(0,0,0,0.5)] text-white text-center p-1">
-              <div className="font-bold text-lg">5.0</div>
-              <div className="text-[11px]">568 Reviews</div>
-            </div>
+    <div className="select-none flex flex-col md:flex-row gap-8 shadow-lg my-4 rounded-lg pb-4 px-2">
+      <div className="">
+        <div className="relative cursor-pointer">
+          <div className="absolute right-0 rounded-tr-lg rounded-bl-lg z-10 bg-[rgba(0,0,0,0.5)] text-white text-center p-1">
+            <div className="font-bold text-lg">5.0</div>
+            <div className="text-[11px]">568 Reviews</div>
+          </div>
+          <Link href="/services/hair-salon/salon1">
             <div className="w-[340px] h-[226px]">
               <Image
                 className="rounded-lg"
@@ -33,17 +35,17 @@ const ServiceSearchCard = () => {
                 objectFit="cover"
               />
             </div>
-          </div>
-        </div>
-        <div className="flex-grow pr-2">
-          <ServiceInfo />
-          <ServiceListItem />
-          <ServiceListItem />
-          <ServiceListItem />
-          <ServiceListItem />
+          </Link>
         </div>
       </div>
-    </Link>
+      <div className="flex-grow pr-2">
+        <ServiceInfo />
+        <ServiceListItem bookServiceHandler={bookServiceHandler} />
+        <ServiceListItem />
+        <ServiceListItem />
+        <ServiceListItem />
+      </div>
+    </div>
   );
 };
 

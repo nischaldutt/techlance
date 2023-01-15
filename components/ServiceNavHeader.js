@@ -43,7 +43,7 @@ const ServiceNavHeader = () => {
             </div>
           </div>
 
-          <AiFillHeart size="40" className="text-primary-100" />
+          <AiFillHeart size="40" className="text-[#ff003c]" />
         </div>
 
         <div className="w-[32%] md:w-[40%] 2xl:w-[32%]">
