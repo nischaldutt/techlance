@@ -4,7 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { Stepper, Footer } from "../../components";
+import {
+  DatePicker,
+  TimePicker,
+  TextArea,
+  FileInput,
+  Stepper,
+  Footer,
+} from "../../components";
 
 export default function ServiceBooking() {
   const router = useRouter();
@@ -21,7 +28,15 @@ export default function ServiceBooking() {
       <div className="flex flex-col justify-between min-h-[100vh]">
         <main className="flex justify-center">
           <section className="border-2 border-black w-1/2">
+            <h1>Book Appliance Install Services</h1>
+
             <Stepper />
+
+            <h3>When should we send someone?</h3>
+            <DatePicker />
+            <TimePicker />
+            <TextArea />
+            <FileInput />
           </section>
         </main>
 
