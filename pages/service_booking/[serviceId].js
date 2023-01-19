@@ -4,14 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import {
-  DatePicker,
-  TimePicker,
-  TextArea,
-  FileInput,
-  Stepper,
-  Footer,
-} from "../../components";
+import FirstStep from "./formSteps/FirstStep";
+import { Stepper, Footer } from "../../components";
 
 export default function ServiceBooking() {
   const router = useRouter();
@@ -32,11 +26,7 @@ export default function ServiceBooking() {
 
             <Stepper />
 
-            <h3>When should we send someone?</h3>
-            <DatePicker />
-            <TimePicker />
-            <TextArea />
-            <FileInput />
+            <FirstStep />
           </section>
         </main>
 
