@@ -15,7 +15,11 @@ export default function ServiceBooking() {
   const { serviceId } = router.query;
 
   const [formStage, setFormStage] = React.useState(1);
-  const [jobData, setJobData] = React.useState(null);
+  const [jobData, setJobData] = React.useState();
+
+  const updateJobData = (data) => {
+    return setJobData((prevData) => ({ ...prevData, ...data }));
+  };
 
   return (
     <>
@@ -35,6 +39,8 @@ export default function ServiceBooking() {
             <ActiveFormStage
               formStage={formStage}
               setFormStage={setFormStage}
+              jobData={jobData}
+              updateJobData={updateJobData}
             />
           </section>
         </main>
@@ -47,15 +53,33 @@ export default function ServiceBooking() {
   );
 }
 
-function ActiveFormStage({ formStage, setFormStage }) {
+function ActiveFormStage({ formStage, setFormStage, jobData, updateJobData }) {
   switch (formStage) {
     case 1:
-      return <FirstStep setFormStage={setFormStage} />;
+      return (
+        <FirstStep
+          setFormStage={setFormStage}
+          jobData={jobData}
+          updateJobData={updateJobData}
+        />
+      );
     case 2:
-      return <SecondStep setFormStage={setFormStage} />;
+      return (
+        <SecondStep
+          setFormStage={setFormStage}
+          jobData={jobData}
+          updateJobData={updateJobData}
+        />
+      );
     case 3:
-      return <ThirdStep setFormStage={setFormStage} />;
+      return <ThirdStep setFormStage={setFormStage} jobData={jobData} />;
     default:
-      return <FirstStep setFormStage={setFormStage} />;
+      return (
+        <FirstStep
+          setFormStage={setFormStage}
+          jobData={jobData}
+          updateJobData={updateJobData}
+        />
+      );
   }
 }

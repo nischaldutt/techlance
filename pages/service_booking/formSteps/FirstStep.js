@@ -1,7 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { motion } from "framer-motion";
 
-const FirstStep = ({ setFormStage }) => {
+const FirstStep = ({ setFormStage, jobData, setJobData }) => {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
@@ -10,7 +11,11 @@ const FirstStep = ({ setFormStage }) => {
   };
 
   return (
-    <>
+    <motion.section
+      initial={{ x: "-100vw" }}
+      animate={{ x: 0 }}
+      transition={{ stiffness: 150 }}
+    >
       <h3>When should we send someone?</h3>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -67,7 +72,7 @@ const FirstStep = ({ setFormStage }) => {
           Next
         </button>
       </form>
-    </>
+    </motion.section>
   );
 };
 

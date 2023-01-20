@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { motion } from "framer-motion";
 
 const SecondStep = ({ setFormStage }) => {
   const { register, handleSubmit, errors } = useForm();
@@ -10,7 +11,11 @@ const SecondStep = ({ setFormStage }) => {
   };
 
   return (
-    <>
+    <motion.section
+      initial={{ x: "-100vw" }}
+      animate={{ x: 0 }}
+      transition={{ stiffness: 150 }}
+    >
       <h3>What do you need done?</h3>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -34,7 +39,7 @@ const SecondStep = ({ setFormStage }) => {
           Next
         </button>
       </form>
-    </>
+    </motion.section>
   );
 };
 
