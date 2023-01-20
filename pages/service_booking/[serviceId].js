@@ -5,11 +5,17 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 import FirstStep from "./formSteps/FirstStep";
+import SecondStep from "./formSteps/SecondStep";
+import ThirdStep from "./formSteps/ThirdStep";
+
 import { Stepper, Footer } from "../../components";
 
 export default function ServiceBooking() {
   const router = useRouter();
   const { serviceId } = router.query;
+
+  const [formStage, setFormStage] = React.useState(1);
+  const [jobData, setJobData] = React.useState(null);
 
   return (
     <>
@@ -26,7 +32,10 @@ export default function ServiceBooking() {
 
             <Stepper />
 
-            <FirstStep />
+            <ActiveFormStage
+              formStage={formStage}
+              setFormStage={setFormStage}
+            />
           </section>
         </main>
 
@@ -36,4 +45,17 @@ export default function ServiceBooking() {
       </div>
     </>
   );
+}
+
+function ActiveFormStage({ formStage, setFormStage }) {
+  switch (formStage) {
+    case 1:
+      return <FirstStep setFormStage={setFormStage} />;
+    case 2:
+      return <SecondStep setFormStage={setFormStage} />;
+    case 3:
+      return <ThirdStep setFormStage={setFormStage} />;
+    default:
+      return <FirstStep setFormStage={setFormStage} />;
+  }
 }

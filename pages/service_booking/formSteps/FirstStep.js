@@ -1,11 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-const FirstStep = () => {
+const FirstStep = ({ setFormStage }) => {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
     console.log({ data });
+    setFormStage(2);
   };
 
   return (
