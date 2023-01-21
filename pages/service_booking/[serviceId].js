@@ -8,7 +8,7 @@ import FirstStep from "./formSteps/FirstStep";
 import SecondStep from "./formSteps/SecondStep";
 import ThirdStep from "./formSteps/ThirdStep";
 
-import { Stepper, Footer } from "../../components";
+import { DatePicker, TimePicker, Stepper, Footer } from "../../components";
 
 export default function ServiceBooking() {
   const router = useRouter();
@@ -35,6 +35,9 @@ export default function ServiceBooking() {
             <h1>Book Appliance Install Services</h1>
 
             <Stepper />
+
+            <DatePicker />
+            <TimePicker />
 
             <ActiveFormStage
               formStage={formStage}

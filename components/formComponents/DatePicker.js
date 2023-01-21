@@ -1,22 +1,38 @@
-const DatePicker = () => {
-  return (
-    <div className="flex items-center justify-center">
-      <div
-        className="datepicker relative form-floating mb-3 xl:w-96"
-        data-mdb-toggle-button="false"
-      >
-        <input
-          type="text"
-          className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-          placeholder="Select a date"
-          data-mdb-toggle="datepicker"
-        />
-        <label htmlFor="floatingInput" className="text-gray-700">
-          Select a date
-        </label>
-      </div>
-    </div>
-  );
-};
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
 
-export default DatePicker;
+import "react-datepicker/dist/react-datepicker.css";
+
+// CSS Modules, react-datepicker-cssmodules.css
+// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+
+export default function Example() {
+  const [startDate, setStartDate] = useState(new Date());
+
+  const handleCalendarClose = () => console.log("Calendar closed");
+  const handleCalendarOpen = () => console.log("Calendar opened");
+
+  const ExampleCustomInput = React.forwardRef(({ value, onClick }, ref) => (
+    <button className="example-custom-input" onClick={onClick} ref={ref}>
+      {value}
+    </button>
+  ));
+
+  let handleColor = (time) => {
+    return time.getHours() > 12 ? "text-success" : "text-error";
+  };
+
+  return (
+    <DatePicker
+      selected={startDate}
+      onChange={(date) => setStartDate(date)}
+      onCalendarClose={handleCalendarClose}
+      onCalendarOpen={handleCalendarOpen}
+      isClearable
+      customInput={<ExampleCustomInput />}
+      showTimeSelect
+    >
+      <div style={{ color: "red" }}>Dont forget to check the weather!</div>
+    </DatePicker>
+  );
+}
