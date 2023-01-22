@@ -19,7 +19,7 @@ const ServiceNavHeader = () => {
   return (
     <div
       className={`bg-white shadow-lg py-4 px-2 z-50 ${
-        isScrolled ? "sticky-top" : "hidden"
+        isScrolled ? "sticky top-0" : "hidden"
       }`}
     >
       <div className="flex justify-between mx-auto w-full sm:w-4/5 md:w-full lg:w-4/5 2xl:w-3/5">
@@ -43,7 +43,7 @@ const ServiceNavHeader = () => {
             </div>
           </div>
 
-          <AiFillHeart size="40" className="text-[#ff003c]" />
+          <AiFillHeart size="40" className="text-red-500" />
         </div>
 
         <div className="w-[32%] md:w-[40%] 2xl:w-[32%]">

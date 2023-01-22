@@ -2,13 +2,14 @@ import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import Script from "next/script";
 import { useRouter } from "next/router";
 
 import FirstStep from "./formSteps/FirstStep";
 import SecondStep from "./formSteps/SecondStep";
 import ThirdStep from "./formSteps/ThirdStep";
 
-import { DatePicker, TimePicker, Stepper, Footer } from "../../components";
+import { Stepper, Footer } from "../../components";
 
 export default function ServiceBooking() {
   const router = useRouter();
@@ -29,15 +30,14 @@ export default function ServiceBooking() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js" />
+
       <div className="flex flex-col justify-between min-h-[100vh]">
         <main className="flex justify-center">
           <section className="border-2 border-black w-1/2">
             <h1>Book Appliance Install Services</h1>
 
             <Stepper />
-
-            <DatePicker />
-            <TimePicker />
 
             <ActiveFormStage
               formStage={formStage}
