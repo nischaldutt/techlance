@@ -179,7 +179,7 @@ export default function ServicePage() {
       <ServiceNavHeader />
 
       <div className="flex flex-col items-center md:items-stretch md:flex-row lg:w-4/5 2xl:w-3/5 2xl:justify-between mx-auto my-8 ">
-        <div className="px-2 2xl:px-0 sm:w-4/5 md:w-3/5 2xl:w-[65%]">
+        <div className="px-2 2xl:px-0 w-[90%] sm:w-4/5 md:w-3/5 2xl:w-[65%]">
           <Carousal />
 
           <div className="py-2">
