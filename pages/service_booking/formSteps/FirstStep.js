@@ -1,34 +1,30 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { motion } from "framer-motion";
+import { Button } from "antd";
 
 import { DatePicker, TimePicker, TextArea } from "../../../components";
 
-const FirstStep = ({ setFormStage, jobData, setJobData }) => {
+const FirstStep = ({ jobData, updateJobData, next }) => {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
     console.log({ data });
-    setFormStage(2);
+    next();
   };
 
   return (
-    <motion.section
-      initial={{ x: "-100vw" }}
-      animate={{ x: 0 }}
-      transition={{ stiffness: 150 }}
-    >
+    <section>
       <h3>When should we send someone?</h3>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <DatePicker />
         <TimePicker />
         <TextArea />
-        <button type="submit" className="">
+        <Button type="primary" onClick={onSubmit}>
           Next
-        </button>
+        </Button>
       </form>
-    </motion.section>
+    </section>
   );
 };
 
