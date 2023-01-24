@@ -6,4 +6,83 @@
   html {
     font-family: Montserrat, sans-serif, system-ui;
   }
+  
+  body {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  a,
+  a:visited,
+  a:hover,
+  a:active {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  ol,
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6, 
+  p {
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+  }
+
+  *,
+  ::before,
+  ::after {
+    border-width: 0;
+    border-style: solid;
+    border-color: theme('borderColor.DEFAULT');
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  img,
+  svg,
+  video,
+  canvas,
+  audio,
+  iframe,
+  embed,
+  object {
+    display: block;
+    vertical-align: middle;
+  }
+
+  blockquote,
+  dl,
+  dd,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  hr,
+  figure,
+  p,
+  pre {
+    margin: 0;
+  }
+
+  button:focus {
+    outline: 1px dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+  }
 }
