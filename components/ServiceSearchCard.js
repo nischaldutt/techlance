@@ -41,9 +41,9 @@ const ServiceSearchCard = ({ bookServiceHandler }) => {
       <div className="flex-grow pr-2">
         <ServiceInfo />
         <ServiceListItem bookServiceHandler={bookServiceHandler} />
-        <ServiceListItem />
-        <ServiceListItem />
-        <ServiceListItem />
+        <ServiceListItem bookServiceHandler={bookServiceHandler} />
+        <ServiceListItem bookServiceHandler={bookServiceHandler} />
+        <ServiceListItem bookServiceHandler={bookServiceHandler} />
       </div>
     </div>
   );

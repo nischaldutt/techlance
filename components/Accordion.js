@@ -4,7 +4,7 @@ import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 
 import { ServiceListItem } from "../components";
 
-const Accordion = ({ headLabel, initialExpand }) => {
+const Accordion = ({ headLabel, initialExpand, bookServiceHandler }) => {
   const [isVisible, setIsVisible] = React.useState(initialExpand);
 
   const handleToggle = () => {
@@ -31,10 +31,10 @@ const Accordion = ({ headLabel, initialExpand }) => {
           </button>
         </h2>
         <div className={isVisible ? "" : "hidden"}>
-          <ServiceListItem />
-          <ServiceListItem />
-          <ServiceListItem />
-          <ServiceListItem />
+          <ServiceListItem bookServiceHandler={bookServiceHandler} />
+          <ServiceListItem bookServiceHandler={bookServiceHandler} />
+          <ServiceListItem bookServiceHandler={bookServiceHandler} />
+          <ServiceListItem bookServiceHandler={bookServiceHandler} />
         </div>
       </div>
     </div>

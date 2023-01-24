@@ -5,7 +5,7 @@ const format = "HH:mm";
 const BasicTimePicker = () => {
   return (
     <TimePicker
-      status="error"
+      className="px-4 py-2 text-lg"
       defaultValue={dayjs("12:08", format)}
       format={format}
     />
