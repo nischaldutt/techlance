@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+
 import { MdOutlineHealthAndSafety } from "react-icons/md";
 import { AiFillCar, AiOutlinePhone } from "react-icons/ai";
 import { BsPhone, BsInstagram } from "react-icons/bs";
@@ -63,111 +65,14 @@ const socialPlatforms = [
   },
 ];
 
-const AboutSection = () => {
-  return (
-    <div className="text-sm text-gray-700">
-      <div className="uppercase font-bold py-2">About Us</div>
-      <p className="text-justify text-xs">
-        The Barber Spot is a family-friendly, full service barbershop that is
-        conveniently located in Downtown Orlando. Our master barbers have
-        decades of experience, and over the years our staffers have received
-        copious amounts of recognition for their haircuts. At The Barber Spot,
-        we offer traditional hot lather and straight razor shaves, Additionally,
-        our dedicated barbers provide premium services and pride themselves on
-        creating long-term relationships with clients. The Barber Spot continues
-        to service a loyal customer base and eagerly seeks to invite newcomers
-        to become part of the Barber Spot family.
-      </p>
-    </div>
-  );
-};
-
-const HealthSafetyRules = () => {
-  return (
-    <div className="text-sm text-gray-700">
-      <div className="uppercase py-3 font-bold">
-        Venue Health & Safety Rules
-      </div>
-      <ul className="border-border-black text-xs grid grid-cols-2">
-        <li className="inline-flex py-2">
-          <MdOutlineHealthAndSafety
-            size={20}
-            className="text-primary-100 mr-1"
-          />
-          Contactless Payment Available
-        </li>
-        <li className="inline-flex py-2">
-          <MdOutlineHealthAndSafety
-            size={20}
-            className="text-primary-100 mr-1"
-          />
-          Disinfection between clients
-        </li>
-        <li className="inline-flex py-2">
-          <MdOutlineHealthAndSafety
-            size={20}
-            className="text-primary-100 mr-1"
-          />
-          Barbicide COVID-19 Certified
-        </li>
-        <li className="inline-flex py-2">
-          <MdOutlineHealthAndSafety
-            size={20}
-            className="text-primary-100 mr-1"
-          />
-          Employees wear disposable gloves
-        </li>
-      </ul>
-    </div>
-  );
-};
-
-const ContactInformation = () => {
-  return (
-    <div className="">
-      <div className="uppercase text-gray-700 text-sm font-bold py-2">
-        Contact & Business Hours
-      </div>
-
-      <div className="text-sm py-3 flex justify-between">
-        <div className="text-black inline-flex">
-          <BsPhone size="20" className="text-gray-700 mr-1" />
-          +91987654321
-        </div>
-        <button className="border border-gray-300 hover:border-primary-100 rounded-lg shadow-lg p-1">
-          <AiOutlinePhone
-            size="20"
-            className="text-gray-700 hover:text-primary-100"
-          />
-        </button>
-      </div>
-    </div>
-  );
-};
-
-const SocialLinks = () => {
-  return (
-    <div className="py-2">
-      <div className="uppercase text-gray-700 text-sm font-bold pb-4">
-        Social Media & Share
-      </div>
-      <div className="flex justify-between">
-        {socialPlatforms.map((social) => {
-          return (
-            <Link href={social.profileLink} key={social.name}>
-              <a className="text-gray-700 hover:text-primary-100 font-bold text-xs grid place-items-center gap-2">
-                {social.icon}
-                {social.name}
-              </a>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
 export default function ServicePage() {
+  const router = useRouter();
+
+  function bookServiceHandler(serviceId) {
+    console.log({ serviceId });
+    router.push(`/service_booking/${serviceId}`);
+  }
+
   return (
     <>
       <Head>
@@ -206,11 +111,13 @@ export default function ServicePage() {
                 key="1"
                 headLabel="Popular Services"
                 initialExpand={true}
+                bookServiceHandler={bookServiceHandler}
               />
               <Accordion
                 key="2"
                 headLabel="Other Services"
                 initialExpand={false}
+                bookServiceHandler={bookServiceHandler}
               />
             </div>
           </div>
@@ -260,3 +167,107 @@ export const getStaticPaths = async () => {
     fallback: "blocking",
   };
 };
+
+function AboutSection() {
+  return (
+    <div className="text-sm text-gray-700">
+      <div className="uppercase font-bold py-2">About Us</div>
+      <p className="text-justify text-xs">
+        The Barber Spot is a family-friendly, full service barbershop that is
+        conveniently located in Downtown Orlando. Our master barbers have
+        decades of experience, and over the years our staffers have received
+        copious amounts of recognition for their haircuts. At The Barber Spot,
+        we offer traditional hot lather and straight razor shaves, Additionally,
+        our dedicated barbers provide premium services and pride themselves on
+        creating long-term relationships with clients. The Barber Spot continues
+        to service a loyal customer base and eagerly seeks to invite newcomers
+        to become part of the Barber Spot family.
+      </p>
+    </div>
+  );
+}
+
+function HealthSafetyRules() {
+  return (
+    <div className="text-sm text-gray-700">
+      <div className="uppercase py-3 font-bold">
+        Venue Health & Safety Rules
+      </div>
+      <ul className="border-border-black text-xs grid grid-cols-2">
+        <li className="inline-flex py-2">
+          <MdOutlineHealthAndSafety
+            size={20}
+            className="text-primary-100 mr-1"
+          />
+          Contactless Payment Available
+        </li>
+        <li className="inline-flex py-2">
+          <MdOutlineHealthAndSafety
+            size={20}
+            className="text-primary-100 mr-1"
+          />
+          Disinfection between clients
+        </li>
+        <li className="inline-flex py-2">
+          <MdOutlineHealthAndSafety
+            size={20}
+            className="text-primary-100 mr-1"
+          />
+          Barbicide COVID-19 Certified
+        </li>
+        <li className="inline-flex py-2">
+          <MdOutlineHealthAndSafety
+            size={20}
+            className="text-primary-100 mr-1"
+          />
+          Employees wear disposable gloves
+        </li>
+      </ul>
+    </div>
+  );
+}
+
+function ContactInformation() {
+  return (
+    <div className="">
+      <div className="uppercase text-gray-700 text-sm font-bold py-2">
+        Contact & Business Hours
+      </div>
+
+      <div className="text-sm py-3 flex justify-between">
+        <div className="text-black inline-flex">
+          <BsPhone size="20" className="text-gray-700 mr-1" />
+          +91987654321
+        </div>
+        <button className="border border-gray-300 hover:border-primary-100 rounded-lg shadow-lg p-1">
+          <AiOutlinePhone
+            size="20"
+            className="text-gray-700 hover:text-primary-100"
+          />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function SocialLinks() {
+  return (
+    <div className="py-2">
+      <div className="uppercase text-gray-700 text-sm font-bold pb-4">
+        Social Media & Share
+      </div>
+      <div className="flex justify-between">
+        {socialPlatforms.map((social) => {
+          return (
+            <Link href={social.profileLink} key={social.name}>
+              <a className="text-gray-700 hover:text-primary-100 font-bold text-xs grid place-items-center gap-2">
+                {social.icon}
+                {social.name}
+              </a>
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
