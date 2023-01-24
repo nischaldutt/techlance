@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Button, Form, Space } from "antd";
+import { Button, Divider, Form, Space } from "antd";
+
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { GrSubtractCircle } from "react-icons/gr";
 
@@ -18,9 +19,13 @@ const FirstStep = ({ jobData, updateJobData, next }) => {
     <section className="flex flex-col justify-between gap-4">
       <h2 className="text-xl font-bold">When should we send someone?</h2>
 
-      <Form name="dynamic_form_item" onFinish={onSubmit}>
+      <Form
+        name="dynamic_form_item"
+        onFinish={onSubmit}
+        className="flex flex-col gap-4 "
+      >
         <Form.List
-          name="date"
+          name="date_time"
           rules={[
             {
               validator: async (_, names) => {
@@ -35,46 +40,14 @@ const FirstStep = ({ jobData, updateJobData, next }) => {
         >
           {(fields, { add, remove }, { errors }) => (
             <>
-              {fields.map((field, index) => (
-                <Space key={field.key}>
-                  <Form.Item label={index === 0 ? "Date" : ""} required={false}>
-                    <Form.Item
-                      {...field}
-                      validateTrigger={["onChange", "onBlur"]}
-                      rules={[
-                        {
-                          required: true,
-                          whitespace: true,
-                          message: "Missing Date",
-                        },
-                      ]}
-                      noStyle
-                    >
-                      <DatePicker />
-                    </Form.Item>
-                  </Form.Item>
-
-                  <Form.Item label={index === 0 ? "Time" : ""} required={false}>
-                    <Form.Item
-                      {...field}
-                      validateTrigger={["onChange", "onBlur"]}
-                      rules={[
-                        {
-                          required: true,
-                          whitespace: true,
-                          message: "Missing Time",
-                        },
-                      ]}
-                      noStyle
-                    >
-                      <TimePicker />
-                    </Form.Item>
-                  </Form.Item>
+              {fields.map(({ key, name, ...restField }) => (
+                <Space key={key} align="baseline">
+                  <DateTimeInputs name={name} {...restField} />
 
                   {fields.length > 1 ? (
                     <GrSubtractCircle
-                      className="dynamic-delete-button"
-                      onClick={() => remove(field.name)}
+                      className="dynamic-delete-button ml-4 scale-125"
+                      onClick={() => remove(name)}
                     />
                   ) : null}
                 </Space>
@@ -84,10 +57,10 @@ const FirstStep = ({ jobData, updateJobData, next }) => {
                 <Button
                   type="dashed"
                   onClick={() => add()}
-                  icon={<AiOutlinePlusCircle />}
-                  className="border-2 border-black flex gap-2"
+                  icon={<AiOutlinePlusCircle className="scale-125" />}
+                  className="flex justify-between items-center gap-2 w-48 h-10"
                 >
-                  Add Date and Time
+                  Select Date and Time
                 </Button>
                 <Form.ErrorList errors={errors} />
               </Form.Item>
@@ -96,7 +69,7 @@ const FirstStep = ({ jobData, updateJobData, next }) => {
         </Form.List>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" size="large">
             Next
           </Button>
         </Form.Item>
@@ -106,3 +79,44 @@ const FirstStep = ({ jobData, updateJobData, next }) => {
 };
 
 export default FirstStep;
+
+function DateTimeInputs({ name, ...restField }) {
+  return (
+    <>
+      <Space align="baseline">
+        <Form.Item
+          {...restField}
+          name={[name, "date"]}
+          validateTrigger={["onChange", "onBlur"]}
+          rules={[
+            {
+              required: true,
+              message: "Missing Date",
+            },
+          ]}
+          // noStyle
+        >
+          <DatePicker />
+        </Form.Item>
+
+        <div className="px-2"></div>
+
+        <Form.Item
+          {...restField}
+          name={[name, "time"]}
+          validateTrigger={["onChange", "onBlur"]}
+          rules={[
+            {
+              required: true,
+              message: "Missing Time",
+            },
+          ]}
+          // noStyle
+        >
+          <TimePicker />
+        </Form.Item>
+      </Space>
+      <Divider className="my-3" />
+    </>
+  );
+}

@@ -5,7 +5,7 @@ const onChange = (date, dateString) => {
 };
 
 const BasicDatePicker = () => {
-  return <DatePicker className="px-4 py-3 text-lg" onChange={onChange} />;
+  return <DatePicker className="w-36 h-10 text-lg" onChange={onChange} />;
 };
 
 export default BasicDatePicker;
