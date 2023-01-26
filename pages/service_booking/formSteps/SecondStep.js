@@ -1,6 +1,18 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Button, Input, message, Upload } from "antd";
+import {
+  Button,
+  Divider,
+  DatePicker,
+  Form,
+  Input,
+  Space,
+  TimePicker,
+  Row,
+  Col,
+  message,
+  Upload,
+} from "antd";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 
 const { Dragger } = Upload;
@@ -36,31 +48,55 @@ const SecondStep = ({ jobData, updateJobData, next, previous }) => {
 
   return (
     <section>
-      <h3>What do you need done?</h3>
+      <Form
+        name="dynamic_form_item"
+        onFinish={onSubmit}
+        className="flex flex-col gap-4"
+        layout="vertical"
+      >
+        <Form.Item
+          label={<h3 className="text-xl font-bold">What do you need done?</h3>}
+        >
+          <TextArea
+            rows={4}
+            placeholder="e.g. Something that needs to be fixed, installed or cleaned etc."
+            // maxLength={5000}
+            // showCount
+          />
+        </Form.Item>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextArea rows={4} />
+        <Divider className="my-0" />
 
-        <Dragger {...props}>
-          <p className="ant-upload-drag-icon flex justify-center">
-            <AiOutlineCloudUpload className="text-6xl" />
-          </p>
-          <p className="ant-upload-text">
-            Click or drag file to this area to upload
-          </p>
-          <p className="ant-upload-hint">
-            Support for a single or bulk upload. Strictly prohibit from
-            uploading company data or other band files
-          </p>
-        </Dragger>
+        <Form.Item
+          label={
+            <h3 className="text-xl font-bold">Upload Photos (Optional)</h3>
+          }
+        >
+          <Dragger {...props}>
+            <p className="ant-upload-drag-icon flex justify-center">
+              <AiOutlineCloudUpload className="text-6xl" />
+            </p>
+            <p className="ant-upload-text">
+              Click or drag file to this area to upload
+            </p>
+            <p className="ant-upload-hint">
+              Support for a single or bulk upload. Strictly prohibit from
+              uploading company data or other band files
+            </p>
+          </Dragger>
+        </Form.Item>
 
-        <Button type="primary" onClick={previous}>
-          Previous
-        </Button>
-        <Button type="primary" onClick={onSubmit}>
-          Next
-        </Button>
-      </form>
+        <Row>
+          <Col span={6} className="flex justify-between">
+            <Button type="default" size="large" onClick={previous}>
+              Previous
+            </Button>
+            <Button type="primary" size="large" onClick={onSubmit}>
+              Next
+            </Button>
+          </Col>
+        </Row>
+      </Form>
     </section>
   );
 };
