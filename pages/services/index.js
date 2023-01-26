@@ -38,7 +38,7 @@ const ServiceType = ({ name, image }) => {
                 objectFit="cover"
               />
 
-              <div className="w-full absolute bottom-1 rounded-bl-lg rounded-br-lg right-0 text-white text-right p-4 bg-gradient-to-t from-zinc-900 to-transparent">
+              <div className="absolute bottom-1 rounded-bl-lg rounded-br-lg left-0 right-0 text-white text-right p-4 bg-gradient-to-t from-zinc-900 to-transparent">
                 <div className="font-bold text-lg transform transition duration-500 group-hover:-translate-y-2">
                   {name}
                 </div>
@@ -99,7 +99,7 @@ export default function Services() {
       <div className="flex flex-col justify-between min-h-[100vh]">
         <main>
           <section className="px-4 py-20 bg-gray-100 flex justify-center">
-            <div className="w-full xxs:w-4/5 xs:w-3/5 lg:w-[85%] xl:w-[75%] 2xl:w-[60%] threeXl:w-[45%] flex flex-wrap justify-between">
+            <div className="w-full grid grid-cols-[repeat(2,_minmax(0,_128px))]  xs:grid-cols-[repeat(3,_minmax(0,_128px))] lg:grid-cols-[repeat(6,_minmax(0,_128px))] justify-center gap-6">
               {categories.map((category) => {
                 return (
                   <div key={category.label} className="py-4">
