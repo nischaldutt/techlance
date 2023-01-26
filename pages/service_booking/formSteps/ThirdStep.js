@@ -39,26 +39,38 @@ const ThirdStep = ({ jobData, done, onEdit }) => {
         <section className="flex flex-col gap-4">
           <Row gutter={[16, 24]}>
             <Col>
-              <DatePicker defaultValue={dayjs("2015-06-06")} disabled />
+              <DatePicker
+                defaultValue={dayjs("2015-06-06")}
+                disabled
+                className="w-36"
+              />
             </Col>
             <Col>
               <TimePicker
                 defaultValue={dayjs("12:08", "HH:mm")}
                 format="HH:mm"
                 disabled
+                className="w-36"
               />
             </Col>
           </Row>
 
+          <Divider className="my-0" />
+
           <Row gutter={[16, 24]}>
             <Col>
-              <DatePicker defaultValue={dayjs("2015-06-06")} disabled />
+              <DatePicker
+                defaultValue={dayjs("2015-06-06")}
+                disabled
+                className="w-36"
+              />
             </Col>
             <Col>
               <TimePicker
                 defaultValue={dayjs("12:08", "HH:mm")}
                 format="HH:mm"
                 disabled
+                className="w-36"
               />
             </Col>
           </Row>
@@ -70,7 +82,7 @@ const ThirdStep = ({ jobData, done, onEdit }) => {
 
           <Collapse accordion bordered={false}>
             <Panel header="Job Description" key="1">
-              <p>
+              <p className="">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -92,30 +104,24 @@ const ThirdStep = ({ jobData, done, onEdit }) => {
         className="flex flex-col gap-4"
         layout="vertical"
       >
-        <h3 className="text-xl font-bold">Credit Card Information</h3>
+        <h3 className="text-base lg:text-xl font-bold">
+          Credit Card Information
+        </h3>
 
-        <Row align="middle" gutter={16}>
-          <Col span={8}>
-            <Form.Item label="Card number">
-              <Input placeholder="1234 1234 1234 1234" size="large" />
-            </Form.Item>
-          </Col>
-          <Col span={6}>
-            <Form.Item label="Expiration Date">
-              <Input placeholder="MM/YY" size="large" />
-            </Form.Item>
-          </Col>
-          <Col span={4}>
-            <Form.Item label="CVC">
-              <Input placeholder="CVC" size="large" />
-            </Form.Item>
-          </Col>
-          <Col span={6}>
-            <Button type="primary" size="large">
-              Add
-            </Button>
-          </Col>
-        </Row>
+        <Space align="center" wrap>
+          <Form.Item label="Card number">
+            <Input placeholder="1234 1234 1234 1234" size="large" />
+          </Form.Item>
+          <Form.Item label="Expiration Date">
+            <Input placeholder="MM/YY" size="large" />
+          </Form.Item>
+          <Form.Item label="CVC">
+            <Input placeholder="CVC" size="large" />
+          </Form.Item>
+          <Button type="primary" size="large">
+            Add
+          </Button>
+        </Space>
 
         <Alert
           message={
@@ -140,7 +146,7 @@ const ThirdStep = ({ jobData, done, onEdit }) => {
           <Col span={12}>
             <Form.Item>
               <Button size="large" block onClick={onEdit}>
-                <div className="flex justify-center items-center gap-4">
+                <div className="flex justify-center items-center gap-2">
                   <MdModeEditOutline />
                   Edit Job
                 </div>
@@ -150,7 +156,7 @@ const ThirdStep = ({ jobData, done, onEdit }) => {
           <Col span={12}>
             <Form.Item>
               <Button size="large" block danger>
-                <div className="flex justify-center items-center gap-4">
+                <div className="flex justify-center items-center gap-2">
                   <GiCancel />
                   Cancel Job
                 </div>
