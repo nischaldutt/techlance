@@ -9,32 +9,32 @@ import { BsFillTreeFill, BsSnow } from "react-icons/bs";
 export const categories = [
   {
     name: "Cleaning",
-    icon: <GiVacuumCleaner className="text-4xl text-primary-100" />,
+    icon: <GiVacuumCleaner className="text-primary-100" size={32} />,
     label: "Cleaning",
   },
   {
     name: "Indoors",
-    icon: <BiCabinet className="text-4xl text-primary-100" />,
+    icon: <BiCabinet className="text-primary-100" size={32} />,
     label: "Indoors",
   },
   {
     name: "Install",
-    icon: <GiWashingMachine className="text-4xl text-primary-100" />,
+    icon: <GiWashingMachine className="text-primary-100" size={32} />,
     label: "Install",
   },
   {
     name: "Outdoors",
-    icon: <BsFillTreeFill className="text-4xl text-primary-100" />,
+    icon: <BsFillTreeFill className="text-primary-100" size={32} />,
     label: "Outdoors",
   },
   {
     name: "Repair",
-    icon: <GiAutoRepair className="text-4xl text-primary-100" />,
+    icon: <GiAutoRepair className="text-primary-100" size={32} />,
     label: "Repair",
   },
   {
     name: "Seasonal",
-    icon: <BsSnow className="text-4xl text-primary-100" />,
+    icon: <BsSnow className="text-primary-100" size={32} />,
     label: "Seasonal",
   },
 ];
