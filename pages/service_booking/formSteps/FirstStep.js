@@ -1,11 +1,19 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Button, Divider, Form, Space } from "antd";
+import {
+  Button,
+  Divider,
+  DatePicker,
+  Form,
+  Input,
+  Space,
+  TimePicker,
+} from "antd";
 
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { GrSubtractCircle } from "react-icons/gr";
 
-import { DatePicker, TimePicker, TextArea } from "../../../components";
+const { TextArea } = Input;
 
 const FirstStep = ({ jobData, updateJobData, next }) => {
   const { register, handleSubmit, errors } = useForm();
@@ -15,15 +23,28 @@ const FirstStep = ({ jobData, updateJobData, next }) => {
     next();
   };
 
-  return (
-    <section className="flex flex-col justify-between gap-4">
-      <h2 className="text-xl font-bold">When should we send someone?</h2>
+  const onDateChange = (date, dateString) => {
+    console.log(date, dateString);
+    console.log({ test: date.get("date") });
+  };
 
+  const onTimeChange = (time, timeString) => {
+    console.log(time, timeString);
+  };
+
+  const onTimeConstraintChange = (e) => {
+    console.log("Change:", e.target.value);
+  };
+
+  return (
+    <section>
       <Form
         name="dynamic_form_item"
         onFinish={onSubmit}
-        className="flex flex-col gap-4 "
+        className="flex flex-col gap-4"
+        layout="vertical"
       >
+        <h2 className="text-xl font-bold">When should we send someone?</h2>
         <Form.List
           name="date_time"
           rules={[
@@ -42,7 +63,12 @@ const FirstStep = ({ jobData, updateJobData, next }) => {
             <>
               {fields.map(({ key, name, ...restField }) => (
                 <Space key={key} align="baseline">
-                  <DateTimeInputs name={name} {...restField} />
+                  <DateTimeInputs
+                    name={name}
+                    onDateChange={onDateChange}
+                    onTimeChange={onTimeChange}
+                    {...restField}
+                  />
 
                   {fields.length > 1 ? (
                     <GrSubtractCircle
@@ -57,8 +83,8 @@ const FirstStep = ({ jobData, updateJobData, next }) => {
                 <Button
                   type="dashed"
                   onClick={() => add()}
-                  icon={<AiOutlinePlusCircle className="scale-125" />}
-                  className="flex justify-between items-center gap-2 w-48 h-10"
+                  icon={<AiOutlinePlusCircle className="mr-2" />}
+                  className="flex justify-between items-center h-10"
                 >
                   Select Date and Time
                 </Button>
@@ -67,6 +93,17 @@ const FirstStep = ({ jobData, updateJobData, next }) => {
             </>
           )}
         </Form.List>
+
+        <Form.Item name="timeConstraint" className="w-3/4">
+          <h4 className="text-xl font-bold">Timing Constraints</h4>
+          <TextArea
+            rows={4}
+            placeholder="e.g. Baby is napping from 3 to 4 PM. Please do not arrive during those times."
+            maxLength={100}
+            showCount
+            onChange={onTimeConstraintChange}
+          />
+        </Form.Item>
 
         <Form.Item>
           <Button type="primary" htmlType="submit" size="large">
@@ -80,7 +117,7 @@ const FirstStep = ({ jobData, updateJobData, next }) => {
 
 export default FirstStep;
 
-function DateTimeInputs({ name, ...restField }) {
+function DateTimeInputs({ name, onDateChange, onTimeChange, ...restField }) {
   return (
     <>
       <Space align="baseline">
@@ -96,7 +133,7 @@ function DateTimeInputs({ name, ...restField }) {
           ]}
           // noStyle
         >
-          <DatePicker />
+          <DatePicker className="w-36 h-10 text-lg" onChange={onDateChange} />
         </Form.Item>
 
         <div className="px-2"></div>
@@ -113,10 +150,14 @@ function DateTimeInputs({ name, ...restField }) {
           ]}
           // noStyle
         >
-          <TimePicker />
+          <TimePicker
+            className="w-36 h-10 text-lg"
+            format="HH:mm"
+            onChange={onTimeChange}
+          />
         </Form.Item>
       </Space>
-      <Divider className="my-3" />
+      <Divider className="my-2" />
     </>
   );
 }
