@@ -44,7 +44,9 @@ const FirstStep = ({ jobData, updateJobData, next }) => {
         className="flex flex-col gap-4"
         layout="vertical"
       >
-        <h2 className="text-xl font-bold">When should we send someone?</h2>
+        <h2 className="text-base lg:text-lg font-bold">
+          When should we send someone?
+        </h2>
         <Form.List
           name="date_time"
           rules={[
@@ -94,8 +96,8 @@ const FirstStep = ({ jobData, updateJobData, next }) => {
           )}
         </Form.List>
 
-        <Form.Item name="timeConstraint" className="w-3/4">
-          <h4 className="text-xl font-bold">Timing Constraints</h4>
+        <Form.Item name="timeConstraint" className="w-full">
+          <h4 className="text-base lg:text-xl font-bold">Timing Constraints</h4>
           <TextArea
             rows={4}
             placeholder="e.g. Baby is napping from 3 to 4 PM. Please do not arrive during those times."
@@ -120,7 +122,7 @@ export default FirstStep;
 function DateTimeInputs({ name, onDateChange, onTimeChange, ...restField }) {
   return (
     <>
-      <Space align="baseline">
+      <Space align="baseline" wrap>
         <Form.Item
           {...restField}
           name={[name, "date"]}

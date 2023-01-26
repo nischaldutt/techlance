@@ -55,7 +55,11 @@ const SecondStep = ({ jobData, updateJobData, next, previous }) => {
         layout="vertical"
       >
         <Form.Item
-          label={<h3 className="text-xl font-bold">What do you need done?</h3>}
+          label={
+            <h3 className="text-base lg:text-xl font-bold">
+              What do you need done?
+            </h3>
+          }
         >
           <TextArea
             rows={4}
@@ -69,7 +73,9 @@ const SecondStep = ({ jobData, updateJobData, next, previous }) => {
 
         <Form.Item
           label={
-            <h3 className="text-xl font-bold">Upload Photos (Optional)</h3>
+            <h3 className="text-base lg:text-xl font-bold">
+              Upload Photos (Optional)
+            </h3>
           }
         >
           <Dragger {...props}>
