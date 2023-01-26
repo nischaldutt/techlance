@@ -75,6 +75,7 @@ export default function ServiceBooking() {
       theme={{
         token: {
           colorPrimary: theme.extend.colors.primary[100],
+          fontFamily: "Montserrat",
         },
       }}
     >
@@ -84,8 +85,8 @@ export default function ServiceBooking() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="flex flex-col justify-between min-h-[100vh]">
-        <main className="border-2 border-black w-1/2 mx-auto text-gray-900">
+      <div className="flex flex-col justify-between min-h-[100vh] pt-8">
+        <main className="w-1/2 mx-auto text-gray-900">
           <h1 className="text-3xl font-bold py-4">
             Book Appliance Install Service
           </h1>
