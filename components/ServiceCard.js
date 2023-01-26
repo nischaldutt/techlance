@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const ServiceCard = () => {
   return (
-    <div className="flex justify-center w-[275px]">
+    <div className="flex justify-center w-[275px] mx-2">
       <div className="rounded-lg bg-white max-w-sm">
         <Link href="/services/hair-salon/salon1">
           <a data-mdb-ripple="true" data-mdb-ripple-color="light">

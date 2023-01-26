@@ -87,12 +87,12 @@ export default function Navbar() {
       <div
         className={`select-none flex w-full justify-center items-center flex-wrap ${
           isScrolled || !isHome || active ? "bg-primary-500" : "bg-transparent"
-        } transition-colors ease-out duration-500 p-3 ${
+        } transition-colors ease-out duration-500 ${
           isHome ? "fixed" : ""
-        } z-[100]`}
+        } z-[100] py-2`}
       >
         <Link href="/">
-          <a className=" inline-flex items-center p-2 mr-4 animate-pulse">
+          <a className="inline-flex items-center px-6 py-2 mr-4 animate-pulse">
             <span className="font-['Bebas_Neue'] text-3xl sm:text-5xl text-white font-bold uppercase tracking-wide">
               Techlance
             </span>
@@ -100,7 +100,7 @@ export default function Navbar() {
         </Link>
 
         <button
-          className="inline-flex p-3 hover:bg-gray-900 rounded lg:hidden text-white ml-auto outline-none"
+          className="inline-flex p-3 mr-6 bg-transparent hover:bg-gray-900 rounded lg:hidden text-white ml-auto outline-none"
           onClick={handleClick}
         >
           <svg
@@ -126,7 +126,7 @@ export default function Navbar() {
         >
           <div className="flex-grow">
             <div
-              className={`hidden border border-gray-400 w-[30vw] rounded-lg text-gray-300 ${
+              className={`hidden border-2 border-gray-400 w-[30vw] rounded-lg text-gray-300 ${
                 isScrolled || !isHome ? "lg:grid" : "hidden"
               } grid-cols-3 text-[11px] font-black mx-auto cursor-pointer`}
             >
@@ -149,7 +149,7 @@ export default function Navbar() {
                 India
               </div>
               <div
-                className="border-r border-gray-400 p-3 inline-flex items-center gap-2"
+                className="border-gray-400 p-3 inline-flex items-center gap-2"
                 onClick={() => {
                   console.log("handle3");
                 }}
@@ -163,7 +163,7 @@ export default function Navbar() {
           <div
             className={`${
               active ? "" : "hidden"
-            } bg-gray-100 rounded-lg w-full flex flex-col items-start lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto lg:items-center lg:h-auto`}
+            } mr-6 bg-gray-100 rounded-lg w-full flex flex-col items-start lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto lg:items-center lg:h-auto`}
           >
             <Link href="/signin">
               <a

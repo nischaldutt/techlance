@@ -16,9 +16,3 @@ export { default as RatingStats } from "./RatingStats";
 export { default as CategoriesSlider } from "./CategoriesSlider";
 export { default as ServiceSearchCard } from "./ServiceSearchCard";
 export { default as ServiceNavHeader } from "./ServiceNavHeader";
-
-export { default as Stepper } from "./formComponents/Stepper";
-export { default as DatePicker } from "./formComponents/DatePicker";
-export { default as TimePicker } from "./formComponents/TimePicker";
-export { default as TextArea } from "./formComponents/TextArea";
-export { default as FileInput } from "./formComponents/FileInput";

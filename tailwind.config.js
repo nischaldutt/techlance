@@ -8,8 +8,10 @@ module.exports = {
     "./src/**/*.{html,js}",
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/tw-elements/dist/js/**/*.js",
   ],
+  corePlugins: {
+    preflight: false,
+  },
   theme: {
     extend: {
       colors: {
@@ -21,8 +23,8 @@ module.exports = {
           900: "#011B18",
         },
         secondary: {
-          500: "#FAF4E7",
-          900: "#E2B355",
+          500: "#042825",
+          900: "#011B18",
         },
       },
       keyframes: {
@@ -36,13 +38,13 @@ module.exports = {
       },
     },
     screens: {
+      xxs: "360px",
       xs: "475px",
       ...defaultTheme.screens,
       threeXl: "1920px",
     },
   },
   plugins: [
-    require("tw-elements/dist/plugin"),
     plugin(function ({ addUtilities }) {
       addUtilities({
         ".scrollbar-hide": {
