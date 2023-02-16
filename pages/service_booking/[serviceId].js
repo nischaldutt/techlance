@@ -86,15 +86,37 @@ export default function ServiceBooking() {
       </Head>
 
       <div className="flex flex-col justify-between min-h-[100vh] pt-8">
-        <main className="w-[90%] lg:w-3/5 xl:w-1/2 mx-auto text-gray-900">
-          <h1 className="text-lg lg:text-3xl font-bold py-4">
-            Book Appliance Install Service
-          </h1>
-          <Steps current={formStage} items={items} className="font-bold pt-2" />
+        <main className="border-2 border-white w-[90%] lg:w-3/5 xl:w-1/2 mx-auto text-gray-900">
+          <section>
+            <h1 className="text-lg lg:text-3xl font-bold py-4">
+              Book Appliance Install Service
+            </h1>
+            <Steps
+              current={formStage}
+              items={items}
+              className="font-bold pt-2"
+            />
 
-          <Divider />
+            <Divider />
 
-          <section>{steps[formStage].content}</section>
+            <section>{steps[formStage].content}</section>
+          </section>
+
+          <section>
+            <div className="border-2 border-primary-500 rounded-lg p-4">
+              <div className="border-2 border-white flex">
+                <h1 className="text-5xl font-bold">$99</h1>
+
+                <div>
+                  <p className="font-bold">one time payment</p>
+                  <p>+ local taxes</p>
+                </div>
+              </div>
+
+              <h2 className="font-bold text-lg">Book Job</h2>
+              <p></p>
+            </div>
+          </section>
         </main>
 
         <footer>
