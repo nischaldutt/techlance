@@ -16,3 +16,4 @@ export { default as RatingStats } from "./RatingStats";
 export { default as CategoriesSlider } from "./CategoriesSlider";
 export { default as ServiceSearchCard } from "./ServiceSearchCard";
 export { default as ServiceNavHeader } from "./ServiceNavHeader";
+export { default as JobRateCard } from "./JobRateCard";
