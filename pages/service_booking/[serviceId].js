@@ -8,7 +8,7 @@ import FirstStep from "./formSteps/FirstStep";
 import SecondStep from "./formSteps/SecondStep";
 import ThirdStep from "./formSteps/ThirdStep";
 
-import { Stepper, Footer } from "../../components";
+import { Stepper, Footer, JobRateCard } from "../../components";
 
 export default function ServiceBooking() {
   const router = useRouter();
@@ -85,9 +85,9 @@ export default function ServiceBooking() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="flex flex-col justify-between min-h-[100vh] pt-8">
-        <main className="border-2 border-white w-[90%] lg:w-3/5 xl:w-1/2 mx-auto text-gray-900">
-          <section>
+      <div className="flex flex-col justify-between min-h-[100vh]">
+        <main className="my-8 flex justify-between gap-10 w-[90%] xl:w-[70%] 2xl:w-3/5 mx-auto text-gray-900">
+          <section className="w-full lg:w-[70%] xl:w-3/4">
             <h1 className="text-lg lg:text-3xl font-bold py-4">
               Book Appliance Install Service
             </h1>
@@ -102,20 +102,8 @@ export default function ServiceBooking() {
             <section>{steps[formStage].content}</section>
           </section>
 
-          <section>
-            <div className="border-2 border-primary-500 rounded-lg p-4">
-              <div className="border-2 border-white flex">
-                <h1 className="text-5xl font-bold">$99</h1>
-
-                <div>
-                  <p className="font-bold">one time payment</p>
-                  <p>+ local taxes</p>
-                </div>
-              </div>
-
-              <h2 className="font-bold text-lg">Book Job</h2>
-              <p></p>
-            </div>
+          <section className="hidden lg:block lg:w-[30%] xl:w-1/4">
+            <JobRateCard />
           </section>
         </main>
 
