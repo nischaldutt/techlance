@@ -1,8 +1,9 @@
+import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 
-import { SignupForm } from "../components";
-import { Signin as SigninSvg } from "../assets";
+import { SignupForm } from "@/components";
+import { Signin as SigninSvg } from "@/assets";
 
 export default function Signin() {
   return (
