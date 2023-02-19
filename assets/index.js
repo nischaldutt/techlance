@@ -4,3 +4,5 @@ export { default as Reminders } from "./svg/Reminders.svg";
 export { default as Signin } from "./svg/Signin.svg";
 export { default as Tick } from "./svg/Tick.svg";
 export { default as Upload } from "./svg/Upload.svg";
+export { default as AboutImageOne } from "./svg/about-image-1.svg";
+export { default as AboutImageTwo } from "./svg/about-image-2.svg";
