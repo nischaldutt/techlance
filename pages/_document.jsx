@@ -1,3 +1,4 @@
+import React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
@@ -9,7 +10,7 @@ class MyDocument extends Document {
           <link
             rel="preconnect"
             href="https://fonts.gstatic.com"
-            crossOrigin="true"
+            crossOrigin="use-credentials"
           />
           <link
             href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
