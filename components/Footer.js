@@ -1,3 +1,4 @@
+import React from "react";
 import Link from "next/link";
 import { BsInstagram, BsTwitter, BsFacebook } from "react-icons/bs";
 
@@ -37,7 +38,7 @@ const rightList = [
 
 export default function Footer() {
   return (
-    <div className="bg-primary-500 p-6 select-none">
+    <footer className="bg-primary-500 p-6 select-none">
       <div className="border-b border-gray-500 flex justify-between sm:justify-start pb-6 text-xs">
         <ul className="text-gray-300 flex flex-col sm:flex-row">
           {leftList.map((footer) => {
@@ -97,6 +98,6 @@ export default function Footer() {
           </Link>
         </div>
       </div>
-    </div>
+    </footer>
   );
 }

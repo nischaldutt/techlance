@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 
-import { ServiceListItem } from "../components";
+import { ServiceListItem } from "@/components";
 
 const Accordion = ({ headLabel, initialExpand, bookServiceHandler }) => {
   const [isVisible, setIsVisible] = React.useState(initialExpand);

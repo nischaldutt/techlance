@@ -1,3 +1,4 @@
+import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -8,7 +9,7 @@ import {
 } from "react-icons/bs";
 import ServiceCard from "./ServiceCard";
 
-function SampleNextArrow({ className, style, onClick }) {
+function SampleNextArrow({ className = "", style = {}, onClick = () => {} }) {
   return (
     <BsFillArrowRightCircleFill
       className={className}
@@ -18,7 +19,7 @@ function SampleNextArrow({ className, style, onClick }) {
   );
 }
 
-function SamplePrevArrow({ className, style, onClick }) {
+function SamplePrevArrow({ className = "", style = {}, onClick = () => {} }) {
   return (
     <BsFillArrowLeftCircleFill
       className={className}

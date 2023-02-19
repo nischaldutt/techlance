@@ -1,7 +1,8 @@
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import { ServiceListItem } from "../components";
+import { ServiceListItem } from "@/components";
 
 const ServiceInfo = () => {
   return (
