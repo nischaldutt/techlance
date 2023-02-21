@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Divider, message, Steps } from "antd";
 
-import FirstStep from "./formSteps/FirstStep";
+import BasinInfo from "./formSteps/BasicInfo";
 import SecondStep from "./formSteps/SecondStep";
 import ThirdStep from "./formSteps/ThirdStep";
 
@@ -40,7 +40,7 @@ export default function Business() {
     {
       title: "Basic Info",
       content: (
-        <FirstStep
+        <BasinInfo
           jobData={jobData}
           updateJobData={updateJobData}
           next={next}
@@ -48,7 +48,29 @@ export default function Business() {
       ),
     },
     {
-      title: "Professional Requirements",
+      title: "Insurance Info",
+      content: (
+        <SecondStep
+          jobData={jobData}
+          updateJobData={updateJobData}
+          next={next}
+          previous={previous}
+        />
+      ),
+    },
+    {
+      title: "References",
+      content: (
+        <SecondStep
+          jobData={jobData}
+          updateJobData={updateJobData}
+          next={next}
+          previous={previous}
+        />
+      ),
+    },
+    {
+      title: "Select Services",
       content: (
         <SecondStep
           jobData={jobData}
