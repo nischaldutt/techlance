@@ -27,7 +27,7 @@ const smallFormItemLayout = {
   },
 };
 
-const BasinInfo = ({ jobData, updateJobData, next }) => {
+const InsuranceInfo = ({ jobData, updateJobData, next }) => {
   const [form] = Form.useForm();
   const { register, handleSubmit, errors } = useForm();
 
@@ -61,52 +61,31 @@ const BasinInfo = ({ jobData, updateJobData, next }) => {
         requiredMark="optional"
       >
         <Form.Item
-          label="Business Name"
-          name="name"
+          label="Email of your Insurance Agent/Broker"
+          name="brokerEmail"
           rules={[
             {
               required: true,
-              message: "eg. TechLance",
+              message: "test@gmail.com",
             },
           ]}
+          className="my-0"
         >
           <Input />
         </Form.Item>
 
-        <Form.Item
-          label="Business Address"
-          name="address"
-          rules={[
-            {
-              required: true,
-              message: "eg. 123 BayView Street, Calgary",
-            },
-          ]}
-        >
-          <Input />
+        <Form.Item>
+          <Checkbox onChange={toggleCheck}>
+            Allow Jiffy to contact my Agent/Broker
+          </Checkbox>
         </Form.Item>
 
         <Form.Item
-          {...smallFormItemLayout}
-          label="Units/Suites"
-          name="unit"
+          label="Insurance Policy Number (optional)"
+          name="insurancePolicyNumber"
           rules={[
             {
               // required: true,
-              message: "eg. 4",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          {...smallFormItemLayout}
-          label="HST Number"
-          name="hst"
-          rules={[
-            {
-              required: true,
               message: "eg. 12345",
             },
           ]}
@@ -114,37 +93,27 @@ const BasinInfo = ({ jobData, updateJobData, next }) => {
           <Input />
         </Form.Item>
 
-        <Form.Item label="Website" name="website">
-          <Input addonBefore="https://" />
-        </Form.Item>
-
-        <Form.Item
-          label="Where did you learn about us?"
-          name="discoverDescription"
-        >
-          <TextArea
-            rows={4}
-            placeholder="eg. Tell us about where did you learn about us"
-            minLength={6}
-          />
-        </Form.Item>
-
         <Form.Item>
           <div className="flex flex-col gap-4 p-3 bg-gray-100 rounded-lg">
+            <p className="font-bold">I certify that: </p>
             <p className="text-justify">
-              By checking this box you represent and warrant that you hold all
-              required or industry standard insurance, workers compensation, and
-              workplace safety, to adequately cover property damage, bodily
-              injury, theft, property loss in amounts sufficient for your
-              liability under your contract with the Requesting User.
+              I work solely by myself, with no full-time or part-time employees,
+              contractors or sub-trades.
             </p>
-            <Checkbox onChange={toggleCheck}>I agree and acknowledge</Checkbox>
+            <p className="font-bold text-center">OR</p>
+            <p className="text-justify">
+              I have full-time and/or part-time employees or employ contractors
+              or sub-trades as needed. I have an active WSIB number.
+            </p>
+            <Checkbox onChange={toggleCheck}>
+              I agree and acknowledge that one of the statements above is true
+            </Checkbox>
           </div>
         </Form.Item>
 
         <Form.Item>
           <Button type="primary" htmlType="submit" size="large">
-            Create Company
+            Save & Continue
           </Button>
         </Form.Item>
       </Form>
@@ -152,4 +121,4 @@ const BasinInfo = ({ jobData, updateJobData, next }) => {
   );
 };
 
-export default BasinInfo;
+export default InsuranceInfo;

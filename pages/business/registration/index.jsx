@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { Divider, message, Steps } from "antd";
 
 import BasinInfo from "./formSteps/BasicInfo";
-import SecondStep from "./formSteps/SecondStep";
+import InsuranceInfo from "./formSteps/InsuranceInfo";
 import ThirdStep from "./formSteps/ThirdStep";
 
 import { Footer } from "@/components";
@@ -50,7 +50,7 @@ export default function Business() {
     {
       title: "Insurance Info",
       content: (
-        <SecondStep
+        <InsuranceInfo
           jobData={jobData}
           updateJobData={updateJobData}
           next={next}
@@ -61,7 +61,7 @@ export default function Business() {
     {
       title: "References",
       content: (
-        <SecondStep
+        <InsuranceInfo
           jobData={jobData}
           updateJobData={updateJobData}
           next={next}
@@ -72,7 +72,7 @@ export default function Business() {
     {
       title: "Select Services",
       content: (
-        <SecondStep
+        <InsuranceInfo
           jobData={jobData}
           updateJobData={updateJobData}
           next={next}
@@ -80,10 +80,10 @@ export default function Business() {
         />
       ),
     },
-    {
-      title: "Setup Payment",
-      content: <ThirdStep jobData={jobData} done={done} onEdit={onEdit} />,
-    },
+    // {
+    //   title: "Setup Payment",
+    //   content: <ThirdStep jobData={jobData} done={done} onEdit={onEdit} />,
+    // },
   ];
 
   const items = steps.map((item) => ({
@@ -104,11 +104,22 @@ export default function Business() {
           <h1 className="text-lg lg:text-3xl font-bold py-4">
             Business On-Boarding
           </h1>
-          <Steps current={formStage} items={items} className="font-bold pt-2" />
 
-          <Divider />
+          <Divider className="my-2" />
 
-          <section>{steps[formStage].content}</section>
+          <section className="flex">
+            <div className="">
+              <Steps
+                direction="vertical"
+                size="small"
+                className="font-bold pt-2"
+                current={formStage}
+                items={items}
+              />
+            </div>
+
+            <div className="ml-[10vw]">{steps[formStage].content}</div>
+          </section>
         </main>
 
         <Footer />
