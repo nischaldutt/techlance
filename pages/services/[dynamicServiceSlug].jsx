@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { CardSlider, ServiceSearchCard, Footer } from "@/components";
+import { CardSlider, ClientServiceSearchCard, Footer } from "@/components";
 
 export default function AvailableServices() {
   const router = useRouter();
@@ -36,7 +36,7 @@ export default function AvailableServices() {
         <div className="mx-auto w-full md:w-[90%] lg:w-4/5 xl:w-3/5">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((searchResult) => {
             return (
-              <ServiceSearchCard
+              <ClientServiceSearchCard
                 key={searchResult}
                 bookServiceHandler={bookServiceHandler}
               />

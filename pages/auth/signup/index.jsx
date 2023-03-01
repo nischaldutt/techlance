@@ -2,10 +2,10 @@ import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 
-import { SignupForm } from "@/components";
+import { SignUpForm } from "./SignUpForm";
 import { Signin as SigninSvg } from "@/assets";
 
-export default function Signin() {
+export default function SignUn() {
   return (
     <>
       <Head>
@@ -20,7 +20,7 @@ export default function Signin() {
         </div>
 
         <div className="">
-          <SignupForm />
+          <SignUpForm />
         </div>
       </div>
     </>

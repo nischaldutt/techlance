@@ -2,10 +2,10 @@ import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 
-import { SigninForm } from "@/components";
-import { Signin as SigninSvg } from "@/assets";
+import { SignInForm } from "./SignInForm";
+import { Signin as SignInSvg } from "@/assets";
 
-export default function Signin() {
+export default function SignIn() {
   return (
     <>
       <Head>
@@ -16,11 +16,11 @@ export default function Signin() {
 
       <div className="flex flex-col-reverse md:flex-row justify-evenly items-center bg-[#FAFAFA] py-8">
         <div className="animate-[float_6s_ease-in-out_infinite]">
-          <SigninSvg className="w-[90vw] h-[90vw] md:w-[40vw] md:h-[40vw]" />
+          <SignInSvg className="w-[90vw] h-[90vw] md:w-[40vw] md:h-[40vw]" />
         </div>
 
         <div className="">
-          <SigninForm />
+          <SignInForm />
         </div>
       </div>
     </>

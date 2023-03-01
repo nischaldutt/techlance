@@ -1,15 +1,7 @@
 import React from "react";
 import Head from "next/head";
 
-import {
-  BusinessHero,
-  BusinessFeatures,
-  BusinessAboutSectionOne,
-  BusinessAboutSectionTwo,
-  BusinessPricing,
-  Contact,
-  Footer,
-} from "@/components";
+import { BusinessHero, BusinessFeatures, Contact, Footer } from "@/components";
 
 export default function Business() {
   return (
@@ -23,9 +15,6 @@ export default function Business() {
       <main>
         <BusinessHero />
         <BusinessFeatures />
-        <BusinessAboutSectionOne />
-        <BusinessAboutSectionTwo />
-        <BusinessPricing />
         <Contact />
       </main>
 

@@ -12,13 +12,12 @@ import { BiShareAlt } from "react-icons/bi";
 import { FiFacebook } from "react-icons/fi";
 
 import {
-  Accordion,
-  Carousal,
-  Collapse,
-  Gallery,
-  ServiceNavHeader,
-  RatingStats,
-  StaticMap,
+  ClientAccordion,
+  ClientCarousal,
+  ClientGallery,
+  ClientServiceNavHeader,
+  ClientRatingStats,
+  ClientStaticMap,
   Footer,
 } from "@/components";
 
@@ -82,11 +81,11 @@ export default function ServicePage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <ServiceNavHeader />
+      <ClientServiceNavHeader />
 
       <div className="flex flex-col items-center md:items-stretch md:flex-row lg:w-4/5 2xl:w-3/5 2xl:justify-between mx-auto my-8 ">
         <div className="px-2 2xl:px-0 w-[90%] sm:w-4/5 md:w-3/5 2xl:w-[65%]">
-          <Carousal />
+          <ClientCarousal />
 
           <div className="py-2">
             <div className="px-3 py-1 rounded-full text-white bg-primary-100 text-xs inline-flex justify-between w-max cursor-pointer">
@@ -108,13 +107,13 @@ export default function ServicePage() {
             <div className="text-xl font-bold py-2">Services</div>
 
             <div className="">
-              <Accordion
+              <ClientAccordion
                 key="1"
                 headLabel="Popular Services"
                 initialExpand={true}
                 bookServiceHandler={bookServiceHandler}
               />
-              <Accordion
+              <ClientAccordion
                 key="2"
                 headLabel="Other Services"
                 initialExpand={false}
@@ -127,7 +126,7 @@ export default function ServicePage() {
             <div className="uppercase pt-6 py-3 underline-offset-8 font-bold">
               See Our Work
             </div>
-            <Gallery images={galleryImages} />
+            <ClientGallery images={galleryImages} />
           </div>
 
           <HealthSafetyRules />
@@ -136,12 +135,12 @@ export default function ServicePage() {
             <div className="uppercase pt-6 py-3 underline-offset-8 font-bold">
               Reviews
             </div>
-            <RatingStats />
+            <ClientRatingStats />
           </div>
         </div>
 
         <div className="text-gray-700 bg-gray-50 sm:w-4/5 md:w-2/5 2xl:w-[32%]">
-          <StaticMap />
+          <ClientStaticMap />
 
           <div className="p-4 grid gap-4 sticky-top top-20 z-20">
             <AboutSection />

@@ -116,9 +116,7 @@ export default function Business() {
               />
             </div>
 
-            <div className="border-2 border-white md:ml-[10vw]">
-              {steps[formStage].content}
-            </div>
+            <div className="md:ml-[10vw]">{steps[formStage].content}</div>
           </section>
         </main>
 

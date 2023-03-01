@@ -7,7 +7,7 @@ import FirstStep from "./formSteps/FirstStep";
 import SecondStep from "./formSteps/SecondStep";
 import ThirdStep from "./formSteps/ThirdStep";
 
-import { Footer, JobRateCard } from "@/components";
+import { Footer, ClientJobRateCard } from "@/components";
 
 export default function ServiceBooking() {
   const router = useRouter();
@@ -95,7 +95,7 @@ export default function ServiceBooking() {
           </section>
 
           <section className="hidden lg:block lg:w-[30%] xl:w-1/4">
-            <JobRateCard />
+            <ClientJobRateCard />
           </section>
         </main>
 
