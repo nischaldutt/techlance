@@ -1,6 +1,6 @@
 import React from "react";
 
-import { CardSlider } from "@/components";
+import { ClientCardSlider } from "@/components";
 
 export default function Recommendations() {
   return (
@@ -8,7 +8,7 @@ export default function Recommendations() {
       <div className="pb-6 text-primary-100 text-xl font-bold mx-auto w-[98vw] xs:w-[90vw] 2xl:w-3/5">
         Recommended
       </div>
-      <CardSlider />
+      <ClientCardSlider />
     </div>
   );
 }
