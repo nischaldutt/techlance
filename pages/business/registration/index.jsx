@@ -5,7 +5,7 @@ import { Divider, message, Steps } from "antd";
 
 import BasinInfo from "./formSteps/BasicInfo";
 import InsuranceInfo from "./formSteps/InsuranceInfo";
-import ThirdStep from "./formSteps/ThirdStep";
+import ReferenceInfo from "./formSteps/ReferenceInfo";
 
 import { Footer } from "@/components";
 
@@ -61,7 +61,7 @@ export default function Business() {
     {
       title: "References",
       content: (
-        <InsuranceInfo
+        <ReferenceInfo
           jobData={jobData}
           updateJobData={updateJobData}
           next={next}
