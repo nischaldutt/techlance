@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 
-import { SignInForm } from "./SignInForm";
+import SignInForm from "./SignInForm";
 import { Signin as SignInSvg } from "@/assets";
 
 export default function SignIn() {

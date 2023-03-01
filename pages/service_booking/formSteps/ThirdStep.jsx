@@ -15,7 +15,7 @@ import {
   message,
   Upload,
   Card,
-  ClientCollapse,
+  Collapse,
 } from "antd";
 import { AiFillCreditCard } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
@@ -23,7 +23,7 @@ import { GiCancel } from "react-icons/gi";
 import { HiLocationMarker } from "react-icons/hi";
 
 const { TextArea } = Input;
-const { Panel } = ClientCollapse;
+const { Panel } = Collapse;
 
 const ThirdStep = ({ jobData, done, onEdit }) => {
   const { register, handleSubmit, errors } = useForm();
@@ -80,7 +80,7 @@ const ThirdStep = ({ jobData, done, onEdit }) => {
             900 Dufferin Street, Toronto, ON
           </div>
 
-          <ClientCollapse accordion bordered={false}>
+          <Collapse accordion bordered={false}>
             <Panel header="Job Description" key="1">
               <p className="">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -92,7 +92,7 @@ const ThirdStep = ({ jobData, done, onEdit }) => {
                 sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>
             </Panel>
-          </ClientCollapse>
+          </Collapse>
         </section>
       </Card>
 

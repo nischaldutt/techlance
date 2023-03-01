@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 
-import { SignUpForm } from "./SignUpForm";
+import SignUpForm from "./SignUpForm";
 import { Signin as SigninSvg } from "@/assets";
 
 export default function SignUn() {

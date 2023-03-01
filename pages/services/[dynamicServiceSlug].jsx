@@ -4,7 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { CardSlider, ClientServiceSearchCard, Footer } from "@/components";
+import {
+  ClientCardSlider,
+  ClientServiceSearchCard,
+  Footer,
+} from "@/components";
 
 export default function AvailableServices() {
   const router = useRouter();
@@ -26,7 +30,7 @@ export default function AvailableServices() {
           <div className="pb-6 text-gray-700 text-2xl font-bold mx-auto w-[98vw] xs:w-[90vw] 2xl:w-3/5">
             Hair Salons near you in Noida, IN
           </div>
-          <CardSlider />
+          <ClientCardSlider />
         </div>
 
         <div className="py-2 mx-auto w-full md:w-[90%] xl:w-3/5">

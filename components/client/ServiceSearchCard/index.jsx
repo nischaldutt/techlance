@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import { ServiceListItem } from "@/components";
+import { ClientServiceListItem } from "@/components";
 
 const ServiceInfo = () => {
   return (
@@ -41,10 +41,10 @@ const ServiceSearchCard = ({ bookServiceHandler }) => {
       </div>
       <div className="flex-grow pr-2">
         <ServiceInfo />
-        <ServiceListItem bookServiceHandler={bookServiceHandler} />
-        <ServiceListItem bookServiceHandler={bookServiceHandler} />
-        <ServiceListItem bookServiceHandler={bookServiceHandler} />
-        <ServiceListItem bookServiceHandler={bookServiceHandler} />
+        <ClientServiceListItem bookServiceHandler={bookServiceHandler} />
+        <ClientServiceListItem bookServiceHandler={bookServiceHandler} />
+        <ClientServiceListItem bookServiceHandler={bookServiceHandler} />
+        <ClientServiceListItem bookServiceHandler={bookServiceHandler} />
       </div>
     </div>
   );
