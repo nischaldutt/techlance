@@ -1,20 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import {
-  Button,
-  Divider,
-  DatePicker,
-  Form,
-  Input,
-  Space,
-  TimePicker,
-  Row,
-  Col,
-  Checkbox,
-} from "antd";
-
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import { GrSubtractCircle } from "react-icons/gr";
+import { Button, Form, Input, Checkbox } from "antd";
 
 const { TextArea } = Input;
 

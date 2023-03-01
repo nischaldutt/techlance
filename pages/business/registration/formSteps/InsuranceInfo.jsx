@@ -1,31 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import {
-  Button,
-  Divider,
-  DatePicker,
-  Form,
-  Input,
-  Space,
-  TimePicker,
-  Row,
-  Col,
-  Checkbox,
-} from "antd";
-
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import { GrSubtractCircle } from "react-icons/gr";
-
-const { TextArea } = Input;
-
-const smallFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 8,
-      offset: 0,
-    },
-  },
-};
+import { Button, Form, Input, Checkbox } from "antd";
 
 const InsuranceInfo = ({ jobData, updateJobData, next }) => {
   const [form] = Form.useForm();

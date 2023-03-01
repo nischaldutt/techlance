@@ -6,6 +6,7 @@ import { Divider, message, Steps } from "antd";
 import BasinInfo from "./formSteps/BasicInfo";
 import InsuranceInfo from "./formSteps/InsuranceInfo";
 import ReferenceInfo from "./formSteps/ReferenceInfo";
+import SelectServices from "./formSteps/SelectServices";
 
 import { Footer } from "@/components";
 
@@ -13,6 +14,7 @@ export default function Business() {
   const router = useRouter();
   const { serviceId } = router.query;
 
+  //** use useReducer hook manage state of this component by lifting up the states */
   const [formStage, setFormStage] = React.useState(0);
   const [jobData, setJobData] = React.useState({});
 
@@ -72,7 +74,7 @@ export default function Business() {
     {
       title: "Select Services",
       content: (
-        <InsuranceInfo
+        <SelectServices
           jobData={jobData}
           updateJobData={updateJobData}
           next={next}
@@ -80,10 +82,6 @@ export default function Business() {
         />
       ),
     },
-    // {
-    //   title: "Setup Payment",
-    //   content: <ThirdStep jobData={jobData} done={done} onEdit={onEdit} />,
-    // },
   ];
 
   const items = steps.map((item) => ({
@@ -107,7 +105,7 @@ export default function Business() {
 
           <Divider className="my-2" />
 
-          <section className="flex">
+          <section className="flex flex-col md:flex-row">
             <div className="">
               <Steps
                 direction="vertical"
@@ -118,7 +116,9 @@ export default function Business() {
               />
             </div>
 
-            <div className="ml-[10vw]">{steps[formStage].content}</div>
+            <div className="border-2 border-white md:ml-[10vw]">
+              {steps[formStage].content}
+            </div>
           </section>
         </main>
 

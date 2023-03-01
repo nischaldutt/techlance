@@ -1,32 +1,10 @@
 import React from "react";
-import dayjs from "dayjs";
 import { useForm } from "react-hook-form";
-import {
-  Alert,
-  Button,
-  Checkbox,
-  Divider,
-  DatePicker,
-  Form,
-  Input,
-  Space,
-  TimePicker,
-  Row,
-  Col,
-  message,
-  Upload,
-  Card,
-  Collapse,
-} from "antd";
-import { AiFillCreditCard } from "react-icons/ai";
-import { MdModeEditOutline } from "react-icons/md";
-import { GiCancel } from "react-icons/gi";
-import { HiLocationMarker } from "react-icons/hi";
+import { Button, Form, Input } from "antd";
 
 const { TextArea } = Input;
-const { Panel } = Collapse;
 
-const ReferenceInfo = ({ jobData, done, onEdit }) => {
+const ReferenceInfo = ({ jobData, onEdit, next }) => {
   const [form] = Form.useForm();
   const { register, handleSubmit, errors } = useForm();
 
