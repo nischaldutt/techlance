@@ -5,12 +5,14 @@ export default function About({
   description,
   Icon,
   bg = "white",
-  flexDirection = "flex-row",
+  rowReverse = false,
 }) {
   return (
     <div className={`flex justify-center items-center my-8 ${bg}`}>
       <div
-        className={`flex ${flexDirection} md:justify-around py-12 text-gray-900 w-[90%] 2xl:w-3/5`}
+        className={`flex flex-col ${
+          rowReverse ? "md:flex-row-reverse" : "md:flex-row"
+        } md:justify-around py-12 text-gray-900 w-[90%] 2xl:w-3/5`}
       >
         <div className="md:w-1/2">
           <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold mb-6 text-primary-100">

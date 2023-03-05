@@ -7,7 +7,6 @@ export default function ClientAboutSectionTwo() {
   return (
     <About
       bg="bg-gray-100"
-      flexDirection="flex-row-reverse"
       title="Something come up? We've got you."
       description={
         <div className="text-sm lg:text-base text-justify">
@@ -21,6 +20,7 @@ export default function ClientAboutSectionTwo() {
         </div>
       }
       Icon={<Reminders />}
+      rowReverse={true}
     />
   );
 }

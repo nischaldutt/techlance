@@ -163,72 +163,44 @@ export default function ClientNavbar() {
           <div
             className={`${
               active ? "" : "hidden"
-            } mr-6 bg-gray-100 rounded-lg w-full flex flex-col items-start lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto lg:items-center lg:h-auto`}
+            } bg-gray-100 rounded-lg  flex flex-col items-start lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto lg:items-center lg:h-auto`}
           >
             <Link href="/signin">
               <a
-                className="border-2 w-full px-3 py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
+                className="border-b-2 w-full py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
                 onClick={handleClick}
               >
                 {/* <MdAccountCircle size="20" /> */}
-                <span className="">Log In / Sign Up</span>
+                <span className="px-4">Log In / Sign Up</span>
               </a>
             </Link>
 
             <Link href="/">
               <a
-                className="border-2 w-full px-3 py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
+                className="border-b-2 w-full py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
                 onClick={handleClick}
               >
-                India
+                <span className="px-4">India</span>
               </a>
             </Link>
 
             <Link href="/business">
               <a
-                className="border-2 w-full px-3 py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
+                className="border-b-2 w-full py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
                 onClick={handleClick}
               >
-                For Business
+                <span className="px-4">For Business</span>
               </a>
             </Link>
 
             <Link href="/services">
-              <a
-                className="border-2 w-full px-3 py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
-                // onClick={() => setShowModalMenu(true)}
-              >
-                Services
+              <a className="border-b-2 w-full py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto">
+                <span className="px-4">Services</span>
               </a>
             </Link>
-
-            {/* <ModalMenu
-              showModalMenu={showModalMenu}
-              onClose={() => {
-                handleClick();
-                setShowModalMenu(false);
-              }}
-            /> */}
           </div>
         </div>
       </div>
-      {/* <div
-        className={`${
-          isHome ? "hidden" : "lg:flex"
-        } bg-primary-500 pb-6 hidden justify-center`}
-      >
-        <ui className="list-none flex lg:w-full xl:w-4/5 2xl:w-3/5 justify-between">
-          {services.map((service) => {
-            return (
-              <Link key={service} href="/services/hair-salon/salon1">
-                <li className="text-white text-sm block px-2 cursor-pointer">
-                  {service}
-                </li>
-              </Link>
-            );
-          })}
-        </ui>
-      </div> */}
     </nav>
   );
 }
