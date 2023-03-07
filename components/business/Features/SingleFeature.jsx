@@ -1,19 +1,16 @@
+import { Divider } from "antd";
+
 const SingleFeature = ({ feature }) => {
   const { icon, title, paragraph } = feature;
   return (
-    <div className="border-2 border-black">
+    <div className="w-72 p-4 rounded-lg shadow-lg border-2">
       <div className="flex flex-col justify-center">
-        <div className="flex gap-4 items-center">
-          <div className="mb-10 flex h-[40px] w-[40px] items-center justify-center rounded-md bg-primary bg-opacity-10 text-primary">
-            {icon}
-          </div>
-          <h3 className="mb-5 text-xl font-bold text-black sm:text-2xl lg:text-xl xl:text-2xl">
-            {title}
-          </h3>
+        <div className="flex gap-4 items-center text-primary-500">
+          <div className="">{icon}</div>
+          <h3 className="font-bold">{title}</h3>
         </div>
-        <p className="pr-[10px] text-base font-medium leading-relaxed text-body-color">
-          {paragraph}
-        </p>
+        <Divider className="my-2" />
+        <p className="text-justify text-sm">{paragraph}</p>
       </div>
     </div>
   );
