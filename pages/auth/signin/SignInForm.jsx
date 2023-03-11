@@ -89,7 +89,7 @@ export default function SignInForm() {
       </div>
 
       <div className="w-full py-2 text-right">
-        <Link href="/signup">
+        <Link href="/auth/signup">
           <a className="text-xs text-primary-100 font-bold">
             Don&apos;t have and account? Sign up
           </a>
