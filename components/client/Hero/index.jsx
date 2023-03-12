@@ -1,19 +1,9 @@
 import React from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { Button, Space } from "antd";
 
 import CustomTypewriter from "./Typewriter";
-import { BiSearchAlt } from "react-icons/bi";
+import SearchSelect from "./SearchSelect";
 
 export default function ClientHero() {
-  const router = useRouter();
-
-  function getQuote(serviceId) {
-    console.log({ serviceId });
-    router.push(`/service_booking/12`);
-  }
-
   return (
     <>
       <div className="select-none relative h-[30rem] flex justify-center mb-8">
@@ -41,21 +31,15 @@ export default function ClientHero() {
             Discover and book beauty & wellness professionals near you
           </div>
 
-          <div className="m-4 sm:w-[36rem] md:w-[45rem] p-2 sm:p-4 text-[10px] sm:text-xs text-gray-500 font-bold bg-white rounded-lg grid grid-cols-2 border border-gray cursor-pointer">
-            <div
-              className="inline-flex items-center"
-              onClick={() => console.log("hi")}
-            >
-              <BiSearchAlt size="20" />
-              <div className="ml-2">Select a service...</div>
-            </div>
+          <div className="m-4 sm:w-[36rem] md:w-[45rem] marker:font-bold bg-white rounded-lg">
+            <SearchSelect />
           </div>
 
-          <Space className="py-2 w-full flex justify-center">
+          {/* <Space className="py-2 w-full flex justify-center">
             <Button type="primary" size="large" onClick={getQuote}>
               <p className="font-bold">Get My Quote</p>
             </Button>
-          </Space>
+          </Space> */}
         </div>
       </div>
     </>
