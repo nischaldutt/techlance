@@ -74,13 +74,13 @@ export default function SearchSelect() {
       notFoundContent={null}
       dropdownRender={(menu) => (
         <div className="p-2 text-gray-700 ">
-          <div className="h-full flex">
-            <div className="w-1/2">
+          <div className="h-full flex flex-col sm:flex-row">
+            <div className="w-full sm:w-1/2">
               <MenuTitle title="Businesses" />
               {menu}
             </div>
             <div className="border-r border-gray-200 mx-2"></div>
-            <div className="w-1/2">
+            <div className="w-full sm:w-1/2">
               <MenuTitle title="Services" />
               {menu}
             </div>
@@ -112,7 +112,7 @@ export default function SearchSelect() {
 
 function MenuTitle({ title }) {
   return (
-    <p className="font-bold text-sm pb-2 text-primary-500">
+    <p className="font-bold text-sm py-2 text-primary-500">
       {title.toUpperCase()}
     </p>
   );
