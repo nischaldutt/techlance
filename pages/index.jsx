@@ -1,6 +1,5 @@
 import React from "react";
 import Head from "next/head";
-import Image from "next/image";
 
 import {
   ClientHero,
@@ -11,7 +10,6 @@ import {
   ClientAboutSectionThree,
   Footer,
 } from "@/components";
-import { Services, Bookings, Reminders } from "@/assets";
 
 export default function Home() {
   return (

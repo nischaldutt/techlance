@@ -2,6 +2,7 @@
 export { default as SectionTitle } from "@/components/common/SectionTitle";
 export { default as Contact } from "@/components/common/Contact";
 export { default as About } from "@/components/common/About";
+export { default as HigherOrderModalComponent } from "@/components/common/Modal";
 export { default as Footer } from "@/components/common/Footer";
 
 // client
@@ -25,6 +26,8 @@ export { default as ClientRatingStats } from "@/components/client/RatingStats";
 export { default as ClientServiceSearchCard } from "@/components/client/ServiceSearchCard";
 export { default as ClientServiceNavHeader } from "@/components/client/ServiceNavHeader";
 export { default as ClientJobRateCard } from "@/components/client/JobRateCard";
+export { default as ClientServiceSelectModal } from "@/components/client/ServiceSelectModal"; // component can be removed if not being used, kept for future reference
+export { default as ClientLocationSelectModal } from "@/components/client/LocationSelectModal"; // component can be removed if not being used, kept for future reference
 
 // business
 export { default as BusinessHero } from "@/components/business/Hero";
