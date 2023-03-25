@@ -4,7 +4,7 @@ export default function FooterAdmin() {
   return (
     <>
       <footer className="block py-4">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto">
           <hr className="mb-4 border-b-1 border-blueGray-200" />
           <div className="flex flex-col items-center justify-center md:flex-row md:justify-between">
             <div className="w-full md:w-4/12 px-4">
