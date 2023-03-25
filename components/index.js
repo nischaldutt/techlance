@@ -32,3 +32,16 @@ export { default as ClientLocationSelectModal } from "@/components/client/Locati
 // business
 export { default as BusinessHero } from "@/components/business/Hero";
 export { default as BusinessFeatures } from "@/components/business/Features";
+export { default as BusinessUserDropdown } from "@/components/business/Dropdowns/UserDropdown";
+export { default as BusinessNotificationDropdown } from "@/components/business/Dropdowns/NotificationDropdown";
+export { default as BusinessSidebar } from "@/components/business/Sidebar";
+export { default as BusinessAdminNavbar } from "@/components/business/Navbars/AdminNavbar";
+export { default as BusinessCardBarChart } from "@/components/business/Cards/CardBarChart";
+export { default as BusinessCardLineChart } from "@/components/business/Cards/CardLineChart";
+export { default as BusinessCardPageVisits } from "@/components/business/Cards/CardPageVisits";
+export { default as BusinessCardSocialTraffic } from "@/components/business/Cards/CardSocialTraffic";
+export { default as BusinessCardStats } from "@/components/business/Cards/CardStats";
+export { default as BusinessHeaderStats } from "@/components/business/Headers/HeaderStats";
+export { default as BusinessFooterAdmin } from "@/components/business/Footers/FooterAdmin";
+export { default as BusinessCardProfile } from "@/components/business/Cards/CardProfile";
+export { default as BusinessCardSettings } from "@/components/business/Cards/CardSettings";

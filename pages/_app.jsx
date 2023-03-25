@@ -1,12 +1,15 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { ConfigProvider } from "antd";
-
-import "../styles/globals.css";
 
 import { ClientNavbar } from "@/components";
 import { theme } from "@/tailwind.config";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+  const Layout = Component.layout || (({ children }) => <>{children}</>);
+
   return (
     <>
       <ConfigProvider
@@ -17,11 +20,24 @@ function MyApp({ Component, pageProps }) {
           },
         }}
       >
-        <ClientNavbar />
-        <Component {...pageProps} />
+        {!router.pathname.includes("/business") && <ClientNavbar />}
+
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ConfigProvider>
     </>
   );
 }
+
+MyApp.getInitialProps = async ({ Component, ctx }) => {
+  let pageProps = {};
+
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
+
+  return { pageProps };
+};
 
 export default MyApp;
