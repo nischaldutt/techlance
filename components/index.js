@@ -42,3 +42,4 @@ export { default as BusinessCardPageVisits } from "@/components/business/Cards/C
 export { default as BusinessCardSocialTraffic } from "@/components/business/Cards/CardSocialTraffic";
 export { default as BusinessCardStats } from "@/components/business/Cards/CardStats";
 export { default as BusinessHeaderStats } from "@/components/business/Headers/HeaderStats";
+export { default as BusinessFooterAdmin } from "@/components/business//Footers/FooterAdmin";

@@ -4,8 +4,8 @@ import {
   BusinessAdminNavbar,
   BusinessSidebar,
   BusinessHeaderStats,
+  BusinessFooterAdmin,
 } from "@/components";
-// import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 export default function Admin({ children }) {
   return (
@@ -17,7 +17,7 @@ export default function Admin({ children }) {
         <BusinessHeaderStats />
         <div className="px-4 md:px-10 mx-auto -m-24">
           {children}
-          {/* <FooterAdmin /> */}
+          <BusinessFooterAdmin />
         </div>
       </div>
     </div>

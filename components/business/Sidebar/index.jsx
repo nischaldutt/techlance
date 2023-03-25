@@ -102,12 +102,13 @@ export default function Sidebar() {
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
-                <Link href="/admin/dashboard">
+                <Link href="/business/admin/dashboard">
                   <a
                     href="#pablo"
                     className={
                       "text-xs uppercase py-3 font-bold flex gap-2 " +
-                      (router.pathname.indexOf("/admin/dashboard") !== -1
+                      (router.pathname.indexOf("/business/admin/dashboard") !==
+                      -1
                         ? "text-sky-500 hover:text-sky-600"
                         : "text-slate-700 hover:text-slate-500")
                     }
@@ -119,7 +120,7 @@ export default function Sidebar() {
               </li>
 
               <li className="items-center">
-                <Link href="/admin/settings">
+                <Link href="/business/admin/settings">
                   <a
                     href="#pablo"
                     className={
@@ -137,7 +138,7 @@ export default function Sidebar() {
               </li>
 
               <li className="items-center">
-                <Link href="/admin/tables">
+                <Link href="/business/admin/tables">
                   <a
                     href="#pablo"
                     className={
@@ -154,12 +155,12 @@ export default function Sidebar() {
               </li>
 
               <li className="items-center">
-                <Link href="/admin/maps">
+                <Link href="/business/admin/maps">
                   <a
                     href="#pablo"
                     className={
                       "text-xs uppercase py-3 font-bold flex gap-2 " +
-                      (router.pathname.indexOf("/admin/maps") !== -1
+                      (router.pathname.indexOf("/business/admin/maps") !== -1
                         ? "text-sky-500 hover:text-sky-600"
                         : "text-slate-700 hover:text-slate-500")
                     }
