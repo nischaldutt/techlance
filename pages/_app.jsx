@@ -1,5 +1,10 @@
 import React from "react";
 import { useRouter } from "next/router";
+import {
+  QueryClient,
+  QueryClientProvider,
+  Hydrate,
+} from "@tanstack/react-query";
 import { ConfigProvider } from "antd";
 
 import { ClientNavbar } from "@/components";
@@ -8,6 +13,8 @@ import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
+  const queryClient = new QueryClient();
+
   const Layout = Component.layout || (({ children }) => <>{children}</>);
 
   return (
@@ -20,11 +27,13 @@ function MyApp({ Component, pageProps }) {
           },
         }}
       >
-        {!router.pathname.includes("/business") && <ClientNavbar />}
+        <QueryClientProvider client={queryClient}>
+          {!router.pathname.includes("/business") && <ClientNavbar />}
 
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </QueryClientProvider>
       </ConfigProvider>
     </>
   );
