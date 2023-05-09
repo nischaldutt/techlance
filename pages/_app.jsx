@@ -11,28 +11,29 @@ import { ClientNavbar } from "@/components";
 import { theme } from "@/tailwind.config";
 import "../styles/globals.css";
 
+const themeConfigs = {
+  token: {
+    colorPrimary: theme.extend.colors.primary[100],
+    fontFamily: "Montserrat",
+  },
+};
+
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  const queryClient = new QueryClient();
+  const [queryClient] = React.useState(() => new QueryClient());
 
   const Layout = Component.layout || (({ children }) => <>{children}</>);
 
   return (
     <>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: theme.extend.colors.primary[100],
-            fontFamily: "Montserrat",
-          },
-        }}
-      >
+      <ConfigProvider theme={themeConfigs}>
         <QueryClientProvider client={queryClient}>
-          {!router.pathname.includes("/business") && <ClientNavbar />}
-
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <Hydrate state={pageProps.dehydratedState}>
+            {!router.pathname.includes("/business") && <ClientNavbar />}
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </Hydrate>
         </QueryClientProvider>
       </ConfigProvider>
     </>
