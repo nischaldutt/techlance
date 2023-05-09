@@ -1,6 +1,8 @@
-import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
 import { Button, Form, Input, Select } from "antd";
+
+import axiosClient from "@/utils/axiosClient";
 
 const { Option } = Select;
 
@@ -17,8 +19,37 @@ export default function SignUpForm() {
   // console.log(watch("firstName"));
 
   const onSubmit = (data) => {
-    console.log("Received values of form: ", data);
+    delete data.confirm;
+
+    const userObj = {
+      user_type: "customer",
+      first_name: "Vikas",
+      last_name: "Arora",
+      email: "aroravikas583@gmail.com",
+      mobile_no: 9779866222,
+      password: "Vikas123?",
+      country_id: 1,
+      is_mobile_verified: 1,
+      is_email_verified: 1,
+    };
+
+    return axiosClient.post("/auth/signup", userObj);
   };
+
+  const { mutate, isLoading, isError, isSuccess } = useMutation({
+    mutationFn: onSubmit,
+    onSuccess: (data, variables, context) => {
+      // make use of getstaticprops
+      console.log({ type: "onSuccess", data, variables, context });
+      // reset the form using reset function react query
+    },
+    onError: (error, variables, context) => {
+      console.log({ type: "onError", error, variables, context });
+    },
+    onSettled: (data, error, variables, context) => {
+      console.log({ type: "onSettled", data, error, variables, context });
+    },
+  });
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -39,7 +70,7 @@ export default function SignUpForm() {
         name="register"
         form={form}
         layout="vertical"
-        onFinish={handleSubmit(onSubmit)}
+        onFinish={handleSubmit(mutate)}
       >
         <Controller
           name="firstName"
@@ -169,7 +200,12 @@ export default function SignUpForm() {
         />
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" name="submit">
+          <Button
+            type="primary"
+            htmlType="submit"
+            name="submit"
+            loading={isLoading}
+          >
             Register
           </Button>
         </Form.Item>
