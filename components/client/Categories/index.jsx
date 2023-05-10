@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import Category from "./Category";
+import Category from "@/components/client/Categories/Category";
 
 const Categories = () => {
   return (

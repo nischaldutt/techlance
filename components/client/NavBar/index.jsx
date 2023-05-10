@@ -165,7 +165,7 @@ export default function ClientNavbar() {
               active ? "" : "hidden"
             } bg-gray-100 rounded-lg flex flex-col items-start lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto lg:items-center lg:h-auto`}
           >
-            <Link href="/auth/signin">
+            <Link href="/auth/login">
               <a
                 className="w-full py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
                 onClick={handleClick}
