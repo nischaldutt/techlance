@@ -3,10 +3,10 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Divider, message, Steps } from "antd";
 
-import BasinInfo from "./formSteps/BasicInfo";
-import InsuranceInfo from "./formSteps/InsuranceInfo";
-import ReferenceInfo from "./formSteps/ReferenceInfo";
-import SelectServices from "./formSteps/SelectServices";
+import BasinInfo from "@/pages/business/registration/formSteps/BasicInfo";
+import InsuranceInfo from "@/pages/business/registration/formSteps/InsuranceInfo";
+import ReferenceInfo from "@/pages/business/registration/formSteps/ReferenceInfo";
+import SelectServices from "@/pages/business/registration/formSteps/SelectServices";
 
 import { Footer } from "@/components";
 
