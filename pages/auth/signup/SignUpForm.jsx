@@ -20,10 +20,10 @@ export default function SignUpForm() {
   const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
 
-  const signupSuccessMessage = () => {
+  const signupSuccessMessage = (successMsg) => {
     messageApi.open({
       type: "success",
-      content: "Account created successfully!",
+      content: successMsg || "Account created successfully!",
     });
   };
 
@@ -58,7 +58,7 @@ export default function SignUpForm() {
     mutationFn: onSubmit,
     onSuccess: (data, variables, context) => {
       console.log({ type: "onSuccess", data, variables, context });
-      signupSuccessMessage();
+      signupSuccessMessage(data?.message);
       form.resetFields();
       router.push(URL_CONSTANTS.AUTH.LOGIN);
     },
@@ -90,7 +90,7 @@ export default function SignUpForm() {
         </div>
 
         <Form
-          name="register"
+          name="signup"
           form={form}
           layout="vertical"
           onFinish={handleSubmit(mutate)}
@@ -156,7 +156,7 @@ export default function SignUpForm() {
                     required: true,
                     message: "Please input your mobile number!",
                   },
-                  /** todo: enable mobile regex based on country */
+                  // todo: enable mobile regex based on country
                   // {
                   //   pattern: /^\+1\d{3}\s?\d{3}\s?\d{4}$/i,
                   //   message: "Invalid mobile number",
@@ -232,7 +232,7 @@ export default function SignUpForm() {
               name="submit"
               loading={isLoading}
             >
-              Register
+              Sign up
             </Button>
           </Form.Item>
         </Form>
