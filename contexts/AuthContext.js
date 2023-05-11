@@ -1,4 +1,8 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
+import Cookies from "js-cookie";
+
+import axiosClient from "@/utils/axiosClient";
+import { URL_CONSTANTS } from "@/constants";
 
 const AuthContext = createContext(null);
 
@@ -9,33 +13,41 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     async function loadUserFromCookies() {
       const token = Cookies.get("token");
+
       if (token) {
         console.log("Got a token in the cookies, let's see if it is valid");
-        api.defaults.headers.Authorization = `Bearer ${token}`;
-        const { data: user } = await api.get("users/me");
-        if (user) setUser(user);
+        axiosClient.defaults.headers.Authorization = `Bearer ${token}`;
+
+        // const { data: user } = await axiosClient.get("users/me");
+        // if (user) setUser(user);
       }
       setLoading(false);
     }
+
     loadUserFromCookies();
   }, []);
 
-  const login = async (email, password) => {
-    const { data: token } = await api.post("auth/login", { email, password });
-    if (token) {
-      console.log("Got token");
-      Cookies.set("token", token, { expires: 60 });
-      api.defaults.headers.Authorization = `Bearer ${token.token}`;
-      const { data: user } = await api.get("users/me");
-      setUser(user);
-      console.log("Got user", user);
+  const login = async (userObj) => {
+    const response = await axiosClient.post(URL_CONSTANTS.AUTH.LOGIN, userObj);
+
+    const {
+      data: { data: authenticatedUser },
+    } = response;
+
+    if (authenticatedUser?.token) {
+      Cookies.set("token", authenticatedUser?.token, { expires: 60 });
+      axiosClient.defaults.headers.Authorization = `Bearer ${authenticatedUser?.token}`;
+
+      setUser(authenticatedUser);
     }
+
+    return response;
   };
 
   const logout = (email, password) => {
     Cookies.remove("token");
     setUser(null);
-    delete api.defaults.headers.Authorization;
+    delete axiosClient.defaults.headers.Authorization;
     window.location.pathname = "/login";
   };
 
