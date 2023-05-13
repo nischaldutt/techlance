@@ -4,20 +4,20 @@ import { useForm as useReactHookForm, Controller } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { Button, Form, Input, message } from "antd";
 
+import { useAuth } from "@/contexts/AuthContext";
 import axiosClient from "@/utils/axiosClient";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
 export default function LoginForm() {
-  const {
-    control,
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useReactHookForm();
-  const [form] = Form.useForm();
   const router = useRouter();
+  const { isAuthenticated, user, login, loading, logout } = useAuth();
+
+  const [form] = Form.useForm();
+
+  // todo: create messageApi context to use throughout the app
+  // then there is no need to include contextHolder in each page
   const [messageApi, contextHolder] = message.useMessage();
+  const { control, handleSubmit } = useReactHookForm();
 
   const loginSuccessMessage = (successMsg) => {
     messageApi.open({
@@ -42,25 +42,23 @@ export default function LoginForm() {
       password: password,
     };
 
-    return axiosClient.post(URL_CONSTANTS.AUTH.LOGIN, userObj);
+    return login(userObj);
   };
 
   const { mutate, isLoading, isError, isSuccess } = useMutation({
     mutationFn: onSubmit,
     onSuccess: (data, variables, context) => {
-      console.log({ type: "onSuccess", data, variables, context });
-      loginSuccessMessage(data?.message);
+      // console.log({ type: "onSuccess", data, variables, context });
+      loginSuccessMessage(data?.data?.message);
       form.resetFields();
-
-      // todo: save the user in context and create a user hook
       router.push(URL_CONSTANTS.HOME);
     },
     onError: (error, variables, context) => {
-      console.log({ type: "onError", error, variables, context });
+      // console.log({ type: "onError", error, variables, context });
       loginErrorMessage(error?.response?.data?.message);
     },
     onSettled: (data, error, variables, context) => {
-      console.log({ type: "onSettled", data, error, variables, context });
+      // console.log({ type: "onSettled", data, error, variables, context });
     },
   });
 

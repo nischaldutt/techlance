@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import useSWR, { mutate } from "swr";
 
 import {
   ClientHero,
@@ -11,7 +12,17 @@ import {
   Footer,
 } from "@/components";
 
+import { useAuth } from "@/contexts/AuthContext";
+
 export default function Home() {
+  const { isAuthenticated, user, login, loading, logout } = useAuth();
+
+  // todo: configure swr
+  // const { data: { data: pages } = {}, isValidating } = useSWR(
+  //   isAuthenticated ? false : "/pages",
+  //   axiosClient.get
+  // );
+
   return (
     <>
       <Head>

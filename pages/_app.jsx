@@ -31,12 +31,12 @@ function MyApp({ Component, pageProps }) {
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
             <AuthProvider>
-              <ProtectRoute>
-                {!router.pathname.includes("/business") && <ClientNavbar />}
-                <Layout>
-                  <Component {...pageProps} />
-                </Layout>
-              </ProtectRoute>
+              {/* <ProtectRoute> */}
+              {!router.pathname.includes("/business") && <ClientNavbar />}
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+              {/* </ProtectRoute> */}
             </AuthProvider>
           </Hydrate>
         </QueryClientProvider>
