@@ -1,14 +1,15 @@
 import { useRouter } from "next/router";
 import { useForm as useReactHookForm, Controller } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
 import { Button, Form, Input, Select, message } from "antd";
 
-import axiosClient from "@/utils/axiosClient";
+import { useSignup } from "@/hooks";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
 const { Option } = Select;
 
 export default function SignUpForm() {
+  const router = useRouter();
+  const [form] = Form.useForm();
   const {
     control,
     register,
@@ -16,8 +17,6 @@ export default function SignUpForm() {
     watch,
     formState: { errors },
   } = useReactHookForm();
-  const [form] = Form.useForm();
-  const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
 
   const signupSuccessMessage = (successMsg) => {
@@ -36,6 +35,14 @@ export default function SignUpForm() {
 
   // console.log(watch("firstName"));
 
+  const { mutate: signup, isLoading } = useSignup((isSuccess, message) => {
+    return isSuccess
+      ? (signupSuccessMessage(message),
+        form.resetFields(),
+        router.push(URL_CONSTANTS.AUTH.LOGIN))
+      : signupErrorMessage(message);
+  });
+
   const onSubmit = (data) => {
     const { firstName, lastName, email, mobile, password } = data;
 
@@ -51,25 +58,8 @@ export default function SignUpForm() {
       is_email_verified: 1,
     };
 
-    return axiosClient.post(URL_CONSTANTS.AUTH.SIGN_UP, userObj);
+    return signup(userObj);
   };
-
-  const { mutate, isLoading, isError, isSuccess } = useMutation({
-    mutationFn: onSubmit,
-    onSuccess: (data, variables, context) => {
-      console.log({ type: "onSuccess", data, variables, context });
-      signupSuccessMessage(data?.message);
-      form.resetFields();
-      router.push(URL_CONSTANTS.AUTH.LOGIN);
-    },
-    onError: (error, variables, context) => {
-      console.log({ type: "onError", error, variables, context });
-      signupErrorMessage(error?.response?.data?.message);
-    },
-    onSettled: (data, error, variables, context) => {
-      console.log({ type: "onSettled", data, error, variables, context });
-    },
-  });
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -93,7 +83,7 @@ export default function SignUpForm() {
           name="signup"
           form={form}
           layout="vertical"
-          onFinish={handleSubmit(mutate)}
+          onFinish={handleSubmit(onSubmit)}
         >
           <Controller
             name="firstName"
