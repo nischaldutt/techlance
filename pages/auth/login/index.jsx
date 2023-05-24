@@ -3,7 +3,7 @@ import Head from "next/head";
 
 import LoginForm from "@/pages/auth/login/LoginForm";
 
-export default function SignIn() {
+export default function Login() {
   return (
     <>
       <Head>

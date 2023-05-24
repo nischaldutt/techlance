@@ -3,6 +3,7 @@ import { useForm as useReactHookForm, Controller } from "react-hook-form";
 import { Button, Form, Input, Select, message } from "antd";
 
 import { useSignup } from "@/hooks";
+import { useAntdMessageContext } from "@/contexts";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
 const { Option } = Select;
@@ -17,7 +18,7 @@ export default function SignUpForm() {
     watch,
     formState: { errors },
   } = useReactHookForm();
-  const [messageApi, contextHolder] = message.useMessage();
+  const { messageApi } = useAntdMessageContext();
 
   const signupSuccessMessage = (successMsg) => {
     messageApi.open({
@@ -32,8 +33,6 @@ export default function SignUpForm() {
       content: errorMsg || "Something went wrong!",
     });
   };
-
-  // console.log(watch("firstName"));
 
   const { mutate: signup, isLoading } = useSignup((isSuccess, message) => {
     return isSuccess
@@ -72,8 +71,6 @@ export default function SignUpForm() {
 
   return (
     <>
-      {contextHolder}
-
       <div className="p-8 sm:px-12 shadow-xl rounded-lg border bg-white sm:w-[30rem]">
         <div className="text-3xl font-bold pb-8 text-primary-100">
           Sign up to your account

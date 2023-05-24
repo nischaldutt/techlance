@@ -1,18 +1,17 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm as useReactHookForm, Controller } from "react-hook-form";
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input } from "antd";
 
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuthContext, useAntdMessageContext } from "@/contexts";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
 export default function LoginForm() {
   const router = useRouter();
   const [form] = Form.useForm();
-  // todo: create messageApi context to use throughout the app
-  // then there is no need to include contextHolder in each page
   const { control, handleSubmit } = useReactHookForm();
-  const [messageApi, contextHolder] = message.useMessage();
+  const { messageApi } = useAntdMessageContext();
+  const { login, isLoading } = useAuthContext();
 
   const loginSuccessMessage = (successMsg) => {
     messageApi.open({
@@ -27,8 +26,6 @@ export default function LoginForm() {
       content: errorMsg || "Login Failed!",
     });
   };
-
-  const { login, isLoading } = useAuth();
 
   const onSubmit = (data) => {
     const { email, password } = data;
@@ -50,8 +47,6 @@ export default function LoginForm() {
 
   return (
     <>
-      {contextHolder}
-
       <div className="px-8 sm:px-12 py-16 shadow-xl rounded-lg border bg-white sm:w-[30rem]">
         <div className="text-3xl font-bold py-2 text-primary-100">
           Signin to your account
