@@ -7,7 +7,8 @@ import {
 } from "@tanstack/react-query";
 import { ConfigProvider } from "antd";
 
-import { AuthProvider, ProtectRoute } from "@/contexts/AuthContext";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { AntdMessageProvider } from "@/contexts/AntdMessageContext";
 import { ClientNavbar } from "@/components";
 import { theme } from "@/tailwind.config";
 import "../styles/globals.css";
@@ -30,14 +31,14 @@ function MyApp({ Component, pageProps }) {
       <ConfigProvider theme={themeConfigs}>
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
-            <AuthProvider>
-              {/* <ProtectRoute> */}
-              {!router.pathname.includes("/business") && <ClientNavbar />}
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-              {/* </ProtectRoute> */}
-            </AuthProvider>
+            <AntdMessageProvider>
+              <AuthProvider>
+                {!router.pathname.includes("/business") && <ClientNavbar />}
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </AuthProvider>
+            </AntdMessageProvider>
           </Hydrate>
         </QueryClientProvider>
       </ConfigProvider>
