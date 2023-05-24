@@ -12,10 +12,10 @@ import {
   Footer,
 } from "@/components";
 
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuthContext } from "@/contexts";
 
 export default function Home() {
-  const { isAuthenticated, user, login, loading, logout } = useAuth();
+  const { isAuthenticated, user, login, isLoading, logout } = useAuthContext();
 
   // todo: configure swr
   // const { data: { data: pages } = {}, isValidating } = useSWR(
