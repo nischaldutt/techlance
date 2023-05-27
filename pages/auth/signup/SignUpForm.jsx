@@ -38,7 +38,7 @@ export default function SignUpForm() {
     return isSuccess
       ? (signupSuccessMessage(message),
         form.resetFields(),
-        router.push(URL_CONSTANTS.AUTH.LOGIN))
+        router.push(URL_CONSTANTS.HOME))
       : signupErrorMessage(message);
   });
 

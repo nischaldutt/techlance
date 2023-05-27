@@ -27,11 +27,12 @@ export function AuthProvider({ children }) {
   const login = async (userObj, callback) => {
     try {
       setIsLoading(true);
+      const loginEndpoint =
+        userObj?.user_type === APP_CONSTANTS.USER_TYPE.CUSTOMER
+          ? URL_CONSTANTS.CUSTOMER.AUTH.LOGIN
+          : URL_CONSTANTS.BUSINESS.AUTH.LOGIN;
 
-      const response = await axiosClient.post(
-        URL_CONSTANTS.AUTH.LOGIN,
-        userObj
-      );
+      const response = await axiosClient.post(loginEndpoint, userObj);
 
       const {
         data: { data: authenticatedUser },
@@ -57,7 +58,7 @@ export function AuthProvider({ children }) {
     Cookies.remove("token");
     setUser(null);
     delete axiosClient.defaults.headers.Authorization;
-    window.location.pathname = URL_CONSTANTS.AUTH.LOGIN;
+    window.location.pathname = URL_CONSTANTS.HOME;
   };
 
   return (

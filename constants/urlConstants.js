@@ -1,10 +1,18 @@
 const URL_CONSTANTS = {
   HOME: "/",
-  AUTH: {
-    LOGIN: "/auth/login",
-    SIGN_UP: "/auth/signup",
+  CUSTOMER: {
+    AUTH: {
+      LOGIN: "/auth/login",
+      SIGN_UP: "/auth/signup",
+    },
+    GET_CATEGORIES: "/categories",
   },
-  CATEGORIES: "/categories",
+  BUSINESS: {
+    AUTH: {
+      LOGIN: "/auth/login",
+      SIGN_UP: "/auth/signup",
+    },
+  },
 };
 
 export default URL_CONSTANTS;
