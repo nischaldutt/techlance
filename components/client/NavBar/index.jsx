@@ -35,7 +35,7 @@ const ModalMenu = ({ showModalMenu, onClose }) => {
       <ul className="list-none w-full flex flex-col items-start mt-8">
         {services.map((service) => {
           return (
-            <Link href="/services/hair-salon" key={service}>
+            <Link href="/categories/hair-salon" key={service}>
               <li
                 className="text-xl font-bold py-2 cursor-pointer"
                 onClick={onClose}
@@ -193,9 +193,9 @@ export default function ClientNavbar() {
               </a>
             </Link>
 
-            <Link href="/services">
+            <Link href="/categories">
               <a className="w-full py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto">
-                <span className="px-4">Services</span>
+                <span className="px-4">Explore Categories</span>
               </a>
             </Link>
           </div>

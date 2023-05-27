@@ -4,6 +4,7 @@ const URL_CONSTANTS = {
     LOGIN: "/auth/login",
     SIGN_UP: "/auth/signup",
   },
+  CATEGORIES: "/categories",
 };
 
 export default URL_CONSTANTS;

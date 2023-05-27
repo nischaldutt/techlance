@@ -1,10 +1,9 @@
 import React from "react";
 import Head from "next/head";
-import useSWR, { mutate } from "swr";
 
 import {
   ClientHero,
-  ClientServiceCategories,
+  ClientHomeCategories,
   ClientRecommendations,
   ClientAboutSectionOne,
   ClientAboutSectionTwo,
@@ -17,12 +16,6 @@ import { useAuthContext } from "@/contexts";
 export default function Home() {
   const { isAuthenticated, user, login, isLoading, logout } = useAuthContext();
 
-  // todo: configure swr
-  // const { data: { data: pages } = {}, isValidating } = useSWR(
-  //   isAuthenticated ? false : "/pages",
-  //   axiosClient.get
-  // );
-
   return (
     <>
       <Head>
@@ -34,7 +27,7 @@ export default function Home() {
       <main>
         <ClientHero />
         <ClientRecommendations />
-        <ClientServiceCategories />
+        <ClientHomeCategories />
         <ClientAboutSectionOne />
         <ClientAboutSectionTwo />
         <ClientAboutSectionThree />
