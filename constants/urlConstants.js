@@ -6,6 +6,7 @@ const URL_CONSTANTS = {
       SIGN_UP: "/auth/signup",
     },
     GET_CATEGORIES: "/categories",
+    GET_ALL_SUB_CATEGORIES: "/sub-category/filter",
   },
   BUSINESS: {
     AUTH: {
