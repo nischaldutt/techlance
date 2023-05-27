@@ -2,48 +2,45 @@ import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 
 import { Footer } from "@/components";
+import { useCategories, useSubCategories } from "@/hooks";
+import { getCategories, getSubCategories } from "@/services/customerServices";
+import { APP_CONSTANTS } from "@/constants";
 
-import { categories, subCategoriesList } from "../../data";
+export async function getStaticProps() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(
+    [APP_CONSTANTS.QUERY_KEYS.CATEGORIES],
+    getCategories
+  );
+  await queryClient.prefetchQuery(
+    [APP_CONSTANTS.QUERY_KEYS.SUB_CATEGORIES],
+    getSubCategories
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+}
 
 export default function Categories() {
-  const [currentSubCategories, setCurrentSubCategories] =
-    React.useState(subCategoriesList);
+  const { categories } = useCategories();
+  const { subCategories } = useSubCategories();
+
   const [filterValue, setFilterValue] = React.useState("");
 
-  React.useEffect(() => {
-    function filterSubCategories() {
-      if (!filterValue) {
-        return setCurrentSubCategories(() => subCategoriesList);
-      }
+  function onToggle(category) {
+    console.log({ category });
 
-      const newSubCategories = subCategoriesList.reduce(
-        (accumulator, subCategory) => {
-          if (
-            subCategory.categories.findIndex(
-              (category) => category.toLowerCase() === filterValue
-            ) > -1
-          ) {
-            accumulator.push(subCategory);
-          }
-
-          return accumulator;
-        },
-        []
-      );
-
-      return setCurrentSubCategories(() => newSubCategories);
-    }
-
-    filterSubCategories();
-  }, [filterValue]);
-
-  function onToggle(categoryClicked) {
-    if (categoryClicked === filterValue) {
+    if (category?.name === filterValue) {
       setFilterValue(() => "");
     } else {
-      setFilterValue(() => categoryClicked);
+      setFilterValue(() => category?.name.toLowerCase());
     }
   }
 
@@ -61,11 +58,11 @@ export default function Categories() {
             <div className="w-full grid grid-cols-[repeat(2,_minmax(0,_128px))]  xs:grid-cols-[repeat(3,_minmax(0,_128px))] lg:grid-cols-[repeat(6,_minmax(0,_128px))] justify-center gap-6">
               {categories.map((category) => {
                 return (
-                  <div key={category.label} className="py-4">
+                  <div key={category.id} className="py-4">
                     <Category
-                      icon={category.icon}
-                      label={category.label}
-                      onToggle={onToggle}
+                      icon={category.icon_url}
+                      label={category.name}
+                      onToggle={() => onToggle(category)}
                       activeFilterValue={filterValue}
                     />
                   </div>
@@ -76,12 +73,12 @@ export default function Categories() {
 
           <section className="px-4 py-12 bg-white flex justify-center">
             <section className="w-full grid grid-cols-[repeat(1,_minmax(0,_275px))] sm:grid-cols-[repeat(2,_minmax(0,_275px))] lg:grid-cols-[repeat(3,_minmax(0,_275px))] justify-center gap-6">
-              {currentSubCategories.map((suCategory) => {
+              {subCategories.map((subCategory) => {
                 return (
                   <SubCategory
-                    key={suCategory.id}
-                    name={suCategory.name}
-                    image={suCategory.image}
+                    key={subCategory.id}
+                    name={subCategory.name}
+                    image="https://images.unsplash.com/photo-1569698134101-f15cde5cd66c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
                   />
                 );
               })}
