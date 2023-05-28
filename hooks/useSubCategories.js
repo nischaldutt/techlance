@@ -4,6 +4,7 @@ import { APP_CONSTANTS } from "@/constants";
 
 import { getSubCategories } from "@/services/customerServices";
 
+// todo: enable paginated/infinite queries here
 export default function useSubCategories() {
   const {
     data: {

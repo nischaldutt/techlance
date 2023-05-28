@@ -2,12 +2,17 @@ import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import { Spin } from "antd";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 
 import { Footer } from "@/components";
-import { useCategories, useSubCategories } from "@/hooks";
-import { getCategories, getSubCategories } from "@/services/customerServices";
 import { APP_CONSTANTS } from "@/constants";
+import { getCategories, getSubCategories } from "@/services/customerServices";
+import {
+  useCategories,
+  useSubCategories,
+  useSubCategoriesWithCategoryId,
+} from "@/hooks";
 
 export async function getStaticProps() {
   const queryClient = new QueryClient();
@@ -32,17 +37,18 @@ export default function Categories() {
   const { categories } = useCategories();
   const { subCategories } = useSubCategories();
 
-  const [filterValue, setFilterValue] = React.useState("");
+  const [categoryId, setCategoryId] = React.useState(null);
+  const [currentSubCategories, setCurrentSubCategories] =
+    React.useState(subCategories);
 
-  function onToggle(category) {
-    console.log({ category });
+  const { subCategoriesWithCategoryId, isSuccess, isFetching, isError } =
+    useSubCategoriesWithCategoryId(categoryId);
 
-    if (category?.name === filterValue) {
-      setFilterValue(() => "");
-    } else {
-      setFilterValue(() => category?.name.toLowerCase());
+  React.useEffect(() => {
+    if (isSuccess) {
+      setCurrentSubCategories(subCategoriesWithCategoryId);
     }
-  }
+  }, [subCategoriesWithCategoryId, isSuccess]);
 
   return (
     <>
@@ -60,10 +66,11 @@ export default function Categories() {
                 return (
                   <div key={category.id} className="py-4">
                     <Category
+                      id={category.id}
                       icon={category.icon_url}
                       label={category.name}
-                      onToggle={() => onToggle(category)}
-                      activeFilterValue={filterValue}
+                      onToggle={() => setCategoryId(category?.id)}
+                      activeId={categoryId}
                     />
                   </div>
                 );
@@ -71,19 +78,21 @@ export default function Categories() {
             </div>
           </section>
 
-          <section className="px-4 py-12 bg-white flex justify-center">
-            <section className="w-full grid grid-cols-[repeat(1,_minmax(0,_275px))] sm:grid-cols-[repeat(2,_minmax(0,_275px))] lg:grid-cols-[repeat(3,_minmax(0,_275px))] justify-center gap-6">
-              {subCategories.map((subCategory) => {
-                return (
-                  <SubCategory
-                    key={subCategory.id}
-                    name={subCategory.name}
-                    image="https://images.unsplash.com/photo-1569698134101-f15cde5cd66c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                  />
-                );
-              })}
+          <Spin spinning={isFetching}>
+            <section className="px-4 py-12 bg-white flex justify-center">
+              <section className="w-full grid grid-cols-[repeat(1,_minmax(0,_275px))] sm:grid-cols-[repeat(2,_minmax(0,_275px))] lg:grid-cols-[repeat(3,_minmax(0,_275px))] justify-center gap-6">
+                {currentSubCategories.map((subCategory) => {
+                  return (
+                    <SubCategory
+                      key={subCategory.id}
+                      name={subCategory.name}
+                      image="https://images.unsplash.com/photo-1569698134101-f15cde5cd66c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                    />
+                  );
+                })}
+              </section>
             </section>
-          </section>
+          </Spin>
         </main>
 
         <Footer />
@@ -92,13 +101,15 @@ export default function Categories() {
   );
 }
 
-function Category({ icon, label, onToggle, activeFilterValue }) {
+function Category({ id, icon, label, onToggle, activeId }) {
   const activeStyles =
-    label.toLowerCase() === activeFilterValue ? "scale-125" : "scale-100";
+    id === activeId
+      ? "scale-125 bg-primary-100 text-white"
+      : "scale-100 bg-white text-black";
 
   return (
     <div
-      className={`${activeStyles} bg-white select-none rounded-lg flex flex-col justify-center items-center w-32 py-6 shadow-md hover:shadow-lg cursor-pointer transform transition duration-500`}
+      className={`${activeStyles}  select-none rounded-lg flex flex-col justify-center items-center w-32 py-6 shadow-md hover:shadow-lg cursor-pointer transform transition duration-500`}
       onClick={() => onToggle(label.toLowerCase())}
     >
       {icon}

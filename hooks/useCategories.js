@@ -12,6 +12,7 @@ export default function useCategories() {
   } = useQuery({
     queryKey: [APP_CONSTANTS.QUERY_KEYS.CATEGORIES],
     queryFn: getCategories,
+    staleTime: Infinity,
   });
 
   return { categories };
