@@ -65,7 +65,7 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider
       value={{
         isAuthenticated: !!user,
-        tokenPresent: !!Cookies.get("token"),
+        isTokenPresent: !!Cookies.get("token"),
         user,
         login,
         isLoading,
