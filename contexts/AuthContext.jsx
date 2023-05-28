@@ -10,19 +10,19 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // useEffect(() => {
-  //   async function loadUserFromCookies() {
-  //     const token = Cookies.get("token");
+  useEffect(() => {
+    async function loadTokenFromCookies() {
+      const token = Cookies.get("token");
 
-  //     if (token) {
-  //       console.log("Got a token in the cookies");
-  //       axiosClient.defaults.headers.Authorization = `Bearer ${token}`;
-  //     }
-  //     setIsLoading(false);
-  //   }
+      if (token) {
+        console.log("Got a token in the cookies");
+        axiosClient.defaults.headers.Authorization = `Bearer ${token}`;
+      }
+      setIsLoading(false);
+    }
 
-  //   loadUserFromCookies();
-  // }, []);
+    loadTokenFromCookies();
+  }, []);
 
   const login = async (userObj, callback) => {
     try {
@@ -63,7 +63,14 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated: !!user, user, login, isLoading, logout }}
+      value={{
+        isAuthenticated: !!user,
+        tokenPresent: !!Cookies.get("token"),
+        user,
+        login,
+        isLoading,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>
