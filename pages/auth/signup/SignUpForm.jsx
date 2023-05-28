@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useForm as useReactHookForm, Controller } from "react-hook-form";
-import { Button, Form, Input, Select, message } from "antd";
+import { Button, Form, Input, Select } from "antd";
 
 import { useSignup } from "@/hooks";
 import { useAntdMessageContext } from "@/contexts";

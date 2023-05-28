@@ -3,6 +3,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Divider, message, Steps } from "antd";
 
+import { BusinessRegistrationProvider } from "@/contexts/BusinessRegistrationContext";
+
 import BasinInfo from "@/pages/business/registration/formSteps/BasicInfo";
 import InsuranceInfo from "@/pages/business/registration/formSteps/InsuranceInfo";
 import ReferenceInfo from "@/pages/business/registration/formSteps/ReferenceInfo";
@@ -10,11 +12,10 @@ import SelectServices from "@/pages/business/registration/formSteps/SelectServic
 
 import { Footer } from "@/components";
 
-export default function Business() {
+export default function BusinessRegistration() {
   const router = useRouter();
   const { serviceId } = router.query;
 
-  //** use useReducer hook manage state of this component by lifting up the states */
   const [formStage, setFormStage] = React.useState(0);
   const [jobData, setJobData] = React.useState({});
 
@@ -106,17 +107,19 @@ export default function Business() {
           <Divider className="my-2" />
 
           <section className="flex flex-col md:flex-row">
-            <div className="">
-              <Steps
-                direction="vertical"
-                size="small"
-                className="font-bold pt-2"
-                current={formStage}
-                items={items}
-              />
-            </div>
+            <BusinessRegistrationProvider>
+              <div className="">
+                <Steps
+                  direction="vertical"
+                  size="small"
+                  className="font-bold pt-2"
+                  current={formStage}
+                  items={items}
+                />
+              </div>
 
-            <div className="md:ml-[10vw]">{steps[formStage].content}</div>
+              <div className="md:ml-[10vw]">{steps[formStage].content}</div>
+            </BusinessRegistrationProvider>
           </section>
         </main>
 
