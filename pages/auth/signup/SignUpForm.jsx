@@ -42,24 +42,6 @@ export default function SignUpForm() {
       : signupErrorMessage(message);
   });
 
-  const onSubmit = (data) => {
-    const { firstName, lastName, email, mobile, password } = data;
-
-    const userObj = {
-      user_type: APP_CONSTANTS.USER_TYPE.CUSTOMER,
-      first_name: firstName,
-      last_name: lastName,
-      email: email,
-      mobile_no: parseInt(mobile),
-      password: password,
-      country_id: 1,
-      is_mobile_verified: 1,
-      is_email_verified: 1,
-    };
-
-    return signup(userObj);
-  };
-
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
       <Select className="w-[70px]">
@@ -80,7 +62,7 @@ export default function SignUpForm() {
           name="signup"
           form={form}
           layout="vertical"
-          onFinish={handleSubmit(onSubmit)}
+          onFinish={handleSubmit(signup)}
         >
           <Controller
             name="firstName"
