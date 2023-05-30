@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Button, Form, Input, Checkbox } from "antd";
 
-const InsuranceInfo = ({ jobData, updateJobData, next }) => {
+const InsuranceInfo = ({ jobData, updateJobData, previous, next }) => {
   const [form] = Form.useForm();
   const { register, handleSubmit, errors } = useForm();
 
@@ -84,6 +84,12 @@ const InsuranceInfo = ({ jobData, updateJobData, next }) => {
               I agree and acknowledge that one of the statements above is true
             </Checkbox>
           </div>
+        </Form.Item>
+
+        <Form.Item>
+          <Button type="primary" size="large" onClick={() => previous()}>
+            Previous
+          </Button>
         </Form.Item>
 
         <Form.Item>

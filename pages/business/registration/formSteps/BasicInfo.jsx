@@ -2,6 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { useForm as useReactHookForm, Controller } from "react-hook-form";
 import { Button, Form, Input, Checkbox } from "antd";
+import { useQueryClient } from "@tanstack/react-query";
 
 import {
   useAntdMessageContext,
@@ -22,17 +23,16 @@ const smallFormItemLayout = {
 };
 
 const BasinInfo = ({ jobData, updateJobData, next }) => {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const [form] = Form.useForm();
-  const {
-    control,
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useReactHookForm();
+  const { control, handleSubmit } = useReactHookForm();
   const { messageApi } = useAntdMessageContext();
   // const { dispatch } = useBusinessRegistrationDispatchContext();
+
+  const cachedData = queryClient.getQueryData([
+    APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
+  ]);
 
   const successMessage = (successMsg) => {
     messageApi.open({
@@ -49,43 +49,19 @@ const BasinInfo = ({ jobData, updateJobData, next }) => {
   };
 
   const { mutate: createBusiness, isLoading } = useBusinessBasicInfo(
-    (isSuccess, message) => {
+    (isSuccess, response) => {
       return isSuccess
-        ? (successMessage(message), next())
-        : errorMessage(message);
+        ? (successMessage(response?.message), next())
+        : errorMessage(response);
     }
   );
 
-  const onSubmit = (data) => {
-    const {
-      businessName,
-      businessAddress,
-      businessUnits,
-      businessHst,
-      businessWebsite,
-      discoverDescription,
-      industryStandardAgreement,
-    } = data;
-
-    const basicInfo = {
-      name: businessName,
-      address: businessAddress,
-      hst: businessHst,
-      unit: businessUnits,
-      website: businessWebsite,
-      discoverDescription: discoverDescription,
-      industryStandardAgreement: !!industryStandardAgreement,
-    };
-
-    // next();
-    // return dispatch({
-    //   type: APP_CONSTANTS.REDUCER_ACTION_TYPES.BUSINESS_REGISTRATION
-    //     .ADD_BASIC_INFO,
-    //   payload: basicInfo,
-    // });
-
-    return createBusiness(basicInfo);
-  };
+  function onSubmit(data) {
+    // console.log({ cachedData, data, merged: { ...cachedData, ...data } });
+    return cachedData
+      ? createBusiness({ ...cachedData, ...data })
+      : createBusiness(data);
+  }
 
   return (
     <section className="w-96">
@@ -95,7 +71,7 @@ const BasinInfo = ({ jobData, updateJobData, next }) => {
         layout="vertical"
         onFinish={handleSubmit(onSubmit)}
         autoComplete="off"
-        initialValues={{}}
+        initialValues={cachedData}
         requiredMark="optional"
       >
         <Controller
@@ -218,9 +194,7 @@ const BasinInfo = ({ jobData, updateJobData, next }) => {
                   amounts sufficient for your liability under your contract with
                   the Requesting User.
                 </p>
-                <Checkbox onClick={(e) => e.target.checked} {...field}>
-                  I agree and acknowledge
-                </Checkbox>
+                <Checkbox {...field}>I agree and acknowledge</Checkbox>
               </div>
             </Form.Item>
           )}
