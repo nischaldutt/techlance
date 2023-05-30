@@ -32,8 +32,8 @@ export default function LoginForm() {
 
     const userObj = {
       user_type: APP_CONSTANTS.USER_TYPE.CUSTOMER,
-      email: email,
-      password: password,
+      email,
+      password,
     };
 
     return login(userObj, (isSuccess, message) => {
