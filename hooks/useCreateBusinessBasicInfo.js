@@ -8,7 +8,6 @@ export default function useCreateBusinessBasicInfo(callback) {
 
   const { mutate, isLoading } = useMutation({
     mutationFn: (basicInfo) => {
-      console.log({ basicInfo });
       const {
         businessName,
         businessAddress,
@@ -50,7 +49,7 @@ export default function useCreateBusinessBasicInfo(callback) {
             userId,
             website,
           } = res?.data?.data;
-          const cachedData = {
+          const cachedBasicInfoData = {
             businessId,
             isVerified,
             userId,
@@ -63,7 +62,7 @@ export default function useCreateBusinessBasicInfo(callback) {
             industryStandardAgreement: industryStandardAgreement,
           };
 
-          return cachedData;
+          return cachedBasicInfoData;
         }
       );
 

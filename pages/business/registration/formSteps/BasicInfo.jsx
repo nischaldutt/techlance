@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useForm as useReactHookForm, Controller } from "react-hook-form";
 import { Button, Form, Input, Checkbox } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
@@ -19,14 +18,14 @@ const smallFormItemLayout = {
   },
 };
 
+// todo: perform clean up using removeQueries in the last step of business creation
 const BasinInfo = ({ jobData, updateJobData, next }) => {
   const queryClient = useQueryClient();
-  const router = useRouter();
   const [form] = Form.useForm();
   const { control, handleSubmit } = useReactHookForm();
   const { messageApi } = useAntdMessageContext();
 
-  const cachedData = queryClient.getQueryData([
+  const cachedBasicInfoData = queryClient.getQueryData([
     APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
   ]);
 
@@ -53,8 +52,8 @@ const BasinInfo = ({ jobData, updateJobData, next }) => {
   );
 
   function onSubmit(data) {
-    return cachedData
-      ? createBusiness(mergeObjects(cachedData, data))
+    return cachedBasicInfoData
+      ? createBusiness(mergeObjects(cachedBasicInfoData, data))
       : createBusiness(data);
   }
 
@@ -66,7 +65,7 @@ const BasinInfo = ({ jobData, updateJobData, next }) => {
         layout="vertical"
         onFinish={handleSubmit(onSubmit)}
         autoComplete="off"
-        initialValues={cachedData}
+        initialValues={cachedBasicInfoData}
         requiredMark="optional"
       >
         <Controller

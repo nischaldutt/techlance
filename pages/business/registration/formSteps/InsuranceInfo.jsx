@@ -1,90 +1,152 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm as useReactHookForm, Controller } from "react-hook-form";
 import { Button, Form, Input, Checkbox } from "antd";
+import { useQueryClient } from "@tanstack/react-query";
+
+import { useAntdMessageContext } from "@/contexts";
+import { useCreateBusinessInsurance } from "@/hooks";
+import { mergeObjects } from "@/utils";
+import { APP_CONSTANTS } from "@/constants";
 
 const InsuranceInfo = ({ jobData, updateJobData, previous, next }) => {
+  const queryClient = useQueryClient();
   const [form] = Form.useForm();
-  const { register, handleSubmit, errors } = useForm();
+  const { control, handleSubmit } = useReactHookForm();
+  const { messageApi } = useAntdMessageContext();
 
-  const onSubmit = (data) => {
-    console.log({ data });
-    next();
+  const cachedInsuranceData = queryClient.getQueryData([
+    APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_INSURANCE,
+  ]);
+
+  const successMessage = (successMsg) => {
+    messageApi.open({
+      type: "success",
+      content: successMsg || "Account created successfully!",
+    });
   };
 
-  const toggleCheck = (e) => {
-    console.log(`checked = ${e.target.checked}`);
+  const errorMessage = (errorMsg) => {
+    messageApi.open({
+      type: "error",
+      content: errorMsg || "Something went wrong!",
+    });
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  const { mutate: createBusiness, isLoading } = useCreateBusinessInsurance(
+    (isSuccess, response) => {
+      return isSuccess
+        ? (successMessage(response?.message), next())
+        : errorMessage(response);
+    }
+  );
 
-  const onReset = () => {
-    form.resetFields();
-  };
+  function onSubmit(data) {
+    return cachedInsuranceData
+      ? createBusiness(mergeObjects(cachedInsuranceData, data))
+      : createBusiness(data);
+  }
 
   return (
     <section className="w-96">
       <Form
-        layout="vertical"
+        name="insuranceInfo"
         form={form}
-        name="basicInfo"
-        onFinish={onSubmit}
-        onFinishFailed={onFinishFailed}
+        layout="vertical"
+        onFinish={handleSubmit(onSubmit)}
         autoComplete="off"
-        initialValues={{}}
+        initialValues={cachedInsuranceData}
         requiredMark="optional"
       >
-        <Form.Item
-          label="Email of your Insurance Agent/Broker"
+        <Controller
           name="brokerEmail"
-          rules={[
-            {
-              required: true,
-              message: "test@gmail.com",
-            },
-          ]}
-          className="my-0"
-        >
-          <Input />
-        </Form.Item>
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              label="Email of your Insurance Agent/Broker"
+              name="brokerEmail"
+              rules={[
+                {
+                  required: true,
+                  message: "test@gmail.com",
+                },
+              ]}
+              className="my-0"
+            >
+              <Input {...field} />
+            </Form.Item>
+          )}
+        />
 
-        <Form.Item>
-          <Checkbox onChange={toggleCheck}>
-            Allow Jiffy to contact my Agent/Broker
-          </Checkbox>
-        </Form.Item>
+        <Controller
+          name="contactBrokerPermission"
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              label=""
+              name="contactBrokerPermission"
+              valuePropName="checked"
+              className="my-0"
+            >
+              <Checkbox {...field}>
+                Allow Techlance to contact my Agent/Broker
+              </Checkbox>
+            </Form.Item>
+          )}
+        />
 
-        <Form.Item
-          label="Insurance Policy Number (optional)"
+        <Controller
           name="insurancePolicyNumber"
-          rules={[
-            {
-              // required: true,
-              message: "eg. 12345",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              label="Insurance Policy Number"
+              name="insurancePolicyNumber"
+              rules={[
+                {
+                  // required: true,
+                  message: "eg. 12345",
+                },
+              ]}
+            >
+              <Input {...field} />
+            </Form.Item>
+          )}
+        />
 
-        <Form.Item>
-          <div className="flex flex-col gap-4 p-3 bg-gray-100 rounded-lg">
-            <p className="font-bold">I certify that: </p>
-            <p className="text-justify">
-              I work solely by myself, with no full-time or part-time employees,
-              contractors or sub-trades.
-            </p>
-            <p className="font-bold text-center">OR</p>
-            <p className="text-justify">
-              I have full-time and/or part-time employees or employ contractors
-              or sub-trades as needed. I have an active WSIB number.
-            </p>
-            <Checkbox onChange={toggleCheck}>
-              I agree and acknowledge that one of the statements above is true
-            </Checkbox>
-          </div>
-        </Form.Item>
+        <Controller
+          name="insuranceAgreement"
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              label={
+                <div className="flex flex-col gap-4 p-3 bg-gray-100 rounded-lg">
+                  <p className="font-bold">I certify that: </p>
+                  <p className="text-justify">
+                    I work solely by myself, with no full-time or part-time
+                    employees, contractors or sub-trades.
+                  </p>
+                  <p className="font-bold text-center">OR</p>
+                  <p className="text-justify">
+                    I have full-time and/or part-time employees or employ
+                    contractors or sub-trades as needed. I have an active WSIB
+                    number.
+                  </p>
+                </div>
+              }
+              name="insuranceAgreement"
+              valuePropName="checked"
+              rules={[
+                {
+                  required: true,
+                  message: "eg. 12345",
+                },
+              ]}
+            >
+              <Checkbox {...field}>
+                I agree and acknowledge that one of the statements above is true
+              </Checkbox>
+            </Form.Item>
+          )}
+        />
 
         <Form.Item>
           <Button type="primary" size="large" onClick={() => previous()}>
@@ -93,7 +155,13 @@ const InsuranceInfo = ({ jobData, updateJobData, previous, next }) => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" size="large">
+          <Button
+            type="primary"
+            htmlType="submit"
+            size="large"
+            name="submit"
+            loading={isLoading}
+          >
             Save & Continue
           </Button>
         </Form.Item>
