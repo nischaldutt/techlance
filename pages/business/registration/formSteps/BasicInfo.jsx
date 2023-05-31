@@ -1,14 +1,11 @@
-import React from "react";
 import { useRouter } from "next/router";
 import { useForm as useReactHookForm, Controller } from "react-hook-form";
 import { Button, Form, Input, Checkbox } from "antd";
 import { useQueryClient } from "@tanstack/react-query";
 
-import {
-  useAntdMessageContext,
-  useBusinessRegistrationDispatchContext,
-} from "@/contexts";
-import { useBusinessBasicInfo } from "@/hooks";
+import { useAntdMessageContext } from "@/contexts";
+import { useCreateBusinessBasicInfo } from "@/hooks";
+import { mergeObjects } from "@/utils";
 import { APP_CONSTANTS } from "@/constants";
 
 const { TextArea } = Input;
@@ -28,7 +25,6 @@ const BasinInfo = ({ jobData, updateJobData, next }) => {
   const [form] = Form.useForm();
   const { control, handleSubmit } = useReactHookForm();
   const { messageApi } = useAntdMessageContext();
-  // const { dispatch } = useBusinessRegistrationDispatchContext();
 
   const cachedData = queryClient.getQueryData([
     APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
@@ -48,7 +44,7 @@ const BasinInfo = ({ jobData, updateJobData, next }) => {
     });
   };
 
-  const { mutate: createBusiness, isLoading } = useBusinessBasicInfo(
+  const { mutate: createBusiness, isLoading } = useCreateBusinessBasicInfo(
     (isSuccess, response) => {
       return isSuccess
         ? (successMessage(response?.message), next())
@@ -57,9 +53,8 @@ const BasinInfo = ({ jobData, updateJobData, next }) => {
   );
 
   function onSubmit(data) {
-    // console.log({ cachedData, data, merged: { ...cachedData, ...data } });
     return cachedData
-      ? createBusiness({ ...cachedData, ...data })
+      ? createBusiness(mergeObjects(cachedData, data))
       : createBusiness(data);
   }
 
@@ -104,6 +99,10 @@ const BasinInfo = ({ jobData, updateJobData, next }) => {
                 {
                   required: true,
                   message: "eg. 123 BayView Street, Calgary",
+                },
+                {
+                  min: 10,
+                  message: "Address must be at least 10 characters long",
                 },
               ]}
             >
@@ -184,8 +183,8 @@ const BasinInfo = ({ jobData, updateJobData, next }) => {
           name="industryStandardAgreement"
           control={control}
           render={({ field }) => (
-            <Form.Item name="industryStandardAgreement" valuePropName="checked">
-              <div className="flex flex-col gap-4 p-3 bg-gray-100 rounded-lg">
+            <Form.Item
+              label={
                 <p className="text-justify">
                   By checking this box you represent and warrant that you hold
                   all required or industry standard insurance, workers
@@ -194,8 +193,17 @@ const BasinInfo = ({ jobData, updateJobData, next }) => {
                   amounts sufficient for your liability under your contract with
                   the Requesting User.
                 </p>
-                <Checkbox {...field}>I agree and acknowledge</Checkbox>
-              </div>
+              }
+              name="industryStandardAgreement"
+              valuePropName="checked"
+              rules={[
+                {
+                  required: true,
+                  message: "eg. 12345",
+                },
+              ]}
+            >
+              <Checkbox {...field}>I agree and acknowledge</Checkbox>
             </Form.Item>
           )}
         />
