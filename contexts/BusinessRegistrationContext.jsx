@@ -1,7 +1,7 @@
 import { useReducer, createContext, useContext } from "react";
 
 import { APP_CONSTANTS } from "@/constants";
-import { useBusinessBasicInfo } from "@/hooks";
+import { useCreateBusinessBasicInfo } from "@/hooks";
 
 const BusinessRegistrationContext = createContext(null);
 const BusinessRegistrationDispatchContext = createContext(null);

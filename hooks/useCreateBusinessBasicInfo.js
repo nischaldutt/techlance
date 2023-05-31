@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import axiosClient from "@/utils/axiosClient";
+import axiosClient from "@/libs/axiosClient";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
-export default function useBusinessBasicInfo(callback) {
+export default function useCreateBusinessBasicInfo(callback) {
   const queryClient = useQueryClient();
 
   const { mutate, isLoading } = useMutation({

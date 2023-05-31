@@ -1,4 +1,4 @@
-import axiosClient from "@/utils/axiosClient";
+import axiosClient from "@/libs/axiosClient";
 import { URL_CONSTANTS } from "@/constants";
 
 export async function getCategories() {

@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 
-import axiosClient from "@/utils/axiosClient";
+import axiosClient from "@/libs/axiosClient";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
 export default function useSignup(callback) {
