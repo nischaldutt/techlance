@@ -3,8 +3,6 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Divider, message, Steps } from "antd";
 
-import { BusinessRegistrationProvider } from "@/contexts/BusinessRegistrationContext";
-
 import BasinInfo from "@/pages/business/registration/formSteps/BasicInfo";
 import InsuranceInfo from "@/pages/business/registration/formSteps/InsuranceInfo";
 import ReferenceInfo from "@/pages/business/registration/formSteps/ReferenceInfo";
@@ -107,19 +105,17 @@ export default function BusinessRegistration() {
           <Divider className="my-2" />
 
           <section className="flex flex-col md:flex-row">
-            <BusinessRegistrationProvider>
-              <div className="">
-                <Steps
-                  direction="vertical"
-                  size="small"
-                  className="font-bold pt-2"
-                  current={formStage}
-                  items={items}
-                />
-              </div>
+            <div className="">
+              <Steps
+                direction="vertical"
+                size="small"
+                className="font-bold pt-2"
+                current={formStage}
+                items={items}
+              />
+            </div>
 
-              <div className="md:ml-[10vw]">{steps[formStage].content}</div>
-            </BusinessRegistrationProvider>
+            <div className="md:ml-[10vw]">{steps[formStage].content}</div>
           </section>
         </main>
 
