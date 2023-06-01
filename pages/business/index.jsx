@@ -1,20 +1,8 @@
-import React from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 
 import { BusinessHero, BusinessFeatures, Contact, Footer } from "@/components";
 
-import { useAuthContext } from "@/contexts";
-import { URL_CONSTANTS } from "@/constants";
-
 export default function Business() {
-  const router = useRouter();
-  const { isTokenPresent } = useAuthContext();
-
-  if (!isTokenPresent) {
-    router.push(URL_CONSTANTS.BUSINESS.AUTH.LOGIN);
-  }
-
   return (
     <>
       <Head>

@@ -3,6 +3,9 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Divider, message, Steps } from "antd";
 
+import { useAuthContext } from "@/contexts";
+import { URL_CONSTANTS } from "@/constants";
+
 import BasinInfo from "@/pages/business/registration/formSteps/BasicInfo";
 import InsuranceInfo from "@/pages/business/registration/formSteps/InsuranceInfo";
 import ReferenceInfo from "@/pages/business/registration/formSteps/ReferenceInfo";
@@ -12,9 +15,17 @@ import { Footer } from "@/components";
 
 export default function BusinessRegistration() {
   const router = useRouter();
+  const { isTokenPresent } = useAuthContext();
+
+  React.useEffect(() => {
+    if (!isTokenPresent) {
+      router.push(URL_CONSTANTS.BUSINESS.AUTH.LOGIN);
+    }
+  }, [router, isTokenPresent]);
+
   const { serviceId } = router.query;
 
-  const [formStage, setFormStage] = React.useState(0);
+  const [formStage, setFormStage] = React.useState(2);
   const [jobData, setJobData] = React.useState({});
 
   const updateJobData = (data) => {
@@ -54,8 +65,8 @@ export default function BusinessRegistration() {
         <InsuranceInfo
           jobData={jobData}
           updateJobData={updateJobData}
-          next={next}
           previous={previous}
+          next={next}
         />
       ),
     },
@@ -65,8 +76,8 @@ export default function BusinessRegistration() {
         <ReferenceInfo
           jobData={jobData}
           updateJobData={updateJobData}
-          next={next}
           previous={previous}
+          next={next}
         />
       ),
     },
@@ -76,8 +87,8 @@ export default function BusinessRegistration() {
         <SelectServices
           jobData={jobData}
           updateJobData={updateJobData}
-          next={next}
           previous={previous}
+          next={next}
         />
       ),
     },

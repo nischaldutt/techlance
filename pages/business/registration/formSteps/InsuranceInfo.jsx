@@ -20,14 +20,14 @@ const InsuranceInfo = ({ jobData, updateJobData, previous, next }) => {
   const successMessage = (successMsg) => {
     messageApi.open({
       type: "success",
-      content: successMsg || "Account created successfully!",
+      content: successMsg || APP_CONSTANTS.MESSAGES.INSURANCE_INFO_ADDED,
     });
   };
 
   const errorMessage = (errorMsg) => {
     messageApi.open({
       type: "error",
-      content: errorMsg || "Something went wrong!",
+      content: errorMsg || APP_CONSTANTS.MESSAGES.ERROR,
     });
   };
 

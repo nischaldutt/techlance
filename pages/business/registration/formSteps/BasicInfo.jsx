@@ -32,14 +32,14 @@ const BasinInfo = ({ jobData, updateJobData, next }) => {
   const successMessage = (successMsg) => {
     messageApi.open({
       type: "success",
-      content: successMsg || "Account created successfully!",
+      content: successMsg || APP_CONSTANTS.MESSAGES.COMPANY_REGISTERED,
     });
   };
 
   const errorMessage = (errorMsg) => {
     messageApi.open({
       type: "error",
-      content: errorMsg || "Something went wrong!",
+      content: errorMsg || APP_CONSTANTS.MESSAGES.ERROR,
     });
   };
 

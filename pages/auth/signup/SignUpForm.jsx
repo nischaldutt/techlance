@@ -23,14 +23,14 @@ export default function SignUpForm() {
   const signupSuccessMessage = (successMsg) => {
     messageApi.open({
       type: "success",
-      content: successMsg || "Account created successfully!",
+      content: successMsg || APP_CONSTANTS.MESSAGES.SIGNUP_SUCCESS,
     });
   };
 
   const signupErrorMessage = (errorMsg) => {
     messageApi.open({
       type: "error",
-      content: errorMsg || "Something went wrong!",
+      content: errorMsg || APP_CONSTANTS.MESSAGES.ERROR,
     });
   };
 

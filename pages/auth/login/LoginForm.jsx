@@ -16,14 +16,14 @@ export default function LoginForm() {
   const loginSuccessMessage = (successMsg) => {
     messageApi.open({
       type: "success",
-      content: successMsg || "Logging you in!",
+      content: successMsg || APP_CONSTANTS.MESSAGES.LOGIN_SUCCESS,
     });
   };
 
   const loginErrorMessage = (errorMsg) => {
     messageApi.open({
       type: "error",
-      content: errorMsg || "Login Failed!",
+      content: errorMsg || APP_CONSTANTS.MESSAGES.LOGIN_FAILED,
     });
   };
 
