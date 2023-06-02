@@ -23,6 +23,14 @@ const APP_CONSTANTS = {
       ADD_SERVICES: "ADD_SERVICES",
     },
   },
+  MESSAGES: {
+    SIGNUP_SUCCESS: "Account created successfully!",
+    ERROR: "Something went wrong!",
+    LOGIN_SUCCESS: "Logging you in!",
+    LOGIN_FAILED: "Login Failed!",
+    COMPANY_REGISTERED: "Company Registered!",
+    INSURANCE_INFO_ADDED: "Insurance information Added!",
+  },
 };
 
 export default APP_CONSTANTS;
