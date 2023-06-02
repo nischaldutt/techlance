@@ -5,9 +5,9 @@ const APP_CONSTANTS = {
     BUSINESS: "business",
   },
   QUERY_KEYS: {
-    CATEGORIES: "categories",
-    SUB_CATEGORIES: "sub-categories",
-    SUB_CATEGORIES_WITH_CATEGORY_ID: "sub-categories-with-category-id",
+    CATEGORIES: "CATEGORIES",
+    SUB_CATEGORIES: "SUB_CATEGORIES",
+    SUB_CATEGORIES_WITH_CATEGORY_ID: "SUB_CATEGORIES_WITH_CATEGORY_ID",
     BUSINESS_REGISTRATION: {
       ADD_BASIC_INFO: "ADD_BASIC_INFO",
       ADD_INSURANCE: "ADD_INSURANCE",
@@ -30,6 +30,7 @@ const APP_CONSTANTS = {
     LOGIN_FAILED: "Login Failed!",
     COMPANY_REGISTERED: "Company Registered!",
     INSURANCE_INFO_ADDED: "Insurance information Added!",
+    REFERENCES_ADDED: "References Added!",
   },
 };
 

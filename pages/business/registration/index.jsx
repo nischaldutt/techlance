@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Divider, message, Steps } from "antd";
+import { Divider, message, Steps, Button, Result } from "antd";
 
 import { useAuthContext } from "@/contexts";
 import { URL_CONSTANTS } from "@/constants";
@@ -23,14 +23,8 @@ export default function BusinessRegistration() {
     }
   }, [router, isTokenPresent]);
 
-  const { serviceId } = router.query;
-
-  const [formStage, setFormStage] = React.useState(2);
-  const [jobData, setJobData] = React.useState({});
-
-  const updateJobData = (data) => {
-    return setJobData((prevData) => ({ ...prevData, ...data }));
-  };
+  const [formStage, setFormStage] = React.useState(0);
+  const [isDone, setIsDone] = React.useState(false);
 
   function next() {
     return setFormStage((formStage) => formStage + 1);
@@ -41,56 +35,26 @@ export default function BusinessRegistration() {
   }
 
   function done() {
-    message.success("Processing complete!");
-  }
-
-  function onEdit() {
-    return setFormStage(0);
+    // todo: perform clean up using removeQueries after the last step of business creation
+    setIsDone(true);
   }
 
   const steps = [
     {
       title: "Basic Info",
-      content: (
-        <BasinInfo
-          jobData={jobData}
-          updateJobData={updateJobData}
-          next={next}
-        />
-      ),
+      content: <BasinInfo next={next} />,
     },
     {
       title: "Insurance Info",
-      content: (
-        <InsuranceInfo
-          jobData={jobData}
-          updateJobData={updateJobData}
-          previous={previous}
-          next={next}
-        />
-      ),
+      content: <InsuranceInfo previous={previous} next={next} />,
     },
     {
       title: "References",
-      content: (
-        <ReferenceInfo
-          jobData={jobData}
-          updateJobData={updateJobData}
-          previous={previous}
-          next={next}
-        />
-      ),
+      content: <ReferenceInfo previous={previous} next={next} done={done} />,
     },
     {
       title: "Select Services",
-      content: (
-        <SelectServices
-          jobData={jobData}
-          updateJobData={updateJobData}
-          previous={previous}
-          next={next}
-        />
-      ),
+      content: <SelectServices previous={previous} done={done} />,
     },
   ];
 
@@ -115,19 +79,33 @@ export default function BusinessRegistration() {
 
           <Divider className="my-2" />
 
-          <section className="flex flex-col md:flex-row">
-            <div className="">
-              <Steps
-                direction="vertical"
-                size="small"
-                className="font-bold pt-2"
-                current={formStage}
-                items={items}
-              />
-            </div>
+          {!isDone ? (
+            <section className="flex flex-col md:flex-row">
+              <div className="">
+                <Steps
+                  direction="vertical"
+                  size="small"
+                  className="font-bold pt-2"
+                  current={formStage}
+                  items={items}
+                />
+              </div>
 
-            <div className="md:ml-[10vw]">{steps[formStage].content}</div>
-          </section>
+              <div className="md:ml-[10vw]">{steps[formStage].content}</div>
+            </section>
+          ) : (
+            <Result
+              status="success"
+              title="Congratulation! Business Registration Successfull"
+              subTitle="Cloud server configuration takes 1-5 minutes, please wait."
+              extra={[
+                <Button type="primary" key="console">
+                  Business Dashboard
+                </Button>,
+                <Button key="buy">Techlance Home</Button>,
+              ]}
+            />
+          )}
         </main>
 
         <Footer />

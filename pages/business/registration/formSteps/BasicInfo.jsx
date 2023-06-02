@@ -19,7 +19,7 @@ const smallFormItemLayout = {
 };
 
 // todo: perform clean up using removeQueries in the last step of business creation
-const BasinInfo = ({ jobData, updateJobData, next }) => {
+const BasinInfo = ({ next }) => {
   const queryClient = useQueryClient();
   const [form] = Form.useForm();
   const { control, handleSubmit } = useReactHookForm();

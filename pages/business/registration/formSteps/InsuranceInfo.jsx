@@ -7,7 +7,8 @@ import { useCreateBusinessInsurance } from "@/hooks";
 import { mergeObjects } from "@/utils";
 import { APP_CONSTANTS } from "@/constants";
 
-const InsuranceInfo = ({ jobData, updateJobData, previous, next }) => {
+// todo: perform clean up using removeQueries in the last step of business creation
+const InsuranceInfo = ({ previous, next }) => {
   const queryClient = useQueryClient();
   const [form] = Form.useForm();
   const { control, handleSubmit } = useReactHookForm();
@@ -31,18 +32,17 @@ const InsuranceInfo = ({ jobData, updateJobData, previous, next }) => {
     });
   };
 
-  const { mutate: createBusiness, isLoading } = useCreateBusinessInsurance(
-    (isSuccess, response) => {
+  const { mutate: createBusinessInsurance, isLoading } =
+    useCreateBusinessInsurance((isSuccess, response) => {
       return isSuccess
         ? (successMessage(response?.message), next())
         : errorMessage(response);
-    }
-  );
+    });
 
   function onSubmit(data) {
     return cachedInsuranceData
-      ? createBusiness(mergeObjects(cachedInsuranceData, data))
-      : createBusiness(data);
+      ? createBusinessInsurance(mergeObjects(cachedInsuranceData, data))
+      : createBusinessInsurance(data);
   }
 
   return (
@@ -148,23 +148,30 @@ const InsuranceInfo = ({ jobData, updateJobData, previous, next }) => {
           )}
         />
 
-        <Form.Item>
-          <Button type="primary" size="large" onClick={() => previous()}>
-            Previous
-          </Button>
-        </Form.Item>
+        <div className="flex justify-between">
+          <Form.Item>
+            <Button
+              type="primary"
+              size="large"
+              disabled={isLoading}
+              onClick={() => previous()}
+            >
+              Previous
+            </Button>
+          </Form.Item>
 
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            size="large"
-            name="submit"
-            loading={isLoading}
-          >
-            Save & Continue
-          </Button>
-        </Form.Item>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
+              name="submit"
+              loading={isLoading}
+            >
+              Save & Continue
+            </Button>
+          </Form.Item>
+        </div>
       </Form>
     </section>
   );
