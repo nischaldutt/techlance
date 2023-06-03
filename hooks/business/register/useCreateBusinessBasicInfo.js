@@ -6,31 +6,11 @@ import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 export default function useCreateBusinessBasicInfo(callback) {
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate: createBusiness, isLoading } = useMutation({
     mutationFn: (basicInfo) => {
-      const {
-        businessName,
-        businessAddress,
-        businessUnits,
-        businessHst,
-        businessWebsite,
-        discoverDescription,
-        industryStandardAgreement,
-      } = basicInfo;
-
-      const reqBody = {
-        name: businessName,
-        address: businessAddress,
-        hst: businessHst,
-        unit: businessUnits,
-        website: businessWebsite,
-        discoverDescription: discoverDescription,
-        industryStandardAgreement: industryStandardAgreement,
-      };
-
       return axiosClient.post(
         URL_CONSTANTS.BUSINESS.REGISTRATION.ADD_BASIC_INFO,
-        reqBody
+        basicInfo
       );
     },
     onSuccess: (res) => {
@@ -38,30 +18,8 @@ export default function useCreateBusinessBasicInfo(callback) {
         [APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_BASIC_INFO],
         (prevData) => {
           const {
-            address,
-            businessId,
-            discoveryDescription,
-            hst,
-            industryStandardAgreement,
-            isVerified,
-            name,
-            unit,
-            userId,
-            website,
-          } = res?.data?.data;
-          const cachedBasicInfoData = {
-            businessId,
-            isVerified,
-            userId,
-            businessName: name,
-            businessAddress: address,
-            businessUnits: unit,
-            businessHst: hst,
-            businessWebsite: website,
-            discoverDescription: discoveryDescription,
-            industryStandardAgreement: industryStandardAgreement,
-          };
-
+            data: { data: cachedBasicInfoData },
+          } = res;
           return cachedBasicInfoData;
         }
       );
@@ -73,5 +31,5 @@ export default function useCreateBusinessBasicInfo(callback) {
     },
   });
 
-  return { mutate, isLoading };
+  return { createBusiness, isLoading };
 }

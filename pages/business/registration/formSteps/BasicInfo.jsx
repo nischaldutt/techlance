@@ -18,43 +18,31 @@ const smallFormItemLayout = {
   },
 };
 
-// todo: perform clean up using removeQueries in the last step of business creation
 const BasinInfo = ({ next }) => {
   const queryClient = useQueryClient();
   const [form] = Form.useForm();
   const { control, handleSubmit } = useReactHookForm();
-  const { messageApi } = useAntdMessageContext();
+  const { successMessage, errorMessage } = useAntdMessageContext();
 
   const cachedBasicInfoData = queryClient.getQueryData([
     APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
   ]);
 
-  const successMessage = (successMsg) => {
-    messageApi.open({
-      type: "success",
-      content: successMsg || APP_CONSTANTS.MESSAGES.COMPANY_REGISTERED,
-    });
-  };
-
-  const errorMessage = (errorMsg) => {
-    messageApi.open({
-      type: "error",
-      content: errorMsg || APP_CONSTANTS.MESSAGES.ERROR,
-    });
-  };
-
-  const { mutate: createBusiness, isLoading } = useCreateBusinessBasicInfo(
+  const { createBusiness, isLoading } = useCreateBusinessBasicInfo(
     (isSuccess, response) => {
       return isSuccess
-        ? (successMessage(response?.message), next())
-        : errorMessage(response);
+        ? (successMessage(
+            response?.message || APP_CONSTANTS.MESSAGES.COMPANY_REGISTERED
+          ),
+          next())
+        : errorMessage(response || APP_CONSTANTS.MESSAGES.ERROR);
     }
   );
 
-  function onSubmit(data) {
+  function onSubmit(basicInfo) {
     return cachedBasicInfoData
-      ? createBusiness(mergeObjects(cachedBasicInfoData, data))
-      : createBusiness(data);
+      ? createBusiness(mergeObjects(cachedBasicInfoData, basicInfo))
+      : createBusiness(basicInfo);
   }
 
   return (
@@ -69,92 +57,110 @@ const BasinInfo = ({ next }) => {
         requiredMark="optional"
       >
         <Controller
-          name="businessName"
+          name="name"
           control={control}
           render={({ field }) => (
             <Form.Item
               label="Business Name"
-              name="businessName"
+              name="name"
               rules={[
                 {
                   required: true,
-                  message: "eg. TechLance",
+                  message: "Business name is required!",
+                },
+                {
+                  min: 3,
+                  message: "Business name must be atleast 3 characters long!",
                 },
               ]}
             >
-              <Input {...field} />
+              <Input placeholder="eg. Techlance" {...field} />
             </Form.Item>
           )}
         />
 
         <Controller
-          name="businessAddress"
+          name="address"
           control={control}
           render={({ field }) => (
             <Form.Item
               label="Business Address"
-              name="businessAddress"
+              name="address"
               rules={[
                 {
                   required: true,
-                  message: "eg. 123 BayView Street, Calgary",
+                  message: "Business address is required!",
                 },
                 {
                   min: 10,
-                  message: "Address must be at least 10 characters long",
+                  message:
+                    "Business address must be at least 10 characters long!",
                 },
               ]}
             >
-              <Input {...field} />
+              <Input placeholder="eg. 123 BayView Street, Calgary" {...field} />
             </Form.Item>
           )}
         />
 
         <Controller
-          name="businessUnits"
+          name="unit"
           control={control}
           render={({ field }) => (
             <Form.Item
               {...smallFormItemLayout}
               label="Units/Suites"
-              name="businessUnits"
+              name="unit"
               rules={[
                 {
-                  // required: true,
-                  message: "eg. 4",
+                  pattern: APP_CONSTANTS.REGEXES.BUSINESS_UNITS,
+                  message: "Invalid Units",
                 },
               ]}
             >
-              <Input {...field} />
+              <Input placeholder="eg. 4" {...field} />
             </Form.Item>
           )}
         />
 
         <Controller
-          name="businessHst"
+          name="hst"
           control={control}
           render={({ field }) => (
             <Form.Item
               {...smallFormItemLayout}
               label="HST Number"
-              name="businessHst"
+              name="hst"
               rules={[
                 {
                   required: true,
-                  message: "eg. 12345",
+                  message: "HST required!",
+                },
+                {
+                  pattern: APP_CONSTANTS.REGEXES.BUSINESS_HST,
+                  message: "Invalid HST!",
                 },
               ]}
             >
-              <Input {...field} />
+              <Input placeholder="eg. 12345" {...field} />
             </Form.Item>
           )}
         />
 
         <Controller
-          name="businessWebsite"
+          name="website"
           control={control}
           render={({ field }) => (
-            <Form.Item label="Website" name="businessWebsite">
+            <Form.Item
+              label="Website"
+              name="website"
+              rules={[
+                {
+                  pattern: APP_CONSTANTS.REGEXES.WEBSITE_URL,
+                  message: "Invalid URL!",
+                },
+              ]}
+            >
               <Input addonBefore="https://" {...field} />
             </Form.Item>
           )}
@@ -196,10 +202,20 @@ const BasinInfo = ({ next }) => {
               name="industryStandardAgreement"
               valuePropName="checked"
               rules={[
-                {
-                  required: true,
-                  message: "eg. 12345",
-                },
+                { required: true, message: "" },
+                { type: "boolean", message: "Invalid value!" },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      new Error(
+                        "Please accept the Industry Standard agreement!"
+                      )
+                    );
+                  },
+                }),
               ]}
             >
               <Checkbox {...field}>I agree and acknowledge</Checkbox>

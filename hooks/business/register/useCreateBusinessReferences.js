@@ -6,7 +6,7 @@ import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 export default function useCreateBusinessReferences(callback) {
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate: createBusinessReferences, isLoading } = useMutation({
     mutationFn: (referenceInfo) => {
       const { businessId } = queryClient.getQueryData([
         APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
@@ -20,13 +20,13 @@ export default function useCreateBusinessReferences(callback) {
       });
 
       return axiosClient.post(
-        URL_CONSTANTS.BUSINESS.REGISTRATION.ADD_REFERENCE,
+        URL_CONSTANTS.BUSINESS.REGISTRATION.ADD_REFERENCES,
         reqBody
       );
     },
     onSuccess: (res) => {
       queryClient.setQueryData(
-        [APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_REFERENCE],
+        [APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_REFERENCES],
         (prevData) => {
           const {
             data: { data: cachedReferenceData },
@@ -42,5 +42,5 @@ export default function useCreateBusinessReferences(callback) {
     },
   });
 
-  return { mutate, isLoading };
+  return { createBusinessReferences, isLoading };
 }

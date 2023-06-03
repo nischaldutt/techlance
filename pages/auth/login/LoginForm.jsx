@@ -10,22 +10,8 @@ export default function LoginForm() {
   const router = useRouter();
   const [form] = Form.useForm();
   const { control, handleSubmit } = useReactHookForm();
-  const { messageApi } = useAntdMessageContext();
   const { login, isLoading } = useAuthContext();
-
-  const loginSuccessMessage = (successMsg) => {
-    messageApi.open({
-      type: "success",
-      content: successMsg || APP_CONSTANTS.MESSAGES.LOGIN_SUCCESS,
-    });
-  };
-
-  const loginErrorMessage = (errorMsg) => {
-    messageApi.open({
-      type: "error",
-      content: errorMsg || APP_CONSTANTS.MESSAGES.LOGIN_FAILED,
-    });
-  };
+  const { successMessage, errorMessage } = useAntdMessageContext();
 
   const onSubmit = (data) => {
     const { email, password } = data;
@@ -38,10 +24,10 @@ export default function LoginForm() {
 
     return login(userObj, (isSuccess, message) => {
       return isSuccess
-        ? (loginSuccessMessage(message),
+        ? (successMessage(message || APP_CONSTANTS.MESSAGES.LOGIN_SUCCESS),
           form.resetFields(),
           router.push(URL_CONSTANTS.HOME))
-        : loginErrorMessage(message);
+        : errorMessage(message || APP_CONSTANTS.MESSAGES.LOGIN_FAILED);
     });
   };
 

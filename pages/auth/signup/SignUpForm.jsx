@@ -18,28 +18,14 @@ export default function SignUpForm() {
     watch,
     formState: { errors },
   } = useReactHookForm();
-  const { messageApi } = useAntdMessageContext();
-
-  const signupSuccessMessage = (successMsg) => {
-    messageApi.open({
-      type: "success",
-      content: successMsg || APP_CONSTANTS.MESSAGES.SIGNUP_SUCCESS,
-    });
-  };
-
-  const signupErrorMessage = (errorMsg) => {
-    messageApi.open({
-      type: "error",
-      content: errorMsg || APP_CONSTANTS.MESSAGES.ERROR,
-    });
-  };
+  const { successMessage, errorMessage } = useAntdMessageContext();
 
   const { mutate: signup, isLoading } = useSignup((isSuccess, message) => {
     return isSuccess
-      ? (signupSuccessMessage(message),
+      ? (successMessage(message || APP_CONSTANTS.MESSAGES.SIGNUP_SUCCESS),
         form.resetFields(),
         router.push(URL_CONSTANTS.HOME))
-      : signupErrorMessage(message);
+      : errorMessage(message || APP_CONSTANTS.MESSAGES.ERROR);
   });
 
   const prefixSelector = (

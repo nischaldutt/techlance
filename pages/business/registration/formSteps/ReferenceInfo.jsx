@@ -2,44 +2,32 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useForm as useReactHookForm, Controller } from "react-hook-form";
 import { Button, Form, Input } from "antd";
 
-import React from "react";
 import { useAntdMessageContext } from "@/contexts";
 import { useCreateBusinessReferences } from "@/hooks";
 import { APP_CONSTANTS } from "@/constants";
 
 const { TextArea } = Input;
 
-// todo: perform clean up using removeQueries in the last step of business creation
-const ReferenceInfo = ({ previous, next, done }) => {
+const ReferenceInfo = ({ previous, done }) => {
   const queryClient = useQueryClient();
   const [referenceForm1] = Form.useForm();
   const [referenceForm2] = Form.useForm();
-  const { messageApi } = useAntdMessageContext();
+  const { successMessage, errorMessage } = useAntdMessageContext();
 
   const cacheReferencesData = queryClient.getQueryData([
-    APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_REFERENCE,
+    APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_REFERENCES,
   ]);
 
-  const successMessage = (successMsg) => {
-    messageApi.open({
-      type: "success",
-      content: successMsg || APP_CONSTANTS.MESSAGES.REFERENCES_ADDED,
-    });
-  };
-
-  const errorMessage = (errorMsg) => {
-    messageApi.open({
-      type: "error",
-      content: errorMsg || APP_CONSTANTS.MESSAGES.ERROR,
-    });
-  };
-
-  const { mutate: createBusinessReferences, isLoading } =
-    useCreateBusinessReferences((isSuccess, response) => {
+  const { createBusinessReferences, isLoading } = useCreateBusinessReferences(
+    (isSuccess, response) => {
       return isSuccess
-        ? (successMessage(response?.message), done())
-        : errorMessage(response);
-    });
+        ? (successMessage(
+            response?.message || APP_CONSTANTS.MESSAGES.REFERENCES_ADDED
+          ),
+          done())
+        : errorMessage(response || APP_CONSTANTS.MESSAGES.ERROR);
+    }
+  );
 
   function onSubmit() {
     const referenceInfo = [
@@ -112,9 +100,13 @@ function ReferenceForm({
                 required: true,
                 message: "Name",
               },
+              {
+                min: 3,
+                message: "Name must be at least 3 characters long!",
+              },
             ]}
           >
-            <Input {...field} />
+            <Input placeholder="eg. John Doe" {...field} />
           </Form.Item>
         )}
       />
@@ -131,9 +123,13 @@ function ReferenceForm({
                 required: true,
                 message: "Relationship",
               },
+              {
+                min: 3,
+                message: "Relationship must be at least 3 characters long",
+              },
             ]}
           >
-            <Input {...field} />
+            <Input placeholder="eg. Business Partner" {...field} />
           </Form.Item>
         )}
       />
@@ -148,11 +144,11 @@ function ReferenceForm({
             rules={[
               {
                 required: true,
-                message: "Company",
+                message: "Company name is required!",
               },
             ]}
           >
-            <Input {...field} />
+            <Input placeholder="eg. The Beetles" {...field} />
           </Form.Item>
         )}
       />
@@ -169,9 +165,10 @@ function ReferenceForm({
                 required: true,
                 message: "test@gmail.com",
               },
+              { type: "email", message: "Invalid email" },
             ]}
           >
-            <Input {...field} />
+            <Input placeholder="eg. john.doe@gmail.com" {...field} />
           </Form.Item>
         )}
       />
@@ -186,11 +183,11 @@ function ReferenceForm({
             rules={[
               {
                 required: true,
-                message: "1234567890",
+                message: "Phone is required!",
               },
             ]}
           >
-            <Input {...field} />
+            <Input placeholder="eg. 1234567890" {...field} />
           </Form.Item>
         )}
       />
@@ -204,7 +201,6 @@ function ReferenceForm({
               {...field}
               rows={4}
               placeholder="Tell us how you know each other and the reason why you chose this person as your reference."
-              minLength={6}
             />
           </Form.Item>
         )}

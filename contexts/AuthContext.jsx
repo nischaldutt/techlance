@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { createContext, useState, useEffect, useContext } from "react";
 import Cookies from "js-cookie";
 
@@ -23,6 +24,8 @@ export function AuthProvider({ children }) {
 
     loadTokenFromCookies();
   }, []);
+
+  console.log({ user });
 
   const login = async (userObj, callback) => {
     try {
@@ -81,13 +84,15 @@ export default function useAuthContext() {
   return useContext(AuthContext);
 }
 
-// export const ProtectRoute = ({ children }) => {
-//   const { isAuthenticated, loading } = useAuthContext();
+export const ProtectedRoute = ({ children }) => {
+  const router = useRouter();
+  const { isAuthenticated, isTokenPresent } = useAuthContext();
 
-//   if (loading || (!isAuthenticated && window.location.pathname !== "/login")) {
-//     // show the loading screen
-//     // return <LoadingScreen />;
-//   }
+  useEffect(() => {
+    if (!isAuthenticated || !isTokenPresent) {
+      router.push(URL_CONSTANTS.CUSTOMER.AUTH.LOGIN);
+    }
+  }, [router, isAuthenticated, isTokenPresent]);
 
-//   return children;
-// };
+  return children;
+};

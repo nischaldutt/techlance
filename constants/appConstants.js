@@ -11,7 +11,7 @@ const APP_CONSTANTS = {
     BUSINESS_REGISTRATION: {
       ADD_BASIC_INFO: "ADD_BASIC_INFO",
       ADD_INSURANCE: "ADD_INSURANCE",
-      ADD_REFERENCE: "ADD_REFERENCE",
+      ADD_REFERENCES: "ADD_REFERENCES",
       ADD_SERVICES: "ADD_SERVICES",
     },
   },
@@ -19,7 +19,7 @@ const APP_CONSTANTS = {
     BUSINESS_REGISTRATION: {
       ADD_BASIC_INFO: "ADD_BASIC_INFO",
       ADD_INSURANCE: "ADD_INSURANCE",
-      ADD_REFERENCE: "ADD_REFERENCE",
+      ADD_REFERENCES: "ADD_REFERENCES",
       ADD_SERVICES: "ADD_SERVICES",
     },
   },
@@ -31,6 +31,13 @@ const APP_CONSTANTS = {
     COMPANY_REGISTERED: "Company Registered!",
     INSURANCE_INFO_ADDED: "Insurance information Added!",
     REFERENCES_ADDED: "References Added!",
+  },
+  REGEXES: {
+    BUSINESS_UNITS: /^[0-9]{1,6}$/g,
+    BUSINESS_HST: /^[0-9]{1,5}$/g,
+    WEBSITE_URL:
+      /^((https?|http):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/g,
+    BUSINESS_INSURANCE_POLICY_NUMBER: /^[0-9]{1,5}$/g,
   },
 };
 

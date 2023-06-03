@@ -7,37 +7,26 @@ import { useCreateBusinessInsurance } from "@/hooks";
 import { mergeObjects } from "@/utils";
 import { APP_CONSTANTS } from "@/constants";
 
-// todo: perform clean up using removeQueries in the last step of business creation
 const InsuranceInfo = ({ previous, next }) => {
   const queryClient = useQueryClient();
   const [form] = Form.useForm();
   const { control, handleSubmit } = useReactHookForm();
-  const { messageApi } = useAntdMessageContext();
+  const { successMessage, errorMessage } = useAntdMessageContext();
 
   const cachedInsuranceData = queryClient.getQueryData([
     APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_INSURANCE,
   ]);
 
-  const successMessage = (successMsg) => {
-    messageApi.open({
-      type: "success",
-      content: successMsg || APP_CONSTANTS.MESSAGES.INSURANCE_INFO_ADDED,
-    });
-  };
-
-  const errorMessage = (errorMsg) => {
-    messageApi.open({
-      type: "error",
-      content: errorMsg || APP_CONSTANTS.MESSAGES.ERROR,
-    });
-  };
-
-  const { mutate: createBusinessInsurance, isLoading } =
-    useCreateBusinessInsurance((isSuccess, response) => {
+  const { createBusinessInsurance, isLoading } = useCreateBusinessInsurance(
+    (isSuccess, response) => {
       return isSuccess
-        ? (successMessage(response?.message), next())
-        : errorMessage(response);
-    });
+        ? (successMessage(
+            response?.message || APP_CONSTANTS.MESSAGES.INSURANCE_INFO_ADDED
+          ),
+          next())
+        : errorMessage(response || APP_CONSTANTS.MESSAGES.ERROR);
+    }
+  );
 
   function onSubmit(data) {
     return cachedInsuranceData
@@ -64,14 +53,12 @@ const InsuranceInfo = ({ previous, next }) => {
               label="Email of your Insurance Agent/Broker"
               name="brokerEmail"
               rules={[
-                {
-                  required: true,
-                  message: "test@gmail.com",
-                },
+                { required: true, message: "Please enter agent's email!" },
+                { type: "email", message: "Invalid email" },
               ]}
               className="my-0"
             >
-              <Input {...field} />
+              <Input placeholder="john.doe@gmail.com" {...field} />
             </Form.Item>
           )}
         />
@@ -85,6 +72,10 @@ const InsuranceInfo = ({ previous, next }) => {
               name="contactBrokerPermission"
               valuePropName="checked"
               className="my-0"
+              rules={[
+                { required: true, message: "Permission Required!" },
+                { type: "boolean", message: "Invalid value!" },
+              ]}
             >
               <Checkbox {...field}>
                 Allow Techlance to contact my Agent/Broker
@@ -102,12 +93,17 @@ const InsuranceInfo = ({ previous, next }) => {
               name="insurancePolicyNumber"
               rules={[
                 {
-                  // required: true,
-                  message: "eg. 12345",
+                  required: true,
+                  message: "Insurance Policy number required!",
+                },
+                {
+                  pattern:
+                    APP_CONSTANTS.REGEXES.BUSINESS_INSURANCE_POLICY_NUMBER,
+                  message: "Invalid Insurance Policy number!",
                 },
               ]}
             >
-              <Input {...field} />
+              <Input placeholder="eg. 12345" {...field} />
             </Form.Item>
           )}
         />
@@ -135,10 +131,18 @@ const InsuranceInfo = ({ previous, next }) => {
               name="insuranceAgreement"
               valuePropName="checked"
               rules={[
-                {
-                  required: true,
-                  message: "eg. 12345",
-                },
+                { required: true, message: "" },
+                { type: "boolean", message: "Invalid value!" },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      new Error("Please accept the Insurance agreement!")
+                    );
+                  },
+                }),
               ]}
             >
               <Checkbox {...field}>

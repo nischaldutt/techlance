@@ -17,7 +17,7 @@ const URL_CONSTANTS = {
     REGISTRATION: {
       ADD_BASIC_INFO: "/business/basic",
       ADD_INSURANCE: "/business/insurance",
-      ADD_REFERENCE: "/business/references",
+      ADD_REFERENCES: "/business/references",
       ADD_SERVICES: "/business/services",
     },
   },

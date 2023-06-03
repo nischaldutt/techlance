@@ -37,7 +37,7 @@ function reducer(state, action) {
       return action.payload;
     }
     case APP_CONSTANTS.REDUCER_ACTION_TYPES.BUSINESS_REGISTRATION
-      .ADD_REFERENCE: {
+      .ADD_REFERENCES: {
       return action.payload;
     }
     case APP_CONSTANTS.REDUCER_ACTION_TYPES.BUSINESS_REGISTRATION

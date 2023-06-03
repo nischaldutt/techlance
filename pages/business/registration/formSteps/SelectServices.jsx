@@ -1,14 +1,13 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { Button, Checkbox, Form, List } from "antd";
 
-const SelectServices = ({ jobData, done, onEdit, previous }) => {
+const SelectServices = () => {
   const [form] = Form.useForm();
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
     console.log({ data });
-    done();
+    // done();
   };
 
   const onChange = (checkedValues) => {
@@ -56,7 +55,7 @@ const SelectServices = ({ jobData, done, onEdit, previous }) => {
               type="primary"
               size="large"
               // disabled={isLoading}
-              onClick={() => previous()}
+              // onClick={() => previous()}
             >
               Previous
             </Button>
