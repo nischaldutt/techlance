@@ -8,6 +8,15 @@ const URL_CONSTANTS = {
     GET_CATEGORIES: "/categories",
     GET_ALL_SUB_CATEGORIES: "/sub-category/filter",
     GET_SUB_CATEGORIES_WITH_CATEGORY_ID: "/sub-category",
+    BOOKING_REQUEST: {
+      SAVE_STEP1: "/booking/step1",
+      SAVE_STEP2: "/booking/step2",
+      CONFIRM_BOOKING: "/booking/confirm",
+      UPDATE_STEP1: "/booking/step1",
+      UPDATE_STEP2: "/booking/step2",
+      CLEANUP: "/booking/cleanup",
+    },
+    GET_BOOKING: "/booking/getbooking",
   },
   BUSINESS: {
     AUTH: {
