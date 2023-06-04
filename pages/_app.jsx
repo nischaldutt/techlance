@@ -1,30 +1,46 @@
 import React from "react";
 import { useRouter } from "next/router";
+import {
+  QueryClient,
+  QueryClientProvider,
+  Hydrate,
+} from "@tanstack/react-query";
 import { ConfigProvider } from "antd";
 
+import { AuthProvider } from "@/contexts/AuthContext";
+import { AntdMessageProvider } from "@/contexts/AntdMessageContext";
 import { ClientNavbar } from "@/components";
 import { theme } from "@/tailwind.config";
 import "../styles/globals.css";
 
+const themeConfigs = {
+  token: {
+    colorPrimary: theme.extend.colors.primary[100],
+    fontFamily: "Montserrat",
+  },
+};
+
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
+  const [queryClient] = React.useState(() => new QueryClient());
+
   const Layout = Component.layout || (({ children }) => <>{children}</>);
 
   return (
     <>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: theme.extend.colors.primary[100],
-            fontFamily: "Montserrat",
-          },
-        }}
-      >
-        {!router.pathname.includes("/business") && <ClientNavbar />}
-
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+      <ConfigProvider theme={themeConfigs}>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <AntdMessageProvider>
+              <AuthProvider>
+                {!router.pathname.includes("/business") && <ClientNavbar />}
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </AuthProvider>
+            </AntdMessageProvider>
+          </Hydrate>
+        </QueryClientProvider>
       </ConfigProvider>
     </>
   );

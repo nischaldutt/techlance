@@ -2,9 +2,9 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import Category from "./Category";
+import CategoryHead from "@/components/client/HomeCategories/CategoryHead";
 
-const Categories = () => {
+const HomeCategories = () => {
   return (
     <>
       <div className="select-none bg-gray-100 py-2 shadow-lg w-[90%] lg:w-4/5 xl:w-3/5 h-[400px] mx-auto rounded-lg relative">
@@ -17,7 +17,7 @@ const Categories = () => {
 
         <div className="flex gap-2 py-4 scrollbar-hide overflow-x-auto w-[110%] absolute left-[-5%]">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((category) => {
-            return <Category key={category} />;
+            return <CategoryHead key={category} />;
           })}
         </div>
       </div>
@@ -25,4 +25,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default HomeCategories;

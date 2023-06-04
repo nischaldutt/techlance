@@ -5,6 +5,6 @@
       "@/*": ["./*"]
     },
     // "checkJs": true, // Enable error reporting in type-checked JavaScript files.
-    "jsx": "react"
+    "jsx": "react-jsx"
   }
 }

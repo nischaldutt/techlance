@@ -1,6 +1,11 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm as useReactHookForm, Controller } from "react-hook-form";
 import { Button, Form, Input, Checkbox } from "antd";
+import { useQueryClient } from "@tanstack/react-query";
+
+import { useAntdMessageContext } from "@/contexts";
+import { useCreateBusinessBasicInfo } from "@/hooks";
+import { mergeObjects } from "@/utils";
+import { APP_CONSTANTS } from "@/constants";
 
 const { TextArea } = Input;
 
@@ -13,123 +18,219 @@ const smallFormItemLayout = {
   },
 };
 
-const BasinInfo = ({ jobData, updateJobData, next }) => {
+const BasinInfo = ({ next }) => {
+  const queryClient = useQueryClient();
   const [form] = Form.useForm();
-  const { register, handleSubmit, errors } = useForm();
+  const { control, handleSubmit } = useReactHookForm();
+  const { successMessage, errorMessage } = useAntdMessageContext();
 
-  const onSubmit = (data) => {
-    console.log({ data });
-    next();
-  };
+  const cachedBasicInfoData = queryClient.getQueryData([
+    APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
+  ]);
 
-  const toggleCheck = (e) => {
-    console.log(`checked = ${e.target.checked}`);
-  };
+  const { createBusiness, isLoading } = useCreateBusinessBasicInfo(
+    (isSuccess, response) => {
+      return isSuccess
+        ? (successMessage(
+            response?.message || APP_CONSTANTS.MESSAGES.COMPANY_REGISTERED
+          ),
+          next())
+        : errorMessage(response || APP_CONSTANTS.MESSAGES.ERROR);
+    }
+  );
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  const onReset = () => {
-    form.resetFields();
-  };
+  function onSubmit(basicInfo) {
+    return cachedBasicInfoData
+      ? createBusiness(mergeObjects(cachedBasicInfoData, basicInfo))
+      : createBusiness(basicInfo);
+  }
 
   return (
     <section className="w-96">
       <Form
-        layout="vertical"
-        form={form}
         name="basicInfo"
-        onFinish={onSubmit}
-        onFinishFailed={onFinishFailed}
+        form={form}
+        layout="vertical"
+        onFinish={handleSubmit(onSubmit)}
         autoComplete="off"
-        initialValues={{}}
+        initialValues={cachedBasicInfoData}
         requiredMark="optional"
       >
-        <Form.Item
-          label="Business Name"
+        <Controller
           name="name"
-          rules={[
-            {
-              required: true,
-              message: "eg. TechLance",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              label="Business Name"
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: "Business name is required!",
+                },
+                {
+                  min: 3,
+                  message: "Business name must be atleast 3 characters long!",
+                },
+              ]}
+            >
+              <Input placeholder="eg. Techlance" {...field} />
+            </Form.Item>
+          )}
+        />
 
-        <Form.Item
-          label="Business Address"
+        <Controller
           name="address"
-          rules={[
-            {
-              required: true,
-              message: "eg. 123 BayView Street, Calgary",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              label="Business Address"
+              name="address"
+              rules={[
+                {
+                  required: true,
+                  message: "Business address is required!",
+                },
+                {
+                  min: 10,
+                  message:
+                    "Business address must be at least 10 characters long!",
+                },
+              ]}
+            >
+              <Input placeholder="eg. 123 BayView Street, Calgary" {...field} />
+            </Form.Item>
+          )}
+        />
 
-        <Form.Item
-          {...smallFormItemLayout}
-          label="Units/Suites"
+        <Controller
           name="unit"
-          rules={[
-            {
-              // required: true,
-              message: "eg. 4",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              {...smallFormItemLayout}
+              label="Units/Suites"
+              name="unit"
+              rules={[
+                {
+                  pattern: APP_CONSTANTS.REGEXES.BUSINESS_UNITS,
+                  message: "Invalid Units",
+                },
+              ]}
+            >
+              <Input placeholder="eg. 4" {...field} />
+            </Form.Item>
+          )}
+        />
 
-        <Form.Item
-          {...smallFormItemLayout}
-          label="HST Number"
+        <Controller
           name="hst"
-          rules={[
-            {
-              required: true,
-              message: "eg. 12345",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              {...smallFormItemLayout}
+              label="HST Number"
+              name="hst"
+              rules={[
+                {
+                  required: true,
+                  message: "HST required!",
+                },
+                {
+                  pattern: APP_CONSTANTS.REGEXES.BUSINESS_HST,
+                  message: "Invalid HST!",
+                },
+              ]}
+            >
+              <Input placeholder="eg. 12345" {...field} />
+            </Form.Item>
+          )}
+        />
 
-        <Form.Item label="Website" name="website">
-          <Input addonBefore="https://" />
-        </Form.Item>
+        <Controller
+          name="website"
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              label="Website"
+              name="website"
+              rules={[
+                {
+                  pattern: APP_CONSTANTS.REGEXES.WEBSITE_URL,
+                  message: "Invalid URL!",
+                },
+              ]}
+            >
+              <Input addonBefore="https://" {...field} />
+            </Form.Item>
+          )}
+        />
 
-        <Form.Item
-          label="Where did you learn about us?"
+        <Controller
           name="discoverDescription"
-        >
-          <TextArea
-            rows={4}
-            placeholder="eg. Tell us about where did you learn about us"
-            minLength={6}
-          />
-        </Form.Item>
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              label="Where did you learn about us?"
+              name="discoverDescription"
+            >
+              <TextArea
+                rows={4}
+                placeholder="eg. Tell us about where did you learn about us?"
+                minLength={6}
+                {...field}
+              />
+            </Form.Item>
+          )}
+        />
+
+        <Controller
+          name="industryStandardAgreement"
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              label={
+                <p className="text-justify">
+                  By checking this box you represent and warrant that you hold
+                  all required or industry standard insurance, workers
+                  compensation, and workplace safety, to adequately cover
+                  property damage, bodily injury, theft, property loss in
+                  amounts sufficient for your liability under your contract with
+                  the Requesting User.
+                </p>
+              }
+              name="industryStandardAgreement"
+              valuePropName="checked"
+              rules={[
+                { required: true, message: "" },
+                { type: "boolean", message: "Invalid value!" },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(
+                      new Error(
+                        "Please accept the Industry Standard agreement!"
+                      )
+                    );
+                  },
+                }),
+              ]}
+            >
+              <Checkbox {...field}>I agree and acknowledge</Checkbox>
+            </Form.Item>
+          )}
+        />
 
         <Form.Item>
-          <div className="flex flex-col gap-4 p-3 bg-gray-100 rounded-lg">
-            <p className="text-justify">
-              By checking this box you represent and warrant that you hold all
-              required or industry standard insurance, workers compensation, and
-              workplace safety, to adequately cover property damage, bodily
-              injury, theft, property loss in amounts sufficient for your
-              liability under your contract with the Requesting User.
-            </p>
-            <Checkbox onChange={toggleCheck}>I agree and acknowledge</Checkbox>
-          </div>
-        </Form.Item>
-
-        <Form.Item>
-          <Button type="primary" htmlType="submit" size="large">
+          <Button
+            type="primary"
+            htmlType="submit"
+            size="large"
+            name="submit"
+            loading={isLoading}
+          >
             Create Company
           </Button>
         </Form.Item>

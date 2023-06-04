@@ -13,8 +13,7 @@ export { default as ClientAboutSectionTwo } from "@/components/client/About/Abou
 export { default as ClientAboutSectionThree } from "@/components/client/About/AboutSectionThree";
 export { default as ClientNavbar } from "@/components/client/NavBar";
 export { default as ClientRecommendations } from "@/components/client/Recommendations";
-export { default as ClientServiceCategories } from "@/components/client/Categories";
-export { default as ClientSocialButton } from "@/components/common/SocialButton";
+export { default as ClientHomeCategories } from "@/components/client/HomeCategories";
 export { default as ClientServiceCard } from "@/components/client/ServiceCard";
 export { default as ClientCardSlider } from "@/components/client/CardSlider";
 export { default as ClientCarousal } from "@/components/client/Carousal";

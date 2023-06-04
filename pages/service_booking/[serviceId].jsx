@@ -3,9 +3,9 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { Divider, message, Steps } from "antd";
 
-import FirstStep from "./formSteps/FirstStep";
-import SecondStep from "./formSteps/SecondStep";
-import ThirdStep from "./formSteps/ThirdStep";
+import FirstStep from "@/pages/service_booking/formSteps/FirstStep";
+import SecondStep from "@/pages/service_booking/formSteps/SecondStep";
+import ThirdStep from "@/pages/service_booking/formSteps/ThirdStep";
 
 import { Footer, ClientJobRateCard } from "@/components";
 

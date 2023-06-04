@@ -35,7 +35,7 @@ const ModalMenu = ({ showModalMenu, onClose }) => {
       <ul className="list-none w-full flex flex-col items-start mt-8">
         {services.map((service) => {
           return (
-            <Link href="/services/hair-salon" key={service}>
+            <Link href="/categories/hair-salon" key={service}>
               <li
                 className="text-xl font-bold py-2 cursor-pointer"
                 onClick={onClose}
@@ -163,11 +163,11 @@ export default function ClientNavbar() {
           <div
             className={`${
               active ? "" : "hidden"
-            } bg-gray-100 rounded-lg  flex flex-col items-start lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto lg:items-center lg:h-auto`}
+            } bg-gray-100 rounded-lg flex flex-col items-start lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto lg:items-center lg:h-auto`}
           >
-            <Link href="/auth/signin">
+            <Link href="/auth/login">
               <a
-                className="border-b-2 w-full py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
+                className="w-full py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
                 onClick={handleClick}
               >
                 {/* <MdAccountCircle size="20" /> */}
@@ -177,7 +177,7 @@ export default function ClientNavbar() {
 
             <Link href="/">
               <a
-                className="border-b-2 w-full py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
+                className="w-full py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
                 onClick={handleClick}
               >
                 <span className="px-4">India</span>
@@ -186,16 +186,16 @@ export default function ClientNavbar() {
 
             <Link href="/business">
               <a
-                className="border-b-2 w-full py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
+                className="w-full py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto"
                 onClick={handleClick}
               >
                 <span className="px-4">For Business</span>
               </a>
             </Link>
 
-            <Link href="/services">
-              <a className="border-b-2 w-full py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto">
-                <span className="px-4">Services</span>
+            <Link href="/categories">
+              <a className="w-full py-2 rounded text-primary-100 text-sm font-bold flex items-center lg:inline-flex lg:w-auto">
+                <span className="px-4">Explore Categories</span>
               </a>
             </Link>
           </div>

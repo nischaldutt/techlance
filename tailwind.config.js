@@ -120,7 +120,6 @@ module.exports = {
     "disabled",
   ],
   plugins: [
-    require("@tailwindcss/forms"),
     plugin(function ({ addUtilities }) {
       addUtilities({
         ".scrollbar-hide": {

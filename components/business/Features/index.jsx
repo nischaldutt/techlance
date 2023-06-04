@@ -1,6 +1,6 @@
 import React from "react";
-import SingleFeature from "./SingleFeature";
-import featuresData from "./featuresData";
+import SingleFeature from "@/components/business/Features/SingleFeature";
+import featuresData from "@/components/business/Features/featuresData";
 
 import { SectionTitle } from "@/components";
 

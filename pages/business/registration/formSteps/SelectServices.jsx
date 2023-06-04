@@ -1,14 +1,13 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { Button, Checkbox, Form, List } from "antd";
 
-const SelectServices = ({ jobData, done, onEdit }) => {
+const SelectServices = () => {
   const [form] = Form.useForm();
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
     console.log({ data });
-    done();
+    // done();
   };
 
   const onChange = (checkedValues) => {
@@ -50,11 +49,24 @@ const SelectServices = ({ jobData, done, onEdit }) => {
           />
         </Checkbox.Group>
 
-        <Form.Item>
-          <Button type="primary" htmlType="submit" size="large">
-            Save
-          </Button>
-        </Form.Item>
+        <div className="flex justify-between">
+          <Form.Item>
+            <Button
+              type="primary"
+              size="large"
+              // disabled={isLoading}
+              // onClick={() => previous()}
+            >
+              Previous
+            </Button>
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit" size="large">
+              Save
+            </Button>
+          </Form.Item>
+        </div>
       </Form>
     </section>
   );

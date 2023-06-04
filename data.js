@@ -39,7 +39,7 @@ export const categories = [
   },
 ];
 
-export const servicesList = [
+export const subCategoriesList = [
   {
     id: 1,
     name: "Carpet & Upholstry Cleaning",

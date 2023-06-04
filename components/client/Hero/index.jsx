@@ -1,7 +1,7 @@
 import React from "react";
 
-import CustomTypewriter from "./Typewriter";
-import SearchSelect from "./SearchSelect";
+import CustomTypewriter from "@/components/client/Hero/Typewriter";
+import SearchSelect from "@/components/client/Hero/SearchSelect";
 
 export default function ClientHero() {
   return (

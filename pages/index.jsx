@@ -3,7 +3,7 @@ import Head from "next/head";
 
 import {
   ClientHero,
-  ClientServiceCategories,
+  ClientHomeCategories,
   ClientRecommendations,
   ClientAboutSectionOne,
   ClientAboutSectionTwo,
@@ -11,7 +11,11 @@ import {
   Footer,
 } from "@/components";
 
+import { useAuthContext } from "@/contexts";
+
 export default function Home() {
+  const { isAuthenticated, user, login, isLoading, logout } = useAuthContext();
+
   return (
     <>
       <Head>
@@ -23,7 +27,7 @@ export default function Home() {
       <main>
         <ClientHero />
         <ClientRecommendations />
-        <ClientServiceCategories />
+        <ClientHomeCategories />
         <ClientAboutSectionOne />
         <ClientAboutSectionTwo />
         <ClientAboutSectionThree />
