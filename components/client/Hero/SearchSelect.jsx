@@ -43,7 +43,7 @@ export default function SearchSelect() {
 
   React.useEffect(() => {
     if (value) {
-      router.push(`/service_booking/12`);
+      router.push(`/bookingRequest/12`);
     }
   }, [value, router]);
 
@@ -92,7 +92,7 @@ export default function SearchSelect() {
             <MenuTitle title="Categories" />
             {data?.map((category) => {
               return (
-                <Link key={category.value} href="/service_booking/12">
+                <Link key={category.value} href="/bookingRequest/12">
                   <Tag className="my-1 rounded-full font-bold border-primary-500 cursor-pointer">
                     {category.label}
                   </Tag>
