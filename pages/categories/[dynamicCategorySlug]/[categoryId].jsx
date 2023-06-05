@@ -70,7 +70,7 @@ export default function ServicePage() {
 
   function bookServiceHandler(serviceId) {
     console.log({ serviceId });
-    router.push(`/service_booking/${serviceId}`);
+    router.push(`/bookingRequest/${serviceId}`);
   }
 
   return (

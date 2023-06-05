@@ -15,7 +15,7 @@ export default function AvailableServices() {
 
   function bookServiceHandler(serviceId) {
     console.log({ serviceId });
-    router.push(`/service_booking/${serviceId}`);
+    router.push(`/bookingRequest/${serviceId}`);
   }
 
   return (
