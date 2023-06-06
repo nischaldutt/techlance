@@ -24,10 +24,12 @@ export default function LoginForm() {
 
     return login(userObj, (isSuccess, message) => {
       return isSuccess
-        ? (successMessage(message || APP_CONSTANTS.MESSAGES.LOGIN_SUCCESS),
+        ? (successMessage(
+            message || APP_CONSTANTS.MESSAGES.CUSTOMER.LOGIN_SUCCESS
+          ),
           form.resetFields(),
           router.push(URL_CONSTANTS.HOME))
-        : errorMessage(message || APP_CONSTANTS.MESSAGES.LOGIN_FAILED);
+        : errorMessage(message || APP_CONSTANTS.MESSAGES.CUSTOMER.LOGIN_FAILED);
     });
   };
 

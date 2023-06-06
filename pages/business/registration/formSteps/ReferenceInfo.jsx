@@ -15,14 +15,15 @@ const ReferenceInfo = ({ previous, done }) => {
   const { successMessage, errorMessage } = useAntdMessageContext();
 
   const cacheReferencesData = queryClient.getQueryData([
-    APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_REFERENCES,
+    APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_REFERENCES,
   ]);
 
   const { createBusinessReferences, isLoading } = useCreateBusinessReferences(
     (isSuccess, response) => {
       return isSuccess
         ? (successMessage(
-            response?.message || APP_CONSTANTS.MESSAGES.REFERENCES_ADDED
+            response?.message ||
+              APP_CONSTANTS.MESSAGES.BUSINESS.REFERENCES_ADDED
           ),
           done())
         : errorMessage(response || APP_CONSTANTS.MESSAGES.ERROR);

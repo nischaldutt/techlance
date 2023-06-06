@@ -25,14 +25,15 @@ const BasinInfo = ({ next }) => {
   const { successMessage, errorMessage } = useAntdMessageContext();
 
   const cachedBasicInfoData = queryClient.getQueryData([
-    APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
+    APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
   ]);
 
   const { createBusiness, isLoading } = useCreateBusinessBasicInfo(
     (isSuccess, response) => {
       return isSuccess
         ? (successMessage(
-            response?.message || APP_CONSTANTS.MESSAGES.COMPANY_REGISTERED
+            response?.message ||
+              APP_CONSTANTS.MESSAGES.BUSINESS.COMPANY_REGISTERED
           ),
           next())
         : errorMessage(response || APP_CONSTANTS.MESSAGES.ERROR);

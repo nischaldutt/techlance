@@ -10,7 +10,7 @@ export default function useCategories() {
       data: { data: categories },
     },
   } = useQuery({
-    queryKey: [APP_CONSTANTS.QUERY_KEYS.CATEGORIES],
+    queryKey: [APP_CONSTANTS.QUERY_KEYS.CUSTOMER.CATEGORIES],
     queryFn: getCategories,
     staleTime: Infinity,
   });

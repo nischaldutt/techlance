@@ -15,7 +15,10 @@ export default function useCreateBusinessBasicInfo(callback) {
     },
     onSuccess: (res) => {
       queryClient.setQueryData(
-        [APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_BASIC_INFO],
+        [
+          APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION
+            .ADD_BASIC_INFO,
+        ],
         (prevData) => {
           const {
             data: { data: cachedBasicInfoData },

@@ -9,7 +9,7 @@ export default function useCreateBusinessReferences(callback) {
   const { mutate: createBusinessReferences, isLoading } = useMutation({
     mutationFn: (referenceInfo) => {
       const { businessId } = queryClient.getQueryData([
-        APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
+        APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
       ]);
 
       const reqBody = referenceInfo.map((refObj) => {
@@ -26,7 +26,10 @@ export default function useCreateBusinessReferences(callback) {
     },
     onSuccess: (res) => {
       queryClient.setQueryData(
-        [APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_REFERENCES],
+        [
+          APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION
+            .ADD_REFERENCES,
+        ],
         (prevData) => {
           const {
             data: { data: cachedReferenceData },

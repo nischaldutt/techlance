@@ -14,14 +14,15 @@ const InsuranceInfo = ({ previous, next }) => {
   const { successMessage, errorMessage } = useAntdMessageContext();
 
   const cachedInsuranceData = queryClient.getQueryData([
-    APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_INSURANCE,
+    APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_INSURANCE,
   ]);
 
   const { createBusinessInsurance, isLoading } = useCreateBusinessInsurance(
     (isSuccess, response) => {
       return isSuccess
         ? (successMessage(
-            response?.message || APP_CONSTANTS.MESSAGES.INSURANCE_INFO_ADDED
+            response?.message ||
+              APP_CONSTANTS.MESSAGES.BUSINESS.INSURANCE_INFO_ADDED
           ),
           next())
         : errorMessage(response || APP_CONSTANTS.MESSAGES.ERROR);

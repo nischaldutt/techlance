@@ -1,4 +1,3 @@
-import React from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   Button,
@@ -8,14 +7,14 @@ import {
   Input,
   Space,
   Checkbox,
-  TimePicker,
+  Switch,
 } from "antd";
+import dayjs from "dayjs";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { GrSubtractCircle } from "react-icons/gr";
 
 import { useAntdMessageContext } from "@/contexts";
-import { useCreateBusinessBasicInfo } from "@/hooks";
-import { mergeObjects } from "@/utils";
+import { useCreateBookingSchedule } from "@/hooks";
 import { APP_CONSTANTS } from "@/constants";
 
 const { TextArea } = Input;
@@ -25,16 +24,57 @@ const FirstStep = ({ next }) => {
   const [form] = Form.useForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
 
-  const onSubmit = ({ description, timeSlots }) => {
-    const times = timeSlots.map((slot) => {
+  const cachedBookingScheduleData = queryClient.getQueryData([
+    APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.CREATE_SCHEDULE,
+  ]);
+
+  console.log({ cachedBookingScheduleData });
+
+  const initial = !cachedBookingScheduleData
+    ? {}
+    : {
+        earliestDateAvailable: false,
+        description: "initial",
+        timeSlots: cachedBookingScheduleData?.availableDates.map((slot) => {
+          return {
+            date: dayjs(slot.bookingDate, "YYYY-MM-DD"),
+            timeIds: [2, 3],
+          };
+        }),
+      };
+
+  const { createBookingSchedule, isLoading } = useCreateBookingSchedule(
+    (isSuccess, response) => {
+      return isSuccess
+        ? (successMessage(
+            response?.message ||
+              APP_CONSTANTS.MESSAGES.CUSTOMER.BOOKING_REQUEST_SCHEDULED
+          ),
+          next())
+        : errorMessage(response || APP_CONSTANTS.MESSAGES.ERROR);
+    }
+  );
+
+  const onSubmit = ({ earliestDateAvailable, timeSlots, description }) => {
+    const formattedTimeSlots = timeSlots.map((slot) => {
       return {
         date: slot.date.format("YYYY-MM-DD"),
         timeIds: slot.timeIds,
       };
     });
-    console.log({ times });
 
-    // next();
+    const bookingScheduleObj = {
+      earliestDateAvailable,
+      description,
+      timeSlots: formattedTimeSlots,
+    };
+
+    return cachedBookingScheduleData
+      ? createBookingSchedule({
+          ...bookingScheduleObj,
+          bookingId: cachedBookingScheduleData?.bookingId,
+        })
+      : createBookingSchedule(bookingScheduleObj);
   };
 
   return (
@@ -45,7 +85,7 @@ const FirstStep = ({ next }) => {
         layout="vertical"
         onFinish={onSubmit}
         autoComplete="off"
-        initialValues={{}}
+        initialValues={initial || {}}
         className="flex flex-col gap-4"
         requiredMark="optional"
       >
@@ -98,6 +138,18 @@ const FirstStep = ({ next }) => {
         </Form.List>
 
         <Form.Item
+          name="earliestDateAvailable"
+          valuePropName="checked"
+          label={
+            <h4 className="text-base lg:text-xl font-bold">
+              I&apos;m Flexible
+            </h4>
+          }
+        >
+          <Switch defaultChecked={false} />
+        </Form.Item>
+
+        <Form.Item
           name="description"
           className="w-full"
           label={
@@ -114,7 +166,12 @@ const FirstStep = ({ next }) => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" size="large">
+          <Button
+            type="primary"
+            htmlType="submit"
+            size="large"
+            loading={isLoading}
+          >
             Next
           </Button>
         </Form.Item>
@@ -155,11 +212,11 @@ function DateTimeInputs({ name, ...restParams }) {
             },
           ]}
         >
-          <CheckboxGroup>
+          <Checkbox.Group>
             <Checkbox value={1}>Morning</Checkbox>
             <Checkbox value={2}>Afternoon</Checkbox>
             <Checkbox value={3}>Evening</Checkbox>
-          </CheckboxGroup>
+          </Checkbox.Group>
         </Form.Item>
       </Space>
 
@@ -167,5 +224,3 @@ function DateTimeInputs({ name, ...restParams }) {
     </>
   );
 }
-
-const CheckboxGroup = Checkbox.Group;

@@ -29,17 +29,17 @@ export default function ServiceBooking() {
   function done() {
     // perform cache clean up after successfull business creation
     // queryClient.removeQueries({
-    //   queryKey: APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
+    //   queryKey: APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
     //   exact: true,
     // });
 
     // queryClient.removeQueries({
-    //   queryKey: APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_INSURANCE,
+    //   queryKey: APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_INSURANCE,
     //   exact: true,
     // });
 
     // queryClient.removeQueries({
-    //   queryKey: APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_REFERENCES,
+    //   queryKey: APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_REFERENCES,
     //   exact: true,
     // });
 

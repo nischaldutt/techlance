@@ -12,7 +12,7 @@ export default function useSubCategoriesWithCategoryId(categoryId) {
     isFetching,
   } = useQuery({
     queryKey: [
-      APP_CONSTANTS.QUERY_KEYS.SUB_CATEGORIES_WITH_CATEGORY_ID,
+      APP_CONSTANTS.QUERY_KEYS.CUSTOMER.SUB_CATEGORIES_WITH_CATEGORY_ID,
       categoryId,
     ],
     queryFn: getSubCategoriesWithCategoryId,

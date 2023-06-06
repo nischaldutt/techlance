@@ -22,7 +22,7 @@ export default function SignUpForm() {
 
   const { mutate: signup, isLoading } = useSignup((isSuccess, message) => {
     return isSuccess
-      ? (successMessage(message || APP_CONSTANTS.MESSAGES.SIGNUP_SUCCESS),
+      ? (successMessage(message || APP_CONSTANTS.MESSAGES.AUTH.SIGNUP_SUCCESS),
         form.resetFields(),
         router.push(URL_CONSTANTS.HOME))
       : errorMessage(message || APP_CONSTANTS.MESSAGES.ERROR);

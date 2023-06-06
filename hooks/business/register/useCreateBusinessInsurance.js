@@ -9,7 +9,7 @@ export default function useCreateBusinessInsurance(callback) {
   const { mutate: createBusinessInsurance, isLoading } = useMutation({
     mutationFn: (insuranceInfo) => {
       const { businessId } = queryClient.getQueryData([
-        APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
+        APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
       ]);
 
       const reqBody = {
@@ -24,7 +24,7 @@ export default function useCreateBusinessInsurance(callback) {
     },
     onSuccess: (res) => {
       queryClient.setQueryData(
-        [APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_INSURANCE],
+        [APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_INSURANCE],
         (prevData) => {
           const {
             data: { data: cachedInsuranceData },
