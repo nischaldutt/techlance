@@ -11,8 +11,9 @@ const APP_CONSTANTS = {
       SUB_CATEGORIES_WITH_CATEGORY_ID: "SUB_CATEGORIES_WITH_CATEGORY_ID",
 
       BOOKING_REQUEST: {
-        CREATE_SCHEDULE: "CREATE_SCHEDULE",
-        CREATE_JOB_DETAILS: "CREATE_JOB_DETAILS",
+        SAVE_SCHEDULE: "SAVE_SCHEDULE",
+        SAVE_BOOKING_DETAILS: "CREATE_JOB_DETAILS",
+        CONFIRM_BOOKING: "CONFIRM_BOOKING",
       },
     },
 
@@ -51,6 +52,8 @@ const APP_CONSTANTS = {
       LOGIN_FAILED: "Login Failed!",
 
       BOOKING_REQUEST_SCHEDULED: "Booking Schedule Created!",
+      BOOKING_DETAILS_SAVED: "Booking Details Saved!",
+      BOOKING_CONFIRMED: "Booking Confirmed!",
     },
 
     BUSINESS: {
