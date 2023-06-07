@@ -61,7 +61,7 @@ export function AuthProvider({ children }) {
     Cookies.remove("token");
     setUser(null);
     delete axiosClient.defaults.headers.Authorization;
-    window.location.pathname = URL_CONSTANTS.HOME;
+    window.location.pathname = URL_CONSTANTS.ROUTES.HOME;
   };
 
   return (
@@ -84,15 +84,17 @@ export default function useAuthContext() {
   return useContext(AuthContext);
 }
 
-export const ProtectedRoute = ({ children }) => {
+export const ProtectedRoute = ({ userType, children }) => {
   const router = useRouter();
   const { isAuthenticated, isTokenPresent } = useAuthContext();
 
   useEffect(() => {
     if (!isAuthenticated || !isTokenPresent) {
-      router.push(URL_CONSTANTS.CUSTOMER.AUTH.LOGIN);
+      userType === APP_CONSTANTS.USER_TYPE.BUSINESS
+        ? router.push(URL_CONSTANTS.ROUTES.BUSINESS.AUTH.LOGIN)
+        : router.push(URL_CONSTANTS.ROUTES.CUSTOMER.AUTH.LOGIN);
     }
-  }, [router, isAuthenticated, isTokenPresent]);
+  }, [router, isAuthenticated, isTokenPresent, userType]);
 
   return children;
 };

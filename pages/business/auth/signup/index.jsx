@@ -1,8 +1,8 @@
 import Head from "next/head";
 
-import SignUpForm from "@/pages/auth/signup/SignUpForm";
+import BusinessSignUpForm from "@/pages/business/auth/signup/BusinessSignUpForm";
 
-export default function SignUn() {
+export default function BusinessSignUn() {
   return (
     <>
       <Head>
@@ -12,7 +12,7 @@ export default function SignUn() {
       </Head>
 
       <section className="flex justify-center mt-10">
-        <SignUpForm />
+        <BusinessSignUpForm />
       </section>
     </>
   );

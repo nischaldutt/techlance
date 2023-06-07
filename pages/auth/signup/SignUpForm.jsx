@@ -24,7 +24,7 @@ export default function SignUpForm() {
     return isSuccess
       ? (successMessage(message || APP_CONSTANTS.MESSAGES.AUTH.SIGNUP_SUCCESS),
         form.resetFields(),
-        router.push(URL_CONSTANTS.HOME))
+        router.push(URL_CONSTANTS.ROUTES.HOME))
       : errorMessage(message || APP_CONSTANTS.MESSAGES.ERROR);
   });
 
@@ -49,7 +49,7 @@ export default function SignUpForm() {
   return (
     <>
       <div className="p-8 sm:px-12 shadow-xl rounded-lg border bg-white sm:w-[30rem]">
-        <div className="text-3xl font-bold pb-8 text-primary-100">
+        <div className="text-2xl font-bold pb-8 text-primary-100">
           Sign up to your account
         </div>
 

@@ -1,5 +1,4 @@
 const URL_CONSTANTS = {
-  HOME: "/",
   CUSTOMER: {
     AUTH: {
       LOGIN: "/auth/login",
@@ -28,6 +27,22 @@ const URL_CONSTANTS = {
       ADD_INSURANCE: "/business/insurance",
       ADD_REFERENCES: "/business/references",
       ADD_SERVICES: "/business/services",
+    },
+  },
+  ROUTES: {
+    HOME: "/",
+    CUSTOMER: {
+      AUTH: {
+        LOGIN: "/auth/login",
+        SIGN_UP: "/auth/signup",
+      },
+    },
+    BUSINESS: {
+      AUTH: {
+        LOGIN: "/business/auth/login",
+        SIGN_UP: "/business/auth/signup",
+      },
+      REGISTRATION: "/business/registration",
     },
   },
 };

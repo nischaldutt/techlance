@@ -26,7 +26,7 @@ export default function LoginForm() {
       return isSuccess
         ? (successMessage(message || APP_CONSTANTS.MESSAGES.AUTH.LOGIN_SUCCESS),
           form.resetFields(),
-          router.push(URL_CONSTANTS.HOME))
+          router.push(URL_CONSTANTS.ROUTES.HOME))
         : errorMessage(message || APP_CONSTANTS.MESSAGES.AUTH.LOGIN_FAILED);
     });
   };
@@ -34,7 +34,7 @@ export default function LoginForm() {
   return (
     <>
       <div className="px-8 sm:px-12 py-16 shadow-xl rounded-lg border bg-white sm:w-[30rem]">
-        <div className="text-3xl font-bold py-2 text-primary-100">
+        <div className="text-2xl font-bold py-2 text-primary-100">
           Signin to your account
         </div>
 
@@ -97,7 +97,7 @@ export default function LoginForm() {
         </div>
 
         <div className="w-full py-2 text-right">
-          <Link href="/auth/signup">
+          <Link href={URL_CONSTANTS.ROUTES.CUSTOMER.AUTH.SIGN_UP}>
             <a className="text-xs text-primary-100 font-bold">
               Don&apos;t have and account? Sign up
             </a>

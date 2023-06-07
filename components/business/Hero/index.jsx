@@ -1,14 +1,18 @@
-import React from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Button } from "antd";
 
+import { URL_CONSTANTS } from "@/constants";
+
 export default function BusinessHero() {
   const router = useRouter();
 
+  function loginBusinessUser() {
+    router.push(URL_CONSTANTS.ROUTES.BUSINESS.AUTH.LOGIN);
+  }
+
   function registerBusiness() {
-    router.push(`/business/registration`);
+    router.push(URL_CONSTANTS.ROUTES.BUSINESS.REGISTRATION);
   }
 
   return (
@@ -30,7 +34,7 @@ export default function BusinessHero() {
               industry.
             </p>
             <div className="flex gap-6 flex-col md:flex-row">
-              <Button type="primary" size="large">
+              <Button type="primary" size="large" onClick={loginBusinessUser}>
                 Login
               </Button>
               <Button size="large" onClick={registerBusiness}>
