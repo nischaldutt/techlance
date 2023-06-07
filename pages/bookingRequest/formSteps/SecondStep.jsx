@@ -1,28 +1,21 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import {
-  Button,
-  Divider,
-  DatePicker,
-  Form,
-  Input,
-  Space,
-  TimePicker,
-  Row,
-  Col,
-  message,
-  Upload,
-} from "antd";
+import { useQueryClient } from "@tanstack/react-query";
+import { Button, Divider, Form, Input, message, Upload } from "antd";
 import { AiOutlineCloudUpload } from "react-icons/ai";
+
+import { useAntdMessageContext } from "@/contexts";
+import { useSaveBookingDetails } from "@/hooks";
+import { APP_CONSTANTS } from "@/constants";
 
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
 const props = {
-  name: "file",
+  name: "files",
   multiple: true,
   action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
   onChange(info) {
+    console.log({ info });
+
     const { status } = info.file;
     if (status !== "uploading") {
       console.log(info.file, info.fileList);
@@ -34,48 +27,85 @@ const props = {
     }
   },
   onDrop(e) {
-    console.log("Dropped files", e.dataTransfer.files);
+    console.log({ dropped: e.dataTransfer.files });
   },
 };
 
-const SecondStep = ({ jobData, updateJobData, next, previous }) => {
-  const { register, handleSubmit, errors } = useForm();
+const normFile = (e) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e?.fileList;
+};
 
-  const onSubmit = (data) => {
-    console.log({ data });
-    next();
+const SecondStep = ({ previous, next }) => {
+  const queryClient = useQueryClient();
+  const [form] = Form.useForm();
+  const { successMessage, errorMessage } = useAntdMessageContext();
+
+  const cachedBookingDetails = queryClient.getQueryData([
+    APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_BOOKING_DETAILS,
+  ]);
+
+  // console.log({ cachedBookingDetails });
+
+  const { saveBookingDetails, isLoading } = useSaveBookingDetails(
+    (isSuccess, response) => {
+      return isSuccess
+        ? (successMessage(
+            response?.message ||
+              APP_CONSTANTS.MESSAGES.CUSTOMER.BOOKING_DETAILS_SAVED
+          ),
+          next())
+        : errorMessage(response || APP_CONSTANTS.MESSAGES.ERROR);
+    }
+  );
+
+  const onSubmit = (bookingDetailsObj) => {
+    return cachedBookingDetails
+      ? saveBookingDetails(bookingDetailsObj, true)
+      : saveBookingDetails(bookingDetailsObj, false);
   };
 
   return (
     <section>
       <Form
-        name="dynamic_form_item"
-        onFinish={onSubmit}
-        className="flex flex-col gap-4"
+        name="jobDetails"
+        form={form}
         layout="vertical"
+        onFinish={onSubmit}
+        autoComplete="off"
+        initialValues={{}}
+        className="flex flex-col gap-4"
+        requiredMark="optional"
       >
         <Form.Item
+          name="taskDescription"
+          className="w-full"
           label={
             <h3 className="text-base lg:text-xl font-bold">
               What do you need done?
             </h3>
           }
+          rules={[
+            { required: true, message: "Please fill your requirements here!" },
+          ]}
         >
           <TextArea
             rows={4}
             placeholder="e.g. Something that needs to be fixed, installed or cleaned etc."
-            // maxLength={5000}
-            // showCount
+            showCount
           />
         </Form.Item>
 
         <Divider className="my-0" />
 
         <Form.Item
+          name="files"
+          valuePropName="fileList"
+          getValueFromEvent={normFile}
           label={
-            <h3 className="text-base lg:text-xl font-bold">
-              Upload Photos (Optional)
-            </h3>
+            <h3 className="text-base lg:text-xl font-bold">Upload Photos</h3>
           }
         >
           <Dragger {...props}>
@@ -92,16 +122,30 @@ const SecondStep = ({ jobData, updateJobData, next, previous }) => {
           </Dragger>
         </Form.Item>
 
-        <Row>
-          <Col span={6} className="flex justify-between">
-            <Button type="default" size="large" onClick={previous}>
+        <div className="flex justify-between">
+          <Form.Item>
+            <Button
+              type="primary"
+              size="large"
+              disabled={isLoading}
+              onClick={() => previous()}
+            >
               Previous
             </Button>
-            <Button type="primary" size="large" onClick={onSubmit}>
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
+              name="submit"
+              loading={isLoading}
+            >
               Next
             </Button>
-          </Col>
-        </Row>
+          </Form.Item>
+        </div>
       </Form>
     </section>
   );

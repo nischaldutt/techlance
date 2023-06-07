@@ -25,7 +25,7 @@ const FirstStep = ({ next }) => {
   const { successMessage, errorMessage } = useAntdMessageContext();
 
   const cachedBookingScheduleData = queryClient.getQueryData([
-    APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.CREATE_SCHEDULE,
+    APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE,
   ]);
 
   console.log({ cachedBookingScheduleData });

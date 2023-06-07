@@ -1,6 +1,5 @@
-import React from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import { useForm } from "react-hook-form";
 import {
   Alert,
   Button,
@@ -12,8 +11,6 @@ import {
   TimePicker,
   Row,
   Col,
-  message,
-  Upload,
   Card,
   Collapse,
 } from "antd";
@@ -22,15 +19,39 @@ import { MdModeEditOutline } from "react-icons/md";
 import { GiCancel } from "react-icons/gi";
 import { HiLocationMarker } from "react-icons/hi";
 
-const { TextArea } = Input;
+import { useAntdMessageContext } from "@/contexts";
+import { useSaveBookingDetails } from "@/hooks";
+import { APP_CONSTANTS } from "@/constants";
+
 const { Panel } = Collapse;
 
 const ThirdStep = ({ jobData, done, onEdit }) => {
-  const { register, handleSubmit, errors } = useForm();
+  const queryClient = useQueryClient();
+  const [form] = Form.useForm();
+  const { successMessage, errorMessage } = useAntdMessageContext();
 
-  const onSubmit = (data) => {
-    console.log({ data });
-    done();
+  const cachedBookingDetails = queryClient.getQueryData([
+    APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_BOOKING_DETAILS,
+  ]);
+
+  // console.log({ cachedBookingDetails });
+
+  const { confirmBooking, isLoading } = useSaveBookingDetails(
+    (isSuccess, response) => {
+      return isSuccess
+        ? (successMessage(
+            response?.message ||
+              APP_CONSTANTS.MESSAGES.CUSTOMER.BOOKING_CONFIRMED
+          ),
+          next())
+        : errorMessage(response || APP_CONSTANTS.MESSAGES.ERROR);
+    }
+  );
+
+  const onSubmit = (bookingDetailsObj) => {
+    // return cachedBookingDetails
+    //   ? confirmBooking(bookingDetailsObj, true)
+    //   : confirmBooking(bookingDetailsObj, false);
   };
 
   return (
