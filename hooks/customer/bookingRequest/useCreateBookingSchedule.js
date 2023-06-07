@@ -10,7 +10,7 @@ export default function useCreateBookingSchedule(callback) {
     mutationFn: (bookingScheduleObj) => {
       return !bookingScheduleObj?.bookingId
         ? axiosClient.post(
-            URL_CONSTANTS.CUSTOMER.BOOKING_REQUEST.CREATE_SCHEDULE,
+            URL_CONSTANTS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE,
             bookingScheduleObj
           )
         : axiosClient.put(
@@ -20,7 +20,7 @@ export default function useCreateBookingSchedule(callback) {
     },
     onSuccess: (res) => {
       queryClient.setQueryData(
-        [APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.CREATE_SCHEDULE],
+        [APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE],
         (prevData) => {
           const {
             data: { data: cachedBookingScheduleData },
