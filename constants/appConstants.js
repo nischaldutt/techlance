@@ -45,21 +45,17 @@ const APP_CONSTANTS = {
     ERROR: "Something went wrong!",
     AUTH: {
       SIGNUP_SUCCESS: "Account created successfully!",
+      LOGIN_SUCCESS: "Logging you in!",
+      LOGIN_FAILED: "Login Failed!",
     },
 
     CUSTOMER: {
-      LOGIN_SUCCESS: "Logging you in!",
-      LOGIN_FAILED: "Login Failed!",
-
       BOOKING_REQUEST_SCHEDULED: "Booking Schedule Created!",
       BOOKING_DETAILS_SAVED: "Booking Details Saved!",
       BOOKING_CONFIRMED: "Booking Confirmed!",
     },
 
     BUSINESS: {
-      LOGIN_SUCCESS: "Logging you in!",
-      LOGIN_FAILED: "Login Failed!",
-
       COMPANY_REGISTERED: "Company Registered!",
       INSURANCE_INFO_ADDED: "Insurance information Added!",
       REFERENCES_ADDED: "References Added!",

@@ -6,7 +6,7 @@ import { Button, Form, Input } from "antd";
 import { useAuthContext, useAntdMessageContext } from "@/contexts";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
-export default function LoginForm() {
+export default function BusinessLoginForm() {
   const router = useRouter();
   const [form] = Form.useForm();
   const { control, handleSubmit } = useReactHookForm();
@@ -17,7 +17,7 @@ export default function LoginForm() {
     const { email, password } = data;
 
     const userObj = {
-      user_type: APP_CONSTANTS.USER_TYPE.CUSTOMER,
+      user_type: APP_CONSTANTS.USER_TYPE.BUSINESS,
       email,
       password,
     };
@@ -35,7 +35,7 @@ export default function LoginForm() {
     <>
       <div className="px-8 sm:px-12 py-16 shadow-xl rounded-lg border bg-white sm:w-[30rem]">
         <div className="text-3xl font-bold py-2 text-primary-100">
-          Signin to your account
+          Signin to your Business Account
         </div>
 
         <Form

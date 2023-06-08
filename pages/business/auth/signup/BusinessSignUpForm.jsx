@@ -30,7 +30,7 @@ export default function SignUpForm() {
 
   function onSubmit(data) {
     const userObj = {
-      user_type: APP_CONSTANTS.USER_TYPE.CUSTOMER,
+      user_type: APP_CONSTANTS.USER_TYPE.BUSINESS,
       ...data,
     };
 
