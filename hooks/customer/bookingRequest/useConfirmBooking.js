@@ -24,9 +24,9 @@ export default function useConfirmBooking(callback) {
         [APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.CONFIRM_BOOKING],
         (prevData) => {
           const {
-            data: { data: cachedBookingRequest },
+            data: { data: cachedConfirmedBookingData },
           } = res;
-          return cachedBookingRequest;
+          return cachedConfirmedBookingData;
         }
       );
 

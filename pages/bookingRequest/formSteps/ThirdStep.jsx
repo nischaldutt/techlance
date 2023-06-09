@@ -1,190 +1,168 @@
 import { useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import {
-  Alert,
-  Button,
-  Divider,
-  DatePicker,
-  Form,
-  Input,
-  Space,
-  TimePicker,
-  Row,
-  Col,
-  Card,
-  Collapse,
-} from "antd";
-import { AiFillCreditCard } from "react-icons/ai";
-import { MdModeEditOutline } from "react-icons/md";
-import { GiCancel } from "react-icons/gi";
-import { HiLocationMarker } from "react-icons/hi";
+import { Button, Divider, Form, Input, Space, Switch, Image } from "antd";
 
+import { ClientDateTimeInputs } from "@/components";
 import { useAntdMessageContext } from "@/contexts";
-import { useSaveBookingDetails } from "@/hooks";
+import { useConfirmBooking } from "@/hooks";
 import { APP_CONSTANTS } from "@/constants";
 
-const { Panel } = Collapse;
+const { TextArea } = Input;
 
-const ThirdStep = ({ jobData, done, onEdit }) => {
+const ThirdStep = ({ previous, done }) => {
   const queryClient = useQueryClient();
   const [form] = Form.useForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
+
+  const cachedBookingScheduleData = queryClient.getQueryData([
+    APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE,
+  ]);
 
   const cachedBookingDetails = queryClient.getQueryData([
     APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_BOOKING_DETAILS,
   ]);
 
-  // console.log({ cachedBookingDetails });
-
-  const { confirmBooking, isLoading } = useSaveBookingDetails(
+  const { confirmBooking, isLoading } = useConfirmBooking(
     (isSuccess, response) => {
       return isSuccess
         ? (successMessage(
             response?.message ||
               APP_CONSTANTS.MESSAGES.CUSTOMER.BOOKING_CONFIRMED
           ),
-          next())
+          done())
         : errorMessage(response || APP_CONSTANTS.MESSAGES.ERROR);
     }
   );
 
-  const onSubmit = (bookingDetailsObj) => {
-    // return cachedBookingDetails
-    //   ? confirmBooking(bookingDetailsObj, true)
-    //   : confirmBooking(bookingDetailsObj, false);
-  };
-
   return (
     <section>
-      <Card title="Appliance Install" bordered>
-        <section className="flex flex-col gap-4">
-          <Row gutter={[16, 24]}>
-            <Col>
-              <DatePicker
-                defaultValue={dayjs("2015-06-06")}
-                disabled
-                className="w-36"
-              />
-            </Col>
-            <Col>
-              <TimePicker
-                defaultValue={dayjs("12:08", "HH:mm")}
-                format="HH:mm"
-                disabled
-                className="w-36"
-              />
-            </Col>
-          </Row>
-
-          <Divider className="my-0" />
-
-          <Row gutter={[16, 24]}>
-            <Col>
-              <DatePicker
-                defaultValue={dayjs("2015-06-06")}
-                disabled
-                className="w-36"
-              />
-            </Col>
-            <Col>
-              <TimePicker
-                defaultValue={dayjs("12:08", "HH:mm")}
-                format="HH:mm"
-                disabled
-                className="w-36"
-              />
-            </Col>
-          </Row>
-
-          <div className="flex gap-4">
-            <HiLocationMarker size={20} />
-            900 Dufferin Street, Toronto, ON
-          </div>
-
-          <Collapse accordion bordered={false}>
-            <Panel header="Job Description" key="1">
-              <p className="">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
-            </Panel>
-          </Collapse>
-        </section>
-      </Card>
-
-      <Divider />
-
       <Form
-        name="dynamic_form_item"
-        onFinish={onSubmit}
-        className="flex flex-col gap-4"
+        name="confirmBooking"
+        form={form}
         layout="vertical"
+        onFinish={confirmBooking}
+        autoComplete="off"
+        initialValues={
+          {
+            ...cachedBookingScheduleData,
+            ...cachedBookingDetails,
+          } || {}
+        }
+        className="flex flex-col gap-4"
+        requiredMark="optional"
       >
-        <h3 className="text-base lg:text-xl font-bold">
-          Credit Card Information
-        </h3>
+        <h2 className="text-base lg:text-lg font-bold">
+          When should we send someone?
+        </h2>
 
-        <Space align="center" wrap>
-          <Form.Item label="Card number">
-            <Input placeholder="1234 1234 1234 1234" size="large" />
-          </Form.Item>
-          <Form.Item label="Expiration Date">
-            <Input placeholder="MM/YY" size="large" />
-          </Form.Item>
-          <Form.Item label="CVC">
-            <Input placeholder="CVC" size="large" />
-          </Form.Item>
-          <Button type="primary" size="large">
-            Add
-          </Button>
-        </Space>
+        <Form.List name="timeSlots">
+          {(fields) => (
+            <>
+              {fields.map(({ key, name, ...restParams }) => (
+                <Space key={key} align="baseline">
+                  <ClientDateTimeInputs
+                    name={name}
+                    isDisabled={true}
+                    {...restParams}
+                  />
+                </Space>
+              ))}
+            </>
+          )}
+        </Form.List>
 
-        <Alert
-          message={
-            <p className="text-xs">
-              You wont be charged until the job is complete
-            </p>
+        <Form.Item
+          name="earliestDateAvailable"
+          valuePropName="checked"
+          label={
+            <h4 className="text-base lg:text-xl font-bold">
+              I&apos;m Flexible
+            </h4>
           }
-          type="info"
-          showIcon
-          icon={<AiFillCreditCard />}
-        />
-
-        <Divider />
-
-        <Form.Item>
-          <Button type="primary" size="large" block onClick={done}>
-            Book Now
-          </Button>
+        >
+          <Switch defaultChecked={false} disabled={true} />
         </Form.Item>
 
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item>
-              <Button size="large" block onClick={onEdit}>
-                <div className="flex justify-center items-center gap-2">
-                  <MdModeEditOutline />
-                  Edit Job
-                </div>
-              </Button>
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item>
-              <Button size="large" block danger>
-                <div className="flex justify-center items-center gap-2">
-                  <GiCancel />
-                  Cancel Job
-                </div>
-              </Button>
-            </Form.Item>
-          </Col>
-        </Row>
+        <Form.Item
+          name="description"
+          className="w-full"
+          label={
+            <h4 className="text-base lg:text-xl font-bold">
+              Timing Constraints
+            </h4>
+          }
+        >
+          <TextArea
+            rows={4}
+            placeholder="e.g. Baby is napping from 3 to 4 PM. Please do not arrive during those times."
+            showCount
+            disabled={true}
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="taskDescription"
+          className="w-full"
+          label={
+            <h3 className="text-base lg:text-xl font-bold">
+              What do you need done?
+            </h3>
+          }
+        >
+          <TextArea
+            rows={4}
+            placeholder="e.g. Something that needs to be fixed, installed or cleaned etc."
+            showCount
+            disabled={true}
+          />
+        </Form.Item>
+
+        <Divider className="my-0" />
+
+        <Image.PreviewGroup
+          preview={{
+            onChange: (current, prev) =>
+              console.log(`current index: ${current}, prev index: ${prev}`),
+          }}
+        >
+          <div className="flex gap-4">
+            <Image
+              alt=""
+              width={200}
+              src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+            />
+            <Image
+              alt=""
+              width={200}
+              src="https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"
+            />
+          </div>
+        </Image.PreviewGroup>
+
+        <div className="flex justify-between">
+          <Form.Item>
+            <Button
+              type="primary"
+              size="large"
+              disabled={isLoading}
+              onClick={() => previous()}
+            >
+              Previous
+            </Button>
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              size="large"
+              name="submit"
+              loading={isLoading}
+            >
+              Confirm Booking
+            </Button>
+          </Form.Item>
+        </div>
       </Form>
     </section>
   );

@@ -1,18 +1,10 @@
 import { useQueryClient } from "@tanstack/react-query";
-import {
-  Button,
-  Divider,
-  DatePicker,
-  Form,
-  Input,
-  Space,
-  Checkbox,
-  Switch,
-} from "antd";
+import { Button, Form, Input, Space, Switch } from "antd";
 import dayjs from "dayjs";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { GrSubtractCircle } from "react-icons/gr";
 
+import { ClientDateTimeInputs } from "@/components";
 import { useAntdMessageContext } from "@/contexts";
 import { useCreateBookingSchedule } from "@/hooks";
 import { APP_CONSTANTS } from "@/constants";
@@ -111,7 +103,7 @@ const FirstStep = ({ next }) => {
             <>
               {fields.map(({ key, name, ...restParams }) => (
                 <Space key={key} align="baseline">
-                  <DateTimeInputs name={name} {...restParams} />
+                  <ClientDateTimeInputs name={name} {...restParams} />
 
                   {fields.length > 1 ? (
                     <GrSubtractCircle
@@ -181,46 +173,3 @@ const FirstStep = ({ next }) => {
 };
 
 export default FirstStep;
-
-function DateTimeInputs({ name, ...restParams }) {
-  return (
-    <>
-      <Space align="baseline" wrap>
-        <Form.Item
-          {...restParams}
-          name={[name, "date"]}
-          validateTrigger={["onChange", "onBlur"]}
-          rules={[
-            {
-              required: true,
-              message: "Missing Date",
-            },
-          ]}
-        >
-          <DatePicker className="w-36 h-10 text-lg" format="YYYY-MM-DD" />
-        </Form.Item>
-
-        <div className="px-2"></div>
-
-        <Form.Item
-          {...restParams}
-          name={[name, "timeIds"]}
-          rules={[
-            {
-              required: true,
-              message: "Missing Time",
-            },
-          ]}
-        >
-          <Checkbox.Group>
-            <Checkbox value={1}>Morning</Checkbox>
-            <Checkbox value={2}>Afternoon</Checkbox>
-            <Checkbox value={3}>Evening</Checkbox>
-          </Checkbox.Group>
-        </Form.Item>
-      </Space>
-
-      <Divider className="my-2" />
-    </>
-  );
-}

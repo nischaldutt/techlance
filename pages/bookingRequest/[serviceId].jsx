@@ -99,8 +99,8 @@ export default function ServiceBooking() {
         ) : (
           <Result
             status="success"
-            title="Congratulation! Business Registration Successfull"
-            subTitle="Cloud server configuration takes 1-5 minutes, please wait."
+            title="Booking Request Confirmed!"
+            subTitle="Our Agent will contact you soon."
             extra={[
               <Button type="primary" key="console">
                 Explore Services
