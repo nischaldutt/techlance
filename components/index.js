@@ -28,6 +28,7 @@ export { default as ClientJobRateCard } from "@/components/client/JobRateCard";
 export { default as ClientServiceSelectModal } from "@/components/client/ServiceSelectModal"; // component can be removed if not being used, kept for future reference
 export { default as ClientLocationSelectModal } from "@/components/client/LocationSelectModal"; // component can be removed if not being used, kept for future reference
 export { default as ClientDateTimeInputs } from "@/components/client/DateTimeInputs";
+export { default as ClientReviewForm } from "@/components/client/ReviewForm";
 
 // business
 export { default as BusinessHero } from "@/components/business/Hero";

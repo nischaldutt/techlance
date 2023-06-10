@@ -4,9 +4,11 @@ const URL_CONSTANTS = {
       LOGIN: "/auth/login",
       SIGN_UP: "/auth/signup",
     },
+
     GET_CATEGORIES: "/categories",
     GET_ALL_SUB_CATEGORIES: "/sub-category/filter",
     GET_SUB_CATEGORIES_WITH_CATEGORY_ID: "/sub-category",
+
     BOOKING_REQUEST: {
       SAVE_SCHEDULE: "/booking/step1",
       SAVE_BOOKING_DETAILS: "/booking/step2",
@@ -16,6 +18,11 @@ const URL_CONSTANTS = {
       CLEANUP: "/booking/cleanup",
     },
     GET_BOOKING: "/booking/getbooking",
+
+    REVIEWS: {
+      ADD_BUSINESS_REIVEW: "/review",
+      EDIT_BUSINESS_REIVEW: "/review",
+    },
   },
   BUSINESS: {
     AUTH: {

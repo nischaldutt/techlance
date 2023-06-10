@@ -15,6 +15,11 @@ const APP_CONSTANTS = {
         SAVE_BOOKING_DETAILS: "CREATE_JOB_DETAILS",
         CONFIRM_BOOKING: "CONFIRM_BOOKING",
       },
+
+      REVIEWS: {
+        ADD_BUSINESS_REIVEW: "ADD_BUSINESS_REIVEW",
+        EDIT_BUSINESS_REIVEW: "EDIT_BUSINESS_REIVEW",
+      },
     },
 
     BUSINESS: {
@@ -53,6 +58,9 @@ const APP_CONSTANTS = {
       BOOKING_REQUEST_SCHEDULED: "Booking Schedule Created!",
       BOOKING_DETAILS_SAVED: "Booking Details Saved!",
       BOOKING_CONFIRMED: "Booking Confirmed!",
+
+      ADDED_BUSINESS_REVIEW: "Added Business Review!",
+      UPDATED_BUSINESS_REVIEW: "Updated Business Review!",
     },
 
     BUSINESS: {

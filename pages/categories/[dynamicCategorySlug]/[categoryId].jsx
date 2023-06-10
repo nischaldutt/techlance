@@ -17,6 +17,7 @@ import {
   ClientGallery,
   ClientServiceNavHeader,
   ClientRatingStats,
+  ClientReviewForm,
   ClientStaticMap,
   Footer,
 } from "@/components";
@@ -136,6 +137,7 @@ export default function ServicePage() {
               Reviews
             </div>
             <ClientRatingStats />
+            <ClientReviewForm />
           </div>
         </div>
 
