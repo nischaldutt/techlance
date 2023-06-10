@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,6 +21,7 @@ import {
   ClientStaticMap,
   Footer,
 } from "@/components";
+import { Divider } from "antd";
 
 const galleryImages = [
   {
@@ -68,6 +69,11 @@ const socialPlatforms = [
 
 export default function ServicePage() {
   const router = useRouter();
+  const [reviews, setReviews] = useState([]);
+
+  function addNewReview(newReview) {
+    setReviews((prevReviews) => [newReview, ...prevReviews]);
+  }
 
   function bookServiceHandler(serviceId) {
     console.log({ serviceId });
@@ -134,10 +140,10 @@ export default function ServicePage() {
 
           <div className="py-4 text-gray-700">
             <div className="uppercase pt-6 py-3 underline-offset-8 font-bold">
-              Reviews
+              Ratings
             </div>
-            <ClientRatingStats />
-            <ClientReviewForm />
+            <ClientRatingStats rating={3} reviews={reviews} />
+            <ClientReviewForm addNewReview={addNewReview} />
           </div>
         </div>
 
