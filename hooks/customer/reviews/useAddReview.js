@@ -7,12 +7,10 @@ export default function useAddReview(callback) {
   const queryClient = useQueryClient();
 
   const { mutate: addRemove, isLoading } = useMutation({
-    mutationFn: () => {
-      const reqBody = { bookingId: cachedBookingScheduleData?.bookingId };
-
+    mutationFn: (businessReview) => {
       return axiosClient.post(
         URL_CONSTANTS.CUSTOMER.REVIEWS.ADD_BUSINESS_REIVEW,
-        reqBody
+        businessReview
       );
     },
     onSuccess: (res) => {
