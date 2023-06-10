@@ -1,8 +1,8 @@
 import React from "react";
 import Head from "next/head";
-import { useQueryClient } from "@tanstack/react-query";
 import { Divider, Steps, Button, Result } from "antd";
 
+import { useQueryCacheContext } from "@/contexts";
 import { ProtectedRoute } from "@/contexts/AuthContext";
 import { APP_CONSTANTS } from "@/constants";
 import { Footer } from "@/components";
@@ -13,10 +13,9 @@ import ReferenceInfo from "@/pages/business/registration/formSteps/ReferenceInfo
 
 // todo: implement getServerSideProps to fetch and prerender the page or redirect based on user session
 export default function BusinessRegistration() {
-  const queryClient = useQueryClient();
-
   const [formStage, setFormStage] = React.useState(0);
   const [isDone, setIsDone] = React.useState(false);
+  const { removeQueryFromCache } = useQueryCacheContext();
 
   function next() {
     return setFormStage((formStage) => formStage + 1);
@@ -27,25 +26,11 @@ export default function BusinessRegistration() {
   }
 
   function done() {
-    // perform cache clean up after successfull business creation
-    queryClient.removeQueries({
-      queryKey:
-        APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
-      exact: true,
-    });
-
-    queryClient.removeQueries({
-      queryKey:
-        APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_INSURANCE,
-      exact: true,
-    });
-
-    queryClient.removeQueries({
-      queryKey:
-        APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_REFERENCES,
-      exact: true,
-    });
-
+    removeQueryFromCache([
+      APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
+      APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_INSURANCE,
+      APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_REFERENCES,
+    ]);
     setIsDone(true);
   }
 

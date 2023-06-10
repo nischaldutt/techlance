@@ -1,8 +1,7 @@
 import { useForm as useReactHookForm, Controller } from "react-hook-form";
 import { Button, Form, Input, Checkbox } from "antd";
-import { useQueryClient } from "@tanstack/react-query";
 
-import { useAntdMessageContext } from "@/contexts";
+import { useAntdMessageContext, useQueryCacheContext } from "@/contexts";
 import { useCreateBusinessBasicInfo } from "@/hooks";
 import { mergeObjects } from "@/utils";
 import { APP_CONSTANTS } from "@/constants";
@@ -19,12 +18,12 @@ const smallFormItemLayout = {
 };
 
 const BasinInfo = ({ next }) => {
-  const queryClient = useQueryClient();
   const [form] = Form.useForm();
   const { control, handleSubmit } = useReactHookForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
+  const { getQueryFromCache } = useQueryCacheContext();
 
-  const cachedBasicInfoData = queryClient.getQueryData([
+  const cachedBasicInfoData = getQueryFromCache([
     APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
   ]);
 
