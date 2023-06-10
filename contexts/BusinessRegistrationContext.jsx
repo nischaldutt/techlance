@@ -1,7 +1,6 @@
 import { useReducer, createContext, useContext } from "react";
 
 import { APP_CONSTANTS } from "@/constants";
-import { useCreateBusinessBasicInfo } from "@/hooks";
 
 const BusinessRegistrationContext = createContext(null);
 const BusinessRegistrationDispatchContext = createContext(null);
@@ -53,53 +52,3 @@ function reducer(state, action) {
 const initialState = {
   businessId: null,
 };
-
-// const initialState = {
-//   basicInfo: {
-//     name: "",
-//     address: "",
-//     hst: "",
-//     unit: null,
-//     website: "",
-//     discoverDescription: "",
-//     industryStandardAgreement: true,
-//   },
-//   insuranceInfo: {
-//     businessId: null,
-//     brokerEmail: "",
-//     contactBrokerPermission: true,
-//     insurancePolicyNumber: "",
-//     insuranceAgreement: true,
-//   },
-//   referencesInfo: [
-//     {
-//       businessId: null,
-//       fullName: "",
-//       relationship: "",
-//       company: "",
-//       email: "",
-//       phone: "",
-//       description: "",
-//     },
-//     {
-//       businessId: null,
-//       fullName: "",
-//       relationship: "",
-//       company: "",
-//       email: "",
-//       phone: "",
-//       description: "",
-//     },
-//   ],
-//   servicesInfo: {
-//     services: [
-//       {
-//         name: "",
-//         description: "",
-//         price: 0.0,
-//         subCategoryId: null,
-//       },
-//     ],
-//     businessId: null,
-//   },
-// };
