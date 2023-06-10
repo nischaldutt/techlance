@@ -6,26 +6,33 @@ import { APP_CONSTANTS } from "@/constants";
 
 const { TextArea } = Input;
 
-export default function ReviewForm() {
+export default function ReviewForm({ businessId = 76, addNewReview }) {
   const [form] = Form.useForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
 
   const { addRemove, isLoading } = useAddReview((isSuccess, response) => {
     return isSuccess
-      ? (successMessage(
+      ? (addNewReview(response?.data),
+        form.resetFields(),
+        successMessage(
           response?.message ||
             APP_CONSTANTS.MESSAGES.CUSTOMER.ADDED_BUSINESS_REVIEW
-        ),
-        next())
+        ))
       : errorMessage(response || APP_CONSTANTS.MESSAGES.ERROR);
   });
 
   function onSubmit(data) {
-    console.log({ data });
+    return addRemove({ ...data, businessId });
   }
 
   return (
-    <Form name="reviewForm" form={form} layout="vertical" onFinish={onSubmit}>
+    <Form
+      name="reviewForm"
+      form={form}
+      layout="vertical"
+      size="small"
+      onFinish={onSubmit}
+    >
       <Form.Item
         name="rating"
         label="How much would you rate this business?"
@@ -41,6 +48,10 @@ export default function ReviewForm() {
           {
             required: true,
             message: "Please describe your experience!",
+          },
+          {
+            max: 200,
+            message: "Max limit 200 exceeded!",
           },
         ]}
       >
