@@ -7,6 +7,7 @@ export default function useSaveBookingDetails(callback) {
   const queryClient = useQueryClient();
 
   const { mutate: saveBookingDetails, isLoading } = useMutation({
+    // todo: fix this
     mutationFn: (bookingDetailsObj, isUpdateRequest) => {
       const cachedBookingScheduleData = queryClient.getQueryData([
         APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE,

@@ -10,7 +10,7 @@ export default function ReviewForm({ businessId = 76, addNewReview }) {
   const [form] = Form.useForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
 
-  const { addRemove, isLoading } = useAddReview((isSuccess, response) => {
+  const { addReview, isLoading } = useAddReview((isSuccess, response) => {
     return isSuccess
       ? (addNewReview(response?.data),
         form.resetFields(),
@@ -22,7 +22,7 @@ export default function ReviewForm({ businessId = 76, addNewReview }) {
   });
 
   function onSubmit(data) {
-    return addRemove({ ...data, businessId });
+    return addReview({ ...data, businessId });
   }
 
   return (
@@ -70,7 +70,7 @@ export default function ReviewForm({ businessId = 76, addNewReview }) {
           name="submit"
           loading={isLoading}
         >
-          Submit a review
+          Submit Review
         </Button>
       </Form.Item>
     </Form>

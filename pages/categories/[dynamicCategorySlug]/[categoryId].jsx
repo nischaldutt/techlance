@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -75,6 +75,14 @@ export default function ServicePage() {
     setReviews((prevReviews) => [newReview, ...prevReviews]);
   }
 
+  function swapNewReview(newReview) {
+    setReviews((prevReviews) => {
+      return prevReviews.map((pre) => {
+        return pre?.reviewId === newReview?.reviewId ? newReview : pre;
+      });
+    });
+  }
+
   function bookServiceHandler(serviceId) {
     console.log({ serviceId });
     router.push(`/bookingRequest/${serviceId}`);
@@ -142,7 +150,11 @@ export default function ServicePage() {
             <div className="uppercase pt-6 py-3 underline-offset-8 font-bold">
               Ratings
             </div>
-            <ClientRatingStats rating={3} reviews={reviews} />
+            <ClientRatingStats
+              rating={3}
+              reviews={reviews}
+              swapNewReview={swapNewReview}
+            />
             <ClientReviewForm addNewReview={addNewReview} />
           </div>
         </div>

@@ -1,12 +1,26 @@
-import { Button, Divider, Empty, Form, Input, Rate } from "antd";
+import { useState } from "react";
+import { Button, Divider, Empty, Form, Input, Modal, Rate } from "antd";
 
 import { useAntdMessageContext } from "@/contexts";
-import { useAddReview } from "@/hooks";
+import { useEditReview } from "@/hooks";
 import { APP_CONSTANTS } from "@/constants";
 
 const { TextArea } = Input;
 
-const RatingStats = ({ rating = 0, reviews }) => {
+const RatingStats = ({
+  businessId = 76,
+  rating = 0,
+  reviews,
+  swapNewReview,
+}) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedReview, setSelectedReview] = useState(null);
+
+  function onModelClose() {
+    setIsEditing(false);
+    // setSelectedReview(null);
+  }
+
   return (
     <>
       <div className="flex gap-4 items-center">
@@ -21,40 +35,72 @@ const RatingStats = ({ rating = 0, reviews }) => {
         <Empty description="Nothing here!" />
       ) : (
         reviews.map((review) => {
-          console.log({ review });
+          // console.log({ review });
           return (
-            <div className="my-4" key={review?.reviewId}>
+            <div
+              className="border-b-2 border-black my-8"
+              key={review?.reviewId}
+            >
               <div className="text-xs font-bold">username</div>
               <Rate className="text-sm my-2" count={5} value={review?.rating} />
               <div className="text-xs">{review?.reviewDescription}</div>
-              <div className="text-xs mt-2">Edit</div>
+              <div
+                onClick={() => {
+                  setSelectedReview(review);
+                  setIsEditing(true);
+                }}
+                className="text-xs mt-2 cursor-pointer"
+              >
+                Edit
+              </div>
             </div>
           );
         })
       )}
+
+      <Modal
+        title="Edit Business Review"
+        open={isEditing}
+        onCancel={onModelClose}
+        footer={null}
+      >
+        <EditReviewForm
+          review={selectedReview}
+          swapNewReview={swapNewReview}
+          onModelClose={onModelClose}
+        />
+      </Modal>
 
       <Divider />
     </>
   );
 };
 
-function EditReviewForm() {
+function EditReviewForm({ review, swapNewReview, onModelClose }) {
   const [form] = Form.useForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
 
-  const { addRemove, isLoading } = useAddReview((isSuccess, response) => {
+  const { editReview, isLoading } = useEditReview((isSuccess, response) => {
     return isSuccess
-      ? (addNewReview(response?.data),
-        form.resetFields(),
+      ? (swapNewReview(response?.data),
+        form.setFieldsValue({
+          rating: 0,
+          reviewDescription: "",
+        }),
+        onModelClose(),
         successMessage(
           response?.message ||
-            APP_CONSTANTS.MESSAGES.CUSTOMER.ADDED_BUSINESS_REVIEW
+            APP_CONSTANTS.MESSAGES.CUSTOMER.UPDATED_BUSINESS_REVIEW
         ))
       : errorMessage(response || APP_CONSTANTS.MESSAGES.ERROR);
   });
 
   function onSubmit(data) {
-    return addRemove({ ...data, businessId });
+    return editReview({
+      ...data,
+      businessId: review?.businessId,
+      reviewId: review?.reviewId,
+    });
   }
 
   return (
@@ -67,7 +113,7 @@ function EditReviewForm() {
     >
       <Form.Item
         name="rating"
-        label="Rating"
+        label={<p className="text-xs">Rating</p>}
         rules={[{ required: true, message: "Rating Required!" }]}
       >
         <Rate />
@@ -102,7 +148,7 @@ function EditReviewForm() {
           name="submit"
           loading={isLoading}
         >
-          Submit a review
+          Update Review
         </Button>
       </Form.Item>
     </Form>

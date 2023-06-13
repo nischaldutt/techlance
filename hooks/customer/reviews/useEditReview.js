@@ -3,11 +3,11 @@ import { useMutation } from "@tanstack/react-query";
 import axiosClient from "@/libs/axiosClient";
 import { URL_CONSTANTS } from "@/constants";
 
-export default function useAddReview(callback) {
-  const { mutate: addReview, isLoading } = useMutation({
+export default function useEditReview(callback) {
+  const { mutate: editReview, isLoading } = useMutation({
     mutationFn: (businessReview) => {
-      return axiosClient.post(
-        URL_CONSTANTS.CUSTOMER.REVIEWS.ADD_BUSINESS_REIVEW,
+      return axiosClient.put(
+        URL_CONSTANTS.CUSTOMER.REVIEWS.EDIT_BUSINESS_REIVEW,
         businessReview
       );
     },
@@ -19,5 +19,5 @@ export default function useAddReview(callback) {
     },
   });
 
-  return { addReview, isLoading };
+  return { editReview, isLoading };
 }
