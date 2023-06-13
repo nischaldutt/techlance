@@ -16,7 +16,7 @@ export function AuthProvider({ children }) {
       const token = Cookies.get("token");
 
       if (token) {
-        console.log("Got a token in the cookies");
+        // console.log("Got a token in the cookies");
         axiosClient.defaults.headers.Authorization = `Bearer ${token}`;
       }
       setIsLoading(false);
@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
     loadTokenFromCookies();
   }, []);
 
-  console.log({ user });
+  // console.log({ user });
 
   const login = async (userObj, callback) => {
     try {

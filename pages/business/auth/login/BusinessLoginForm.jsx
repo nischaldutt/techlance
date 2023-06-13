@@ -26,7 +26,7 @@ export default function BusinessLoginForm() {
       return isSuccess
         ? (successMessage(message || APP_CONSTANTS.MESSAGES.AUTH.LOGIN_SUCCESS),
           form.resetFields(),
-          router.push(URL_CONSTANTS.ROUTES.HOME))
+          router.push(URL_CONSTANTS.BUSINESS.DASHBOARD.HOME))
         : errorMessage(message || APP_CONSTANTS.MESSAGES.AUTH.LOGIN_FAILED);
     });
   };

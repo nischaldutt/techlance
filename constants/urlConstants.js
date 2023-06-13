@@ -35,6 +35,9 @@ const URL_CONSTANTS = {
       ADD_REFERENCES: "/business/references",
       ADD_SERVICES: "/business/services",
     },
+    DASHBOARD: {
+      HOME: "/business/admin/dashboard",
+    },
   },
   ROUTES: {
     HOME: "/",
@@ -50,6 +53,9 @@ const URL_CONSTANTS = {
         SIGN_UP: "/business/auth/signup",
       },
       REGISTRATION: "/business/registration",
+      DASHBOARD: {
+        HOME: "/business/admin/dashboard",
+      },
     },
   },
 };
