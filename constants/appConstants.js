@@ -52,6 +52,7 @@ const APP_CONSTANTS = {
       SIGNUP_SUCCESS: "Account created successfully!",
       LOGIN_SUCCESS: "Logging you in!",
       LOGIN_FAILED: "Login Failed!",
+      UNAUTHORISED: "Unauthorized",
     },
 
     CUSTOMER: {

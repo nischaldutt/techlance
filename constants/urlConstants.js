@@ -1,4 +1,5 @@
 const URL_CONSTANTS = {
+  GET_USER: "/user",
   CUSTOMER: {
     AUTH: {
       LOGIN: "/auth/login",
