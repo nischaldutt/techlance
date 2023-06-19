@@ -1,6 +1,24 @@
 import Head from "next/head";
 
 import BusinessLoginForm from "@/pages/business/auth/login/BusinessLoginForm";
+import { URL_CONSTANTS } from "@/constants";
+
+export async function getServerSideProps({ req }) {
+  const response = await getUser(req?.cookies?.token);
+
+  if (!response?.id) {
+    return {
+      props: {},
+    };
+  }
+
+  return {
+    redirect: {
+      destination: URL_CONSTANTS.ROUTES.HOME,
+      permanent: true,
+    },
+  };
+}
 
 export default function BusinessLogin() {
   return (
@@ -16,10 +34,4 @@ export default function BusinessLogin() {
       </section>
     </>
   );
-}
-
-export async function getStaticProps() {
-  return {
-    props: {},
-  };
 }
