@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import { Divider, Steps, Button, Result } from "antd";
 
+import { getUser } from "@/services";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 import { Footer, ClientJobRateCard } from "@/components";
 

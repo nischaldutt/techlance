@@ -1,22 +1,23 @@
 import Head from "next/head";
 
+import { getUser } from "@/services";
+import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 import BusinessLoginForm from "@/pages/business/auth/login/BusinessLoginForm";
-import { URL_CONSTANTS } from "@/constants";
 
 export async function getServerSideProps({ req }) {
   const response = await getUser(req?.cookies?.token);
 
-  if (!response?.id) {
+  if (response?.user_type === APP_CONSTANTS.USER_TYPE.BUSINESS) {
     return {
-      props: {},
+      redirect: {
+        destination: URL_CONSTANTS.ROUTES.HOME,
+        permanent: true,
+      },
     };
   }
 
   return {
-    redirect: {
-      destination: URL_CONSTANTS.ROUTES.HOME,
-      permanent: true,
-    },
+    props: {},
   };
 }
 
