@@ -27,7 +27,12 @@ export default function ReviewList({ reviews, swapNewReview }) {
               <div className="text-xs font-bold">
                 {review?.userFirstName} {review?.userLastName}
               </div>
-              <Rate className="text-sm my-2" count={5} value={review?.rating} />
+              <Rate
+                className="text-sm my-2"
+                count={5}
+                value={review?.rating}
+                disabled
+              />
               <div className="text-xs">{review?.reviewDescription}</div>
               <div
                 onClick={() => {
