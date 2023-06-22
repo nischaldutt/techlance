@@ -9,7 +9,7 @@ export { default as useCreateBookingSchedule } from "@/hooks/customer/bookingReq
 export { default as useSaveBookingDetails } from "@/hooks/customer/bookingRequest/useSaveBookingDetails";
 export { default as useConfirmBooking } from "@/hooks/customer/bookingRequest/useConfirmBooking";
 
-export { default as useAddReview } from "@/hooks/customer/reviews/useAddReview";
+export { default as useCreateReview } from "@/hooks/customer/reviews/useCreateReview";
 export { default as useEditReview } from "@/hooks/customer/reviews/useEditReview";
 
 // business

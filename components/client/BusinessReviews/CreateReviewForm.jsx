@@ -1,16 +1,16 @@
 import { Form, Input, Button, Rate } from "antd";
 
 import { useAntdMessageContext } from "@/contexts";
-import { useAddReview } from "@/hooks";
+import { useCreateReview } from "@/hooks";
 import { APP_CONSTANTS } from "@/constants";
 
 const { TextArea } = Input;
 
-export default function ReviewForm({ businessId = 76, addNewReview }) {
+export default function CreateReviewForm({ businessId, addNewReview }) {
   const [form] = Form.useForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
 
-  const { addReview, isLoading } = useAddReview((isSuccess, response) => {
+  const { createReview, isLoading } = useCreateReview((isSuccess, response) => {
     return isSuccess
       ? (addNewReview(response?.data),
         form.resetFields(),
@@ -22,7 +22,7 @@ export default function ReviewForm({ businessId = 76, addNewReview }) {
   });
 
   function onSubmit(data) {
-    return addReview({ ...data, businessId });
+    return createReview({ ...data, businessId });
   }
 
   return (

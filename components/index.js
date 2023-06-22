@@ -21,14 +21,13 @@ export { default as ClientCollapse } from "@/components/client/Collapse";
 export { default as ClientServiceListItem } from "@/components/client/ServiceListItem";
 export { default as ClientGallery } from "@/components/client/Gallery";
 export { default as ClientStaticMap } from "@/components/client/StaticMap";
-export { default as ClientRatingStats } from "@/components/client/RatingStats";
 export { default as ClientServiceSearchCard } from "@/components/client/ServiceSearchCard";
 export { default as ClientServiceNavHeader } from "@/components/client/ServiceNavHeader";
 export { default as ClientJobRateCard } from "@/components/client/JobRateCard";
 export { default as ClientServiceSelectModal } from "@/components/client/ServiceSelectModal"; // component can be removed if not being used, kept for future reference
 export { default as ClientLocationSelectModal } from "@/components/client/LocationSelectModal"; // component can be removed if not being used, kept for future reference
 export { default as ClientDateTimeInputs } from "@/components/client/DateTimeInputs";
-export { default as ClientReviewForm } from "@/components/client/ReviewForm";
+export { default as ClientBusinessReviews } from "@/components/client/BusinessReviews";
 
 // business
 export { default as BusinessHero } from "@/components/business/Hero";

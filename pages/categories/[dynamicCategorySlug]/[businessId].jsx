@@ -1,15 +1,14 @@
-import { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { AiFillCar } from "react-icons/ai";
 
+import { useAuthContext } from "@/contexts";
 import {
   ClientAccordion,
   ClientCarousal,
   ClientGallery,
   ClientServiceNavHeader,
-  ClientRatingStats,
-  ClientReviewForm,
+  ClientBusinessReviews,
   ClientStaticMap,
   Footer,
 } from "@/components";
@@ -19,26 +18,7 @@ import AboutSection from "@/pages/categories/[dynamicCategorySlug]/AboutSection"
 import ContactInformation from "@/pages/categories/[dynamicCategorySlug]/ContactInformation";
 import SocialLinks from "@/pages/categories/[dynamicCategorySlug]/SocialLinks";
 
-const galleryImages = [
-  {
-    src: "https://images.unsplash.com/photo-1661956602153-23384936a1d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1661956602153-23384936a1d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1661956602153-23384936a1d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1661956602153-23384936a1d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1661956602153-23384936a1d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1661956602153-23384936a1d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-  },
-];
+import { galleryImages } from "@/data";
 
 export const getStaticPaths = async () => {
   return {
@@ -55,19 +35,8 @@ export async function getStaticProps() {
 
 export default function ServicePage() {
   const router = useRouter();
-  const [reviews, setReviews] = useState([]);
-
-  function addNewReview(newReview) {
-    setReviews((prevReviews) => [newReview, ...prevReviews]);
-  }
-
-  function swapNewReview(newReview) {
-    setReviews((prevReviews) => {
-      return prevReviews.map((pre) => {
-        return pre?.reviewId === newReview?.reviewId ? newReview : pre;
-      });
-    });
-  }
+  const { isAuthenticated, user } = useAuthContext();
+  const { businessId } = router.query; // todo: pass businessId to children
 
   function bookServiceHandler(serviceId) {
     console.log({ serviceId });
@@ -132,17 +101,7 @@ export default function ServicePage() {
 
           <HealthSafetyRules />
 
-          <div className="py-4 text-gray-700">
-            <div className="uppercase pt-6 py-3 underline-offset-8 font-bold">
-              Ratings
-            </div>
-            <ClientRatingStats
-              rating={3}
-              reviews={reviews}
-              swapNewReview={swapNewReview}
-            />
-            <ClientReviewForm addNewReview={addNewReview} />
-          </div>
+          <ClientBusinessReviews />
         </div>
 
         <div className="text-gray-700 bg-gray-50 sm:w-4/5 md:w-2/5 2xl:w-[32%]">
