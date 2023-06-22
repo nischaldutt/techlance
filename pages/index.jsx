@@ -1,4 +1,3 @@
-import React from "react";
 import Head from "next/head";
 
 import {
@@ -13,6 +12,7 @@ import {
 
 import { useAuthContext } from "@/contexts";
 
+// todo: create head wrapper
 export default function Home() {
   const { isAuthenticated, user, login, isLoading, logout } = useAuthContext();
 
