@@ -1,8 +1,11 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { AiFillCar } from "react-icons/ai";
 
+import { getReviewsByBusinessId } from "@/services/customerServices";
 import { useAuthContext } from "@/contexts";
+import { APP_CONSTANTS } from "@/constants";
 import {
   ClientAccordion,
   ClientCarousal,
@@ -20,18 +23,27 @@ import SocialLinks from "@/pages/categories/[dynamicCategorySlug]/SocialLinks";
 
 import { galleryImages } from "@/data";
 
-export const getStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: "blocking",
-  };
-};
+// export const getStaticPaths = async () => {
+//   return {
+//     paths: [],
+//     fallback: "blocking",
+//   };
+// };
 
-export async function getStaticProps() {
-  return {
-    props: {},
-  };
-}
+// export async function getStaticProps({ params }) {
+//   const queryClient = new QueryClient();
+
+//   await queryClient.prefetchQuery(
+//     [APP_CONSTANTS.QUERY_KEYS.CUSTOMER.REVIEWS.GET_REVIEWS_BY_BUSINESS_ID, 76],
+//     () => getReviewsByBusinessId(76) // todo: params?.businessId
+//   );
+
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//     },
+//   };
+// }
 
 export default function ServicePage() {
   const router = useRouter();

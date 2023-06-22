@@ -51,3 +51,21 @@ export async function getSubCategoriesWithCategoryId({ queryKey }) {
     return { error };
   }
 }
+
+export async function getReviewsByBusinessId(businessId) {
+  try {
+    const PAGE = 0;
+    const LIMIT = 5;
+
+    const { data } = await axiosClient.get(
+      `${URL_CONSTANTS.CUSTOMER.REVIEWS.GET_REVIEWS_BY_BUSINESS_ID}/${PAGE}/${LIMIT}`,
+      {
+        params: { businessId },
+      }
+    );
+
+    return { data };
+  } catch (error) {
+    return { error };
+  }
+}

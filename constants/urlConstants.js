@@ -23,6 +23,7 @@ const URL_CONSTANTS = {
     REVIEWS: {
       ADD_BUSINESS_REIVEW: "/review",
       EDIT_BUSINESS_REIVEW: "/review",
+      GET_REVIEWS_BY_BUSINESS_ID: "/review",
     },
   },
   BUSINESS: {

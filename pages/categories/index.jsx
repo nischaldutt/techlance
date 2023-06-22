@@ -21,6 +21,7 @@ export async function getStaticProps() {
     [APP_CONSTANTS.QUERY_KEYS.CUSTOMER.CATEGORIES],
     getCategories
   );
+
   await queryClient.prefetchQuery(
     [APP_CONSTANTS.QUERY_KEYS.CUSTOMER.SUB_CATEGORIES],
     getSubCategories

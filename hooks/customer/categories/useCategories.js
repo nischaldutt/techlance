@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { APP_CONSTANTS } from "@/constants";
-
 import { getCategories } from "@/services/customerServices";
 
 export default function useCategories() {

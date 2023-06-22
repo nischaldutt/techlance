@@ -1,14 +1,21 @@
-import { useState } from "react";
-import { Divider, Rate } from "antd";
+import { useState, useEffect } from "react";
+import { Divider, Rate, Spin } from "antd";
 
 import { useAuthContext } from "@/contexts";
+import { useReviewsByBusinessId } from "@/hooks";
 
 import ReviewList from "@/components/client/BusinessReviews/ReviewList";
 import CreateReviewForm from "@/components/client/BusinessReviews/CreateReviewForm";
 
-export default function BusinessReviews({ businessId = 5, rating = 4 }) {
+export default function BusinessReviews({ businessId = 76, rating = 4 }) {
   const { isAuthenticated, user } = useAuthContext();
+  const { isFetching, businessReviews } = useReviewsByBusinessId(businessId);
+
   const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    setReviews(businessReviews);
+  }, [businessReviews]);
 
   function addNewReview(newReview) {
     setReviews((prevReviews) => [newReview, ...prevReviews]);
@@ -35,7 +42,9 @@ export default function BusinessReviews({ businessId = 5, rating = 4 }) {
 
       <Divider />
 
-      <ReviewList reviews={reviews} swapNewReview={swapNewReview} />
+      <Spin spinning={isFetching}>
+        <ReviewList reviews={reviews} swapNewReview={swapNewReview} />
+      </Spin>
 
       <Divider />
 
