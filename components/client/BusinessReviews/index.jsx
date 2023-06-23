@@ -9,7 +9,17 @@ import CreateReviewForm from "@/components/client/BusinessReviews/CreateReviewFo
 
 export default function BusinessReviews({ businessId = 76, rating = 4 }) {
   const { isAuthenticated, user } = useAuthContext();
-  const { isFetching, businessReviews } = useReviewsByBusinessId(businessId);
+  const {
+    businessReviews,
+    isLoading,
+    data,
+    isError,
+    error,
+    hasNextPage,
+    isFetching,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useReviewsByBusinessId(businessId);
 
   const [reviews, setReviews] = useState([]);
 
@@ -43,7 +53,13 @@ export default function BusinessReviews({ businessId = 76, rating = 4 }) {
       <Divider />
 
       <Spin spinning={isFetching}>
-        <ReviewList reviews={reviews} swapNewReview={swapNewReview} />
+        <ReviewList
+          reviews={reviews}
+          swapNewReview={swapNewReview}
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+        />
       </Spin>
 
       <Divider />
