@@ -11,7 +11,7 @@ export default function useSubCategories() {
       data: { data: subCategories },
     },
   } = useQuery({
-    queryKey: [APP_CONSTANTS.QUERY_KEYS.SUB_CATEGORIES],
+    queryKey: [APP_CONSTANTS.QUERY_KEYS.CUSTOMER.SUB_CATEGORIES],
     queryFn: getSubCategories,
     staleTime: Infinity,
     // keepPreviousData: true

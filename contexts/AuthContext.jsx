@@ -1,8 +1,8 @@
-import { useRouter } from "next/router";
 import { createContext, useState, useEffect, useContext } from "react";
 import Cookies from "js-cookie";
 
 import axiosClient from "@/libs/axiosClient";
+import { getUser } from "@/services";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
 const AuthContext = createContext(null);
@@ -16,8 +16,15 @@ export function AuthProvider({ children }) {
       const token = Cookies.get("token");
 
       if (token) {
-        console.log("Got a token in the cookies");
         axiosClient.defaults.headers.Authorization = `Bearer ${token}`;
+        const response = await getUser();
+
+        if (response !== APP_CONSTANTS.MESSAGES.AUTH.UNAUTHORISED) {
+          setUser(response);
+        } else {
+          Cookies.remove("token");
+          delete axiosClient.defaults.headers.Authorization;
+        }
       }
       setIsLoading(false);
     }
@@ -61,7 +68,7 @@ export function AuthProvider({ children }) {
     Cookies.remove("token");
     setUser(null);
     delete axiosClient.defaults.headers.Authorization;
-    window.location.pathname = URL_CONSTANTS.HOME;
+    window.location.pathname = URL_CONSTANTS.ROUTES.HOME;
   };
 
   return (
@@ -80,19 +87,6 @@ export function AuthProvider({ children }) {
   );
 }
 
-export default function useAuthContext() {
+export function useAuthContext() {
   return useContext(AuthContext);
 }
-
-export const ProtectedRoute = ({ children }) => {
-  const router = useRouter();
-  const { isAuthenticated, isTokenPresent } = useAuthContext();
-
-  useEffect(() => {
-    if (!isAuthenticated || !isTokenPresent) {
-      router.push(URL_CONSTANTS.CUSTOMER.AUTH.LOGIN);
-    }
-  }, [router, isAuthenticated, isTokenPresent]);
-
-  return children;
-};

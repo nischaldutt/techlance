@@ -1,15 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import axiosClient from "@/libs/axiosClient";
+import { useQueryCacheContext } from "@/contexts";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
 export default function useCreateBusinessReferences(callback) {
-  const queryClient = useQueryClient();
+  const { getQueryFromCache, saveQueryToCache } = useQueryCacheContext();
 
   const { mutate: createBusinessReferences, isLoading } = useMutation({
     mutationFn: (referenceInfo) => {
-      const { businessId } = queryClient.getQueryData([
-        APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
+      const { businessId } = getQueryFromCache([
+        APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
       ]);
 
       const reqBody = referenceInfo.map((refObj) => {
@@ -25,16 +26,13 @@ export default function useCreateBusinessReferences(callback) {
       );
     },
     onSuccess: (res) => {
-      queryClient.setQueryData(
-        [APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_REFERENCES],
-        (prevData) => {
-          const {
-            data: { data: cachedReferenceData },
-          } = res;
-          return cachedReferenceData;
-        }
+      saveQueryToCache(
+        [
+          APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION
+            .ADD_REFERENCES,
+        ],
+        res?.data?.data
       );
-
       callback(true, res?.data);
     },
     onError: (error) => {

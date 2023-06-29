@@ -6,9 +6,10 @@ import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 export default function useSignup(callback) {
   const { mutate, isLoading } = useMutation({
     mutationFn: (userObj) => {
-      const { firstName, lastName, email, mobile, password } = userObj;
+      const { user_type, firstName, lastName, email, mobile, password } =
+        userObj;
       const reqBody = {
-        user_type: APP_CONSTANTS.USER_TYPE.CUSTOMER,
+        user_type: user_type,
         first_name: firstName,
         last_name: lastName,
         email: email,

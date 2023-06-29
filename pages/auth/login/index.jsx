@@ -1,9 +1,30 @@
-import React from "react";
 import Head from "next/head";
+
+import { getUser } from "@/services";
+import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
 import LoginForm from "@/pages/auth/login/LoginForm";
 
-export default function Login() {
+export async function getServerSideProps({ req }) {
+  const response = await getUser(req?.cookies?.token);
+
+  if (response?.user_type === APP_CONSTANTS.USER_TYPE.CUSTOMER) {
+    return {
+      redirect: {
+        destination: URL_CONSTANTS.ROUTES.HOME,
+        permanent: true,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
+
+export default function Login({ redirectMsg }) {
+  console.log({ redirectMsg });
+
   return (
     <>
       <Head>
@@ -17,10 +38,4 @@ export default function Login() {
       </section>
     </>
   );
-}
-
-export async function getStaticProps() {
-  return {
-    props: {},
-  };
 }

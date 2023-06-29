@@ -1,27 +1,27 @@
 import { useForm as useReactHookForm, Controller } from "react-hook-form";
 import { Button, Form, Input, Checkbox } from "antd";
-import { useQueryClient } from "@tanstack/react-query";
 
-import { useAntdMessageContext } from "@/contexts";
+import { useAntdMessageContext, useQueryCacheContext } from "@/contexts";
 import { useCreateBusinessInsurance } from "@/hooks";
 import { mergeObjects } from "@/utils";
 import { APP_CONSTANTS } from "@/constants";
 
 const InsuranceInfo = ({ previous, next }) => {
-  const queryClient = useQueryClient();
   const [form] = Form.useForm();
   const { control, handleSubmit } = useReactHookForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
+  const { getQueryFromCache } = useQueryCacheContext();
 
-  const cachedInsuranceData = queryClient.getQueryData([
-    APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_INSURANCE,
+  const cachedInsuranceInfo = getQueryFromCache([
+    APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_INSURANCE,
   ]);
 
   const { createBusinessInsurance, isLoading } = useCreateBusinessInsurance(
     (isSuccess, response) => {
       return isSuccess
         ? (successMessage(
-            response?.message || APP_CONSTANTS.MESSAGES.INSURANCE_INFO_ADDED
+            response?.message ||
+              APP_CONSTANTS.MESSAGES.BUSINESS.INSURANCE_INFO_ADDED
           ),
           next())
         : errorMessage(response || APP_CONSTANTS.MESSAGES.ERROR);
@@ -29,8 +29,8 @@ const InsuranceInfo = ({ previous, next }) => {
   );
 
   function onSubmit(data) {
-    return cachedInsuranceData
-      ? createBusinessInsurance(mergeObjects(cachedInsuranceData, data))
+    return cachedInsuranceInfo
+      ? createBusinessInsurance(mergeObjects(cachedInsuranceInfo, data))
       : createBusinessInsurance(data);
   }
 
@@ -42,7 +42,7 @@ const InsuranceInfo = ({ previous, next }) => {
         layout="vertical"
         onFinish={handleSubmit(onSubmit)}
         autoComplete="off"
-        initialValues={cachedInsuranceData}
+        initialValues={cachedInsuranceInfo}
         requiredMark="optional"
       >
         <Controller

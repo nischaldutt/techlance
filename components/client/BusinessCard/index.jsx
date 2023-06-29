@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const ServiceCard = () => {
+const BusinessCard = () => {
   return (
     <div className="flex justify-center w-[275px] mx-2">
       <div className="rounded-lg bg-white max-w-sm">
@@ -36,4 +36,4 @@ const ServiceCard = () => {
   );
 };
 
-export default ServiceCard;
+export default BusinessCard;

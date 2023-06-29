@@ -14,19 +14,20 @@ export { default as ClientAboutSectionThree } from "@/components/client/About/Ab
 export { default as ClientNavbar } from "@/components/client/NavBar";
 export { default as ClientRecommendations } from "@/components/client/Recommendations";
 export { default as ClientHomeCategories } from "@/components/client/HomeCategories";
-export { default as ClientServiceCard } from "@/components/client/ServiceCard";
+export { default as ClientBusinessCard } from "@/components/client/BusinessCard";
 export { default as ClientCardSlider } from "@/components/client/CardSlider";
 export { default as ClientCarousal } from "@/components/client/Carousal";
 export { default as ClientCollapse } from "@/components/client/Collapse";
 export { default as ClientServiceListItem } from "@/components/client/ServiceListItem";
 export { default as ClientGallery } from "@/components/client/Gallery";
 export { default as ClientStaticMap } from "@/components/client/StaticMap";
-export { default as ClientRatingStats } from "@/components/client/RatingStats";
 export { default as ClientServiceSearchCard } from "@/components/client/ServiceSearchCard";
 export { default as ClientServiceNavHeader } from "@/components/client/ServiceNavHeader";
 export { default as ClientJobRateCard } from "@/components/client/JobRateCard";
 export { default as ClientServiceSelectModal } from "@/components/client/ServiceSelectModal"; // component can be removed if not being used, kept for future reference
 export { default as ClientLocationSelectModal } from "@/components/client/LocationSelectModal"; // component can be removed if not being used, kept for future reference
+export { default as ClientDateTimeInputs } from "@/components/client/DateTimeInputs";
+export { default as ClientBusinessReviews } from "@/components/client/BusinessReviews";
 
 // business
 export { default as BusinessHero } from "@/components/business/Hero";

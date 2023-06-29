@@ -1,10 +1,11 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 import axiosClient from "@/libs/axiosClient";
+import { useQueryCacheContext } from "@/contexts";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
 export default function useCreateBusinessBasicInfo(callback) {
-  const queryClient = useQueryClient();
+  const { saveQueryToCache } = useQueryCacheContext();
 
   const { mutate: createBusiness, isLoading } = useMutation({
     mutationFn: (basicInfo) => {
@@ -14,14 +15,12 @@ export default function useCreateBusinessBasicInfo(callback) {
       );
     },
     onSuccess: (res) => {
-      queryClient.setQueryData(
-        [APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_BASIC_INFO],
-        (prevData) => {
-          const {
-            data: { data: cachedBasicInfoData },
-          } = res;
-          return cachedBasicInfoData;
-        }
+      saveQueryToCache(
+        [
+          APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION
+            .ADD_BASIC_INFO,
+        ],
+        res?.data?.data
       );
 
       callback(true, res?.data);

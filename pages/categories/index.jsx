@@ -18,11 +18,12 @@ export async function getStaticProps() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery(
-    [APP_CONSTANTS.QUERY_KEYS.CATEGORIES],
+    [APP_CONSTANTS.QUERY_KEYS.CUSTOMER.CATEGORIES],
     getCategories
   );
+
   await queryClient.prefetchQuery(
-    [APP_CONSTANTS.QUERY_KEYS.SUB_CATEGORIES],
+    [APP_CONSTANTS.QUERY_KEYS.CUSTOMER.SUB_CATEGORIES],
     getSubCategories
   );
 

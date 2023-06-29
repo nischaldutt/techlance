@@ -30,6 +30,6 @@ export function AntdMessageProvider({ children }) {
   );
 }
 
-export default function useAntdMessageContext() {
+export function useAntdMessageContext() {
   return useContext(AntdMessageContext);
 }

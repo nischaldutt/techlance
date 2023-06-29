@@ -22,11 +22,20 @@ export default function SignUpForm() {
 
   const { mutate: signup, isLoading } = useSignup((isSuccess, message) => {
     return isSuccess
-      ? (successMessage(message || APP_CONSTANTS.MESSAGES.SIGNUP_SUCCESS),
+      ? (successMessage(message || APP_CONSTANTS.MESSAGES.AUTH.SIGNUP_SUCCESS),
         form.resetFields(),
-        router.push(URL_CONSTANTS.HOME))
+        router.push(URL_CONSTANTS.ROUTES.HOME))
       : errorMessage(message || APP_CONSTANTS.MESSAGES.ERROR);
   });
+
+  function onSubmit(data) {
+    const userObj = {
+      user_type: APP_CONSTANTS.USER_TYPE.CUSTOMER,
+      ...data,
+    };
+
+    return signup(userObj);
+  }
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -40,7 +49,7 @@ export default function SignUpForm() {
   return (
     <>
       <div className="p-8 sm:px-12 shadow-xl rounded-lg border bg-white sm:w-[30rem]">
-        <div className="text-3xl font-bold pb-8 text-primary-100">
+        <div className="text-2xl font-bold pb-8 text-primary-100">
           Sign up to your account
         </div>
 
@@ -48,7 +57,7 @@ export default function SignUpForm() {
           name="signup"
           form={form}
           layout="vertical"
-          onFinish={handleSubmit(signup)}
+          onFinish={handleSubmit(onSubmit)}
         >
           <Controller
             name="firstName"

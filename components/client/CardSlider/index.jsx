@@ -7,9 +7,9 @@ import {
   BsFillArrowLeftCircleFill,
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
-import { ClientServiceCard } from "@/components";
+import { ClientBusinessCard } from "@/components";
 
-function SampleNextArrow({ className = "", style = {}, onClick = () => {} }) {
+function NextArrow({ className = "", style = {}, onClick = () => {} }) {
   return (
     <BsFillArrowRightCircleFill
       className={className}
@@ -19,7 +19,7 @@ function SampleNextArrow({ className = "", style = {}, onClick = () => {} }) {
   );
 }
 
-function SamplePrevArrow({ className = "", style = {}, onClick = () => {} }) {
+function PrevArrow({ className = "", style = {}, onClick = () => {} }) {
   return (
     <BsFillArrowLeftCircleFill
       className={className}
@@ -42,8 +42,8 @@ const CardSlider = () => {
     slidesToScroll: 1,
     initialSlide: 0,
     arrows: true,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     responsive: [
       {
         breakpoint: 1024,
@@ -69,15 +69,15 @@ const CardSlider = () => {
   return (
     <div className="mx-auto w-[98vw] xs:w-[90vw] 2xl:w-3/5">
       <Slider {...settings}>
-        <ClientServiceCard />
-        <ClientServiceCard />
-        <ClientServiceCard />
-        <ClientServiceCard />
-        <ClientServiceCard />
-        <ClientServiceCard />
-        <ClientServiceCard />
-        <ClientServiceCard />
-        <ClientServiceCard />
+        <ClientBusinessCard />
+        <ClientBusinessCard />
+        <ClientBusinessCard />
+        <ClientBusinessCard />
+        <ClientBusinessCard />
+        <ClientBusinessCard />
+        <ClientBusinessCard />
+        <ClientBusinessCard />
+        <ClientBusinessCard />
       </Slider>
     </div>
   );

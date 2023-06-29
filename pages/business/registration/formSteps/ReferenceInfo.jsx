@@ -1,28 +1,28 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useForm as useReactHookForm, Controller } from "react-hook-form";
 import { Button, Form, Input } from "antd";
 
-import { useAntdMessageContext } from "@/contexts";
+import { useAntdMessageContext, useQueryCacheContext } from "@/contexts";
 import { useCreateBusinessReferences } from "@/hooks";
 import { APP_CONSTANTS } from "@/constants";
 
 const { TextArea } = Input;
 
 const ReferenceInfo = ({ previous, done }) => {
-  const queryClient = useQueryClient();
   const [referenceForm1] = Form.useForm();
   const [referenceForm2] = Form.useForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
+  const { getQueryFromCache } = useQueryCacheContext();
 
-  const cacheReferencesData = queryClient.getQueryData([
-    APP_CONSTANTS.QUERY_KEYS.BUSINESS_REGISTRATION.ADD_REFERENCES,
+  const cachedRefrenceInfo = getQueryFromCache([
+    APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_REFERENCES,
   ]);
 
   const { createBusinessReferences, isLoading } = useCreateBusinessReferences(
     (isSuccess, response) => {
       return isSuccess
         ? (successMessage(
-            response?.message || APP_CONSTANTS.MESSAGES.REFERENCES_ADDED
+            response?.message ||
+              APP_CONSTANTS.MESSAGES.BUSINESS.REFERENCES_ADDED
           ),
           done())
         : errorMessage(response || APP_CONSTANTS.MESSAGES.ERROR);
@@ -47,7 +47,7 @@ const ReferenceInfo = ({ previous, done }) => {
         onSubmit={onSubmit}
         previous={previous}
         isLoading={isLoading}
-        initialValues={cacheReferencesData?.[0] || {}}
+        initialValues={cachedRefrenceInfo?.[0] || {}}
       />
 
       <ReferenceForm
@@ -57,7 +57,7 @@ const ReferenceInfo = ({ previous, done }) => {
         onSubmit={onSubmit}
         previous={previous}
         isLoading={isLoading}
-        initialValues={cacheReferencesData?.[1] || {}}
+        initialValues={cachedRefrenceInfo?.[1] || {}}
       />
     </section>
   );
