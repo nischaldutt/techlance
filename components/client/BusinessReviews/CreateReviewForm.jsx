@@ -6,13 +6,13 @@ import { APP_CONSTANTS } from "@/constants";
 
 const { TextArea } = Input;
 
-export default function CreateReviewForm({ businessId, addNewReview }) {
+export default function CreateReviewForm({ businessId, refetch }) {
   const [form] = Form.useForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
 
   const { createReview, isLoading } = useCreateReview((isSuccess, response) => {
     return isSuccess
-      ? (addNewReview(response?.data),
+      ? (refetch(),
         form.resetFields(),
         successMessage(
           response?.message ||

@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { Button, Empty, List, Modal, Rate } from "antd";
 
+import { useAuthContext } from "@/contexts";
+
 import EditReviewForm from "@/components/client/BusinessReviews/EditReviewForm";
 
 export default function ReviewList({
   reviews,
-  swapNewReview,
   hasNextPage,
   fetchNextPage,
   isFetchingNextPage,
+  refetch,
 }) {
-  console.log({ reviews });
+  const { isAuthenticated, user } = useAuthContext();
   const [isEditing, setIsEditing] = useState(false);
   const [selectedReview, setSelectedReview] = useState(null);
 
@@ -28,11 +30,14 @@ export default function ReviewList({
   return (
     <>
       <h3 className="font-bold">User Reviews</h3>
-      {!reviews?.length ? (
-        <Empty description="Be the first to review this business!" />
-      ) : (
-        reviews?.map((group, index) => {
-          return (
+      {reviews?.map((group, index) => {
+        {
+          return group?.data?.data?.reviews.length === 0 ? (
+            <Empty
+              key={index}
+              description="Be the first to review this business!"
+            />
+          ) : (
             <div key={index}>
               {group?.data?.data?.reviews?.map((review) => {
                 return (
@@ -48,22 +53,24 @@ export default function ReviewList({
                       disabled
                     />
                     <div className="text-xs">{review?.reviewDescription}</div>
-                    <div
-                      onClick={() => {
-                        setSelectedReview(review);
-                        setIsEditing(true);
-                      }}
-                      className="text-xs mt-2 cursor-pointer"
-                    >
-                      Edit
-                    </div>
+                    {review?.userId === user?.id ? (
+                      <div
+                        onClick={() => {
+                          setSelectedReview(review);
+                          setIsEditing(true);
+                        }}
+                        className="text-xs mt-2 cursor-pointer"
+                      >
+                        Edit
+                      </div>
+                    ) : null}
                   </div>
                 );
               })}
             </div>
           );
-        })
-      )}
+        }
+      })}
 
       {LoadMoreReviewsButtom}
 
@@ -75,8 +82,10 @@ export default function ReviewList({
       >
         <EditReviewForm
           review={selectedReview}
-          swapNewReview={swapNewReview}
-          onModelClose={onModelClose}
+          onModelClose={(editedReview) => {
+            refetch();
+            onModelClose();
+          }}
         />
       </Modal>
     </>

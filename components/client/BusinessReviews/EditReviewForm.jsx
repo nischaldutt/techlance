@@ -6,22 +6,17 @@ import { APP_CONSTANTS } from "@/constants";
 
 const { TextArea } = Input;
 
-export default function EditReviewForm({
-  review,
-  swapNewReview,
-  onModelClose,
-}) {
+export default function EditReviewForm({ review, onModelClose }) {
   const [form] = Form.useForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
 
   const { editReview, isLoading } = useEditReview((isSuccess, response) => {
     return isSuccess
-      ? (swapNewReview(response?.data),
-        // form.setFieldsValue({
+      ? // form.setFieldsValue({
         //   rating: review?.rating,
         //   reviewDescription: review?.reviewDescription,
         // }),
-        onModelClose(),
+        (onModelClose(response?.data),
         successMessage(
           response?.message ||
             APP_CONSTANTS.MESSAGES.CUSTOMER.UPDATED_BUSINESS_REVIEW
@@ -32,6 +27,7 @@ export default function EditReviewForm({
   function onSubmit(data) {
     return editReview({
       ...data,
+      rating: parseInt(data?.rating),
       businessId: review?.businessId,
       reviewId: review?.reviewId,
     });

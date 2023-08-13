@@ -20,6 +20,7 @@ export default function BusinessReviews({ businessId, rating }) {
     isFetching,
     fetchNextPage,
     isFetchingNextPage,
+    refetch,
   } = useReviewsByBusinessId(businessId, user?.id);
 
   const [reviews, setReviews] = useState([]);
@@ -28,18 +29,7 @@ export default function BusinessReviews({ businessId, rating }) {
     setReviews(businessReviews);
   }, [businessReviews]);
 
-  function addNewReview(newReview) {
-    setReviews((prevReviews) => [newReview, ...prevReviews]);
-  }
-
-  function swapNewReview(newReview) {
-    setReviews((prevReviews) => {
-      return prevReviews.map((pre) => {
-        return pre?.reviewId === newReview?.reviewId ? newReview : pre;
-      });
-    });
-  }
-
+  console.log({ reviews });
   return (
     <div className="py-4 text-gray-700">
       <div className="uppercase pt-6 py-3 underline-offset-8 font-bold">
@@ -56,18 +46,19 @@ export default function BusinessReviews({ businessId, rating }) {
       <Spin spinning={isFetching}>
         <ReviewList
           reviews={reviews}
-          swapNewReview={swapNewReview}
           hasNextPage={hasNextPage}
           fetchNextPage={fetchNextPage}
           isFetchingNextPage={isFetchingNextPage}
+          refetch={refetch}
         />
       </Spin>
 
       <Divider />
 
-      {isAuthenticated && (
-        <CreateReviewForm businessId={businessId} addNewReview={addNewReview} />
-      )}
+      {isAuthenticated &&
+        reviews?.[0]?.data?.data?.reviews?.[0]?.userId !== user?.id && (
+          <CreateReviewForm businessId={businessId} refetch={refetch} />
+        )}
     </div>
   );
 }

@@ -21,6 +21,7 @@ export default function useReviewsByBusinessId(businessId, userId) {
     isFetching,
     fetchNextPage,
     isFetchingNextPage,
+    refetch,
   } = useInfiniteQuery({
     queryKey: [
       APP_CONSTANTS.QUERY_KEYS.CUSTOMER.REVIEWS.GET_REVIEWS_BY_BUSINESS_ID,
@@ -49,5 +50,6 @@ export default function useReviewsByBusinessId(businessId, userId) {
     isFetching,
     fetchNextPage,
     isFetchingNextPage,
+    refetch,
   };
 }
