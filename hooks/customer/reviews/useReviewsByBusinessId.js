@@ -3,7 +3,7 @@ import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { APP_CONSTANTS } from "@/constants";
 import { getReviewsByBusinessId } from "@/services/customerServices";
 
-export default function useReviewsByBusinessId(businessId) {
+export default function useReviewsByBusinessId(businessId, userId) {
   // const { data, isFetching } = useQuery({
   //   queryKey: [
   //     APP_CONSTANTS.QUERY_KEYS.CUSTOMER.REVIEWS.GET_REVIEWS_BY_BUSINESS_ID,
@@ -25,10 +25,17 @@ export default function useReviewsByBusinessId(businessId) {
     queryKey: [
       APP_CONSTANTS.QUERY_KEYS.CUSTOMER.REVIEWS.GET_REVIEWS_BY_BUSINESS_ID,
       businessId,
+      userId,
     ],
-    queryFn: ({ pageParam = 1 }) => getReviewsByBusinessId(businessId),
+    queryFn: ({ pageParam = 0 }) =>
+      getReviewsByBusinessId(pageParam, businessId, userId),
     getNextPageParam: (_lastPage, pages) => {
-      return pages.length < 5 ? pages.length + 1 : undefined;
+      return _lastPage?.data?.data?.reviews?.length < 5
+        ? undefined
+        : pages.reduce(
+            (acc, group) => acc + group?.data?.data?.reviews?.length,
+            0
+          );
     },
   });
 

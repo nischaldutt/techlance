@@ -10,6 +10,7 @@ export default function ReviewList({
   fetchNextPage,
   isFetchingNextPage,
 }) {
+  console.log({ reviews });
   const [isEditing, setIsEditing] = useState(false);
   const [selectedReview, setSelectedReview] = useState(null);
 
@@ -28,12 +29,12 @@ export default function ReviewList({
     <>
       <h3 className="font-bold">User Reviews</h3>
       {!reviews?.length ? (
-        <Empty description="Nothing here!" />
+        <Empty description="Be the first to review this business!" />
       ) : (
         reviews?.map((group, index) => {
           return (
             <div key={index}>
-              {group?.data?.data?.map((review) => {
+              {group?.data?.data?.reviews?.map((review) => {
                 return (
                   <div className="my-8" key={review?.reviewId}>
                     {/* todo: create emoji avatars randomly for users */}

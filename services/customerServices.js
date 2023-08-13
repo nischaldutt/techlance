@@ -52,15 +52,18 @@ export async function getSubCategoriesWithCategoryId({ queryKey }) {
   }
 }
 
-export async function getReviewsByBusinessId(businessId) {
+export async function getReviewsByBusinessId(skip, businessId, userId) {
   try {
-    const PAGE = 0;
+    const SKIP = skip;
     const LIMIT = 5;
 
     const { data } = await axiosClient.get(
-      `${URL_CONSTANTS.CUSTOMER.REVIEWS.GET_REVIEWS_BY_BUSINESS_ID}/${PAGE}/${LIMIT}`,
+      `${URL_CONSTANTS.CUSTOMER.REVIEWS.GET_REVIEWS_BY_BUSINESS_ID}/${SKIP}/${LIMIT}`,
       {
-        params: { businessId },
+        params: {
+          businessId,
+          userId,
+        },
       }
     );
 

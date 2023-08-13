@@ -7,7 +7,8 @@ import { useReviewsByBusinessId } from "@/hooks";
 import ReviewList from "@/components/client/BusinessReviews/ReviewList";
 import CreateReviewForm from "@/components/client/BusinessReviews/CreateReviewForm";
 
-export default function BusinessReviews({ businessId = 76, rating = 4 }) {
+export default function BusinessReviews({ businessId, rating }) {
+  // todo: average rating endpoint
   const { isAuthenticated, user } = useAuthContext();
   const {
     businessReviews,
@@ -19,7 +20,7 @@ export default function BusinessReviews({ businessId = 76, rating = 4 }) {
     isFetching,
     fetchNextPage,
     isFetchingNextPage,
-  } = useReviewsByBusinessId(businessId);
+  } = useReviewsByBusinessId(businessId, user?.id);
 
   const [reviews, setReviews] = useState([]);
 
