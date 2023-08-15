@@ -22,7 +22,7 @@ export default function CreateReviewForm({ businessId, refetch }) {
   });
 
   function onSubmit(data) {
-    return createReview({ ...data, businessId });
+    return createReview({ ...data, businessId: parseInt(businessId) });
   }
 
   return (

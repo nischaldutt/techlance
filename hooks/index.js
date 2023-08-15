@@ -12,6 +12,7 @@ export { default as useConfirmBooking } from "@/hooks/customer/bookingRequest/us
 export { default as useCreateReview } from "@/hooks/customer/reviews/useCreateReview";
 export { default as useEditReview } from "@/hooks/customer/reviews/useEditReview";
 export { default as useReviewsByBusinessId } from "@/hooks/customer/reviews/useReviewsByBusinessId";
+export { default as useAverageBusinessRating } from "@/hooks/customer/reviews/useAverageBusinessRating";
 
 // business
 export { default as useCreateBusinessBasicInfo } from "@/hooks/business/register/useCreateBusinessBasicInfo";

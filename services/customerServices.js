@@ -55,7 +55,7 @@ export async function getReviewsByBusinessId(skip, businessId, userId) {
     const SKIP = skip;
     const LIMIT = 5;
 
-    const { data: data } = await axiosClient.get(
+    const { data } = await axiosClient.get(
       `${URL_CONSTANTS.CUSTOMER.REVIEWS.GET_REVIEWS_BY_BUSINESS_ID}/${SKIP}/${LIMIT}`,
       {
         params: {
@@ -68,5 +68,20 @@ export async function getReviewsByBusinessId(skip, businessId, userId) {
     return { data };
   } catch (error) {
     return { error };
+  }
+}
+
+export async function getAverageBusinessRating(businessId) {
+  try {
+    const {
+      data: { data },
+    } = await axiosClient.get(
+      `${URL_CONSTANTS.CUSTOMER.REVIEWS.GET_AVERAGE_BUSINESS_RATING}/${businessId}`
+    );
+
+    return data;
+  } catch (error) {
+    console.log({ error });
+    return error;
   }
 }

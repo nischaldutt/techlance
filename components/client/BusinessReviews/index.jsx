@@ -8,7 +8,6 @@ import ReviewList from "@/components/client/BusinessReviews/ReviewList";
 import CreateReviewForm from "@/components/client/BusinessReviews/CreateReviewForm";
 
 export default function BusinessReviews({ businessId, rating }) {
-  // todo: integrate average rating endpoint
   const { isAuthenticated, user } = useAuthContext();
   const {
     businessReviews,
@@ -29,17 +28,20 @@ export default function BusinessReviews({ businessId, rating }) {
     setReviews(businessReviews);
   }, [businessReviews]);
 
-  console.log({ reviews });
   return (
     <div className="py-4 text-gray-700">
       <div className="uppercase pt-6 py-3 underline-offset-8 font-bold">
         Ratings
       </div>
 
-      <div className="flex gap-4 items-center">
-        <h4 className="text-4xl font-bold">4.5</h4>
-        <Rate className="text-2xl" count={1} value={rating} />
-      </div>
+      {rating ? (
+        <div className="flex gap-4 items-center">
+          <h4 className="text-4xl font-bold">
+            {Number.parseFloat(rating).toFixed(1)}
+          </h4>
+          <Rate className="text-2xl" count={1} value={rating} />
+        </div>
+      ) : null}
 
       <Divider />
 
