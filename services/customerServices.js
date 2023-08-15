@@ -3,12 +3,11 @@ import { URL_CONSTANTS } from "@/constants";
 
 export async function getCategories() {
   try {
-    const { data } = await axiosClient.get(
-      URL_CONSTANTS.CUSTOMER.GET_CATEGORIES,
-      {
-        params: { type: "active" },
-      }
-    );
+    const {
+      data: { data },
+    } = await axiosClient.get(URL_CONSTANTS.CUSTOMER.GET_CATEGORIES, {
+      params: { type: "active" },
+    });
 
     return { data };
   } catch (error) {
@@ -18,15 +17,14 @@ export async function getCategories() {
 
 export async function getSubCategories() {
   try {
-    const { data } = await axiosClient.get(
-      URL_CONSTANTS.CUSTOMER.GET_ALL_SUB_CATEGORIES,
-      {
-        params: {
-          skip: 0,
-          limit: 10,
-        },
-      }
-    );
+    const {
+      data: { data },
+    } = await axiosClient.get(URL_CONSTANTS.CUSTOMER.GET_ALL_SUB_CATEGORIES, {
+      params: {
+        skip: 0,
+        limit: 10,
+      },
+    });
 
     return { data };
   } catch (error) {
@@ -57,7 +55,7 @@ export async function getReviewsByBusinessId(skip, businessId, userId) {
     const SKIP = skip;
     const LIMIT = 5;
 
-    const { data } = await axiosClient.get(
+    const { data: data } = await axiosClient.get(
       `${URL_CONSTANTS.CUSTOMER.REVIEWS.GET_REVIEWS_BY_BUSINESS_ID}/${SKIP}/${LIMIT}`,
       {
         params: {

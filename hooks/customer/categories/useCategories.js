@@ -5,9 +5,7 @@ import { getCategories } from "@/services/customerServices";
 
 export default function useCategories() {
   const {
-    data: {
-      data: { data: categories },
-    },
+    data: { data: categories },
   } = useQuery({
     queryKey: [APP_CONSTANTS.QUERY_KEYS.CUSTOMER.CATEGORIES],
     queryFn: getCategories,
