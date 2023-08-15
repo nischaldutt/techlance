@@ -8,7 +8,7 @@ import ReviewList from "@/components/client/BusinessReviews/ReviewList";
 import CreateReviewForm from "@/components/client/BusinessReviews/CreateReviewForm";
 
 export default function BusinessReviews({ businessId, rating }) {
-  // todo: average rating endpoint
+  // todo: integrate average rating endpoint
   const { isAuthenticated, user } = useAuthContext();
   const {
     businessReviews,
