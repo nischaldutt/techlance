@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { APP_CONSTANTS } from "@/constants";
-
 import { getSubCategoriesWithCategoryId } from "@/services";
 
-export default function useSubCategoriesWithCategoryId(categoryId) {
+export default function useServiceSubCategories(categoryId) {
   const {
     data: response,
     isSuccess,
@@ -12,7 +11,7 @@ export default function useSubCategoriesWithCategoryId(categoryId) {
     isFetching,
   } = useQuery({
     queryKey: [
-      APP_CONSTANTS.QUERY_KEYS.CUSTOMER.SUB_CATEGORIES_WITH_CATEGORY_ID,
+      APP_CONSTANTS.QUERY_KEYS.BUSINESS.SERVICE_SUB_CATEGORIES,
       categoryId,
     ],
     queryFn: getSubCategoriesWithCategoryId,
@@ -22,10 +21,10 @@ export default function useSubCategoriesWithCategoryId(categoryId) {
 
   if (isSuccess) {
     const {
-      data: { data: subCategoriesWithCategoryId },
+      data: { data: subCategories },
     } = response;
     return {
-      subCategoriesWithCategoryId,
+      subCategories,
       isSuccess,
       isFetching,
     };

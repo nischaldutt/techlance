@@ -7,7 +7,7 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 
 import { Footer } from "@/components";
 import { APP_CONSTANTS } from "@/constants";
-import { getCategories, getSubCategories } from "@/services/customerServices";
+import { getCategories, getSubCategories } from "@/services";
 import {
   useCategories,
   useSubCategories,

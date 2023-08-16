@@ -1,7 +1,7 @@
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 
 import { APP_CONSTANTS } from "@/constants";
-import { getReviewsByBusinessId } from "@/services/customerServices";
+import { getReviewsByBusinessId } from "@/services";
 
 export default function useReviewsByBusinessId(businessId, userId) {
   const {

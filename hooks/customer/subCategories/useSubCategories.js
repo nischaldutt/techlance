@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { APP_CONSTANTS } from "@/constants";
 
-import { getSubCategories } from "@/services/customerServices";
+import { getSubCategories } from "@/services";
 
 // todo: enable paginated/infinite queries here
 export default function useSubCategories() {

@@ -60,3 +60,5 @@ export { default as BusinessRegistrationBasicInfo } from "@/components/business/
 export { default as BusinessRegistrationInsuranceInfo } from "@/components/business/RegistrationSteps/InsuranceInfo";
 export { default as BusinessRegistrationReferenceInfo } from "@/components/business/RegistrationSteps/ReferenceInfo";
 export { default as BusinessRegistrationSelectServices } from "@/components/business/RegistrationSteps/SelectServices";
+export { default as BusinessServiceList } from "@/components/business/Services/ServiceList";
+export { default as BusinessCreateServiceForm } from "@/components/business/Services/CreateServiceForm";

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { APP_CONSTANTS } from "@/constants";
-import { getAverageBusinessRating } from "@/services/customerServices";
+import { getAverageBusinessRating } from "@/services";
 
 export default function useAverageBusinessRating(businessId) {
   const { data: averageRating } = useQuery({

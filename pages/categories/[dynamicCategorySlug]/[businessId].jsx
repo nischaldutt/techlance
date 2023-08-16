@@ -5,7 +5,7 @@ import { AiFillCar } from "react-icons/ai";
 import { Skeleton } from "antd";
 
 import { useAverageBusinessRating } from "@/hooks";
-import { getAverageBusinessRating } from "@/services/customerServices";
+import { getAverageBusinessRating } from "@/services";
 import { useAuthContext } from "@/contexts";
 import { APP_CONSTANTS } from "@/constants";
 import {
