@@ -4,11 +4,13 @@ import { Divider, Steps, Button, Result } from "antd";
 
 import { getUser } from "@/services";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
-import { Footer, ClientJobRateCard } from "@/components";
-
-import FirstStep from "@/pages/bookingRequest/formSteps/FirstStep";
-import SecondStep from "@/pages/bookingRequest/formSteps/SecondStep";
-import ThirdStep from "@/pages/bookingRequest/formSteps/ThirdStep";
+import {
+  Footer,
+  ClientJobRateCard,
+  ClientBookingRequestFirstStep,
+  ClientBookingRequestSecondStep,
+  ClientBookingRequestThirdStep,
+} from "@/components";
 
 export async function getServerSideProps({ req }) {
   const response = await getUser(req?.cookies?.token);
@@ -46,15 +48,19 @@ export default function ServiceBooking() {
   const steps = [
     {
       title: "Schedule",
-      content: <FirstStep next={next} />,
+      content: <ClientBookingRequestFirstStep next={next} />,
     },
     {
       title: "Job Details",
-      content: <SecondStep previous={previous} next={next} />,
+      content: (
+        <ClientBookingRequestSecondStep previous={previous} next={next} />
+      ),
     },
     {
       title: "Confirm",
-      content: <ThirdStep previous={previous} done={done} />,
+      content: (
+        <ClientBookingRequestThirdStep previous={previous} done={done} />
+      ),
     },
   ];
 

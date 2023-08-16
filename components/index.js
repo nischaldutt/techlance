@@ -28,6 +28,15 @@ export { default as ClientServiceSelectModal } from "@/components/client/Service
 export { default as ClientLocationSelectModal } from "@/components/client/LocationSelectModal"; // component can be removed if not being used, kept for future reference
 export { default as ClientDateTimeInputs } from "@/components/client/DateTimeInputs";
 export { default as ClientBusinessReviews } from "@/components/client/BusinessReviews";
+export { default as ClientLoginForm } from "@/components/client/Auth/LoginForm";
+export { default as ClientSignUpForm } from "@/components/client/Auth/SignUpForm";
+export { default as ClientBookingRequestFirstStep } from "@/components/client/BookingRequestSteps/FirstStep";
+export { default as ClientBookingRequestSecondStep } from "@/components/client/BookingRequestSteps/SecondStep";
+export { default as ClientBookingRequestThirdStep } from "@/components/client/BookingRequestSteps/ThirdStep";
+export { default as ClientBusinessDetailsAboutSection } from "@/components/client/BusinessDetails/AboutSection";
+export { default as ClientBusinessDetailsContactInformation } from "@/components/client/BusinessDetails/ContactInformation";
+export { default as ClientBusinessDetailsHealthSafetyRules } from "@/components/client/BusinessDetails/HealthSafetyRules";
+export { default as ClientBusinessDetailsSocialLinks } from "@/components/client/BusinessDetails/SocialLinks";
 
 // business
 export { default as BusinessHero } from "@/components/business/Hero";
@@ -45,3 +54,9 @@ export { default as BusinessHeaderStats } from "@/components/business/Headers/He
 export { default as BusinessFooterAdmin } from "@/components/business/Footers/FooterAdmin";
 export { default as BusinessCardProfile } from "@/components/business/Cards/CardProfile";
 export { default as BusinessCardSettings } from "@/components/business/Cards/CardSettings";
+export { default as BusinessLoginForm } from "@/components/business/Auth/LoginForm";
+export { default as BusinessSignUpForm } from "@/components/business/Auth/SignUpForm";
+export { default as BusinessRegistrationBasicInfo } from "@/components/business/RegistrationSteps/BasicInfo";
+export { default as BusinessRegistrationInsuranceInfo } from "@/components/business/RegistrationSteps/InsuranceInfo";
+export { default as BusinessRegistrationReferenceInfo } from "@/components/business/RegistrationSteps/ReferenceInfo";
+export { default as BusinessRegistrationSelectServices } from "@/components/business/RegistrationSteps/SelectServices";

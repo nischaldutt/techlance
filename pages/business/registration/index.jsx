@@ -5,11 +5,12 @@ import { Divider, Steps, Button, Result } from "antd";
 import { useQueryCacheContext } from "@/contexts";
 import { getUser } from "@/services";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
-import { Footer } from "@/components";
-
-import BasinInfo from "@/pages/business/registration/formSteps/BasicInfo";
-import InsuranceInfo from "@/pages/business/registration/formSteps/InsuranceInfo";
-import ReferenceInfo from "@/pages/business/registration/formSteps/ReferenceInfo";
+import {
+  Footer,
+  BusinessRegistrationBasicInfo,
+  BusinessRegistrationInsuranceInfo,
+  BusinessRegistrationReferenceInfo,
+} from "@/components";
 
 export async function getServerSideProps({ req }) {
   const response = await getUser(req?.cookies?.token);
@@ -53,15 +54,19 @@ export default function BusinessRegistration() {
   const steps = [
     {
       title: "Basic Info",
-      content: <BasinInfo next={next} />,
+      content: <BusinessRegistrationBasicInfo next={next} />,
     },
     {
       title: "Insurance Info",
-      content: <InsuranceInfo previous={previous} next={next} />,
+      content: (
+        <BusinessRegistrationInsuranceInfo previous={previous} next={next} />
+      ),
     },
     {
       title: "References",
-      content: <ReferenceInfo previous={previous} done={done} />,
+      content: (
+        <BusinessRegistrationReferenceInfo previous={previous} done={done} />
+      ),
     },
   ];
 

@@ -6,7 +6,7 @@ import { Button, Form, Input } from "antd";
 import { useAuthContext, useAntdMessageContext } from "@/contexts";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
-export default function BusinessLoginForm() {
+export default function LoginForm() {
   const router = useRouter();
   const [form] = Form.useForm();
   const { control, handleSubmit } = useReactHookForm();

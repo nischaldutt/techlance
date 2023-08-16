@@ -9,6 +9,10 @@ import { getAverageBusinessRating } from "@/services/customerServices";
 import { useAuthContext } from "@/contexts";
 import { APP_CONSTANTS } from "@/constants";
 import {
+  ClientBusinessDetailsAboutSection,
+  ClientBusinessDetailsContactInformation,
+  ClientBusinessDetailsHealthSafetyRules,
+  ClientBusinessDetailsSocialLinks,
   ClientAccordion,
   ClientCarousal,
   ClientGallery,
@@ -17,11 +21,6 @@ import {
   ClientStaticMap,
   Footer,
 } from "@/components";
-
-import HealthSafetyRules from "@/pages/categories/[dynamicCategorySlug]/HealthSafetyRules";
-import AboutSection from "@/pages/categories/[dynamicCategorySlug]/AboutSection";
-import ContactInformation from "@/pages/categories/[dynamicCategorySlug]/ContactInformation";
-import SocialLinks from "@/pages/categories/[dynamicCategorySlug]/SocialLinks";
 
 import { galleryImages } from "@/data";
 
@@ -133,7 +132,7 @@ export default function ServicePage() {
             <ClientGallery images={galleryImages} />
           </div>
 
-          <HealthSafetyRules />
+          <ClientBusinessDetailsHealthSafetyRules />
 
           <ClientBusinessReviews
             businessId={businessId}
@@ -145,9 +144,9 @@ export default function ServicePage() {
           <ClientStaticMap />
 
           <div className="p-4 grid gap-4 sticky-top top-20 z-20">
-            <AboutSection />
-            <ContactInformation />
-            <SocialLinks />
+            <ClientBusinessDetailsAboutSection />
+            <ClientBusinessDetailsContactInformation />
+            <ClientBusinessDetailsSocialLinks />
           </div>
         </div>
       </div>

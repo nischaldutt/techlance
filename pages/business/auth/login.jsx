@@ -2,16 +2,15 @@ import Head from "next/head";
 
 import { getUser } from "@/services";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
-
-import LoginForm from "@/pages/auth/login/LoginForm";
+import { BusinessLoginForm } from "@/components";
 
 export async function getServerSideProps({ req }) {
   const response = await getUser(req?.cookies?.token);
 
-  if (response?.user_type === APP_CONSTANTS.USER_TYPE.CUSTOMER) {
+  if (response?.user_type === APP_CONSTANTS.USER_TYPE.BUSINESS) {
     return {
       redirect: {
-        destination: URL_CONSTANTS.ROUTES.HOME,
+        destination: URL_CONSTANTS.ROUTES.BUSINESS.ADMIN.DASHBOARD,
         permanent: true,
       },
     };
@@ -22,9 +21,7 @@ export async function getServerSideProps({ req }) {
   };
 }
 
-export default function Login({ redirectMsg }) {
-  console.log({ redirectMsg });
-
+export default function BusinessLogin() {
   return (
     <>
       <Head>
@@ -34,7 +31,7 @@ export default function Login({ redirectMsg }) {
       </Head>
 
       <section className="flex justify-center mt-10">
-        <LoginForm />
+        <BusinessLoginForm />
       </section>
     </>
   );

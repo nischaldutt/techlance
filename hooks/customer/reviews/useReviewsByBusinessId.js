@@ -30,6 +30,7 @@ export default function useReviewsByBusinessId(businessId, userId) {
             0
           );
     },
+    enabled: !!businessId,
   });
 
   return {
