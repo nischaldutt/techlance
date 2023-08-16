@@ -53,6 +53,9 @@ const URL_CONSTANTS = {
         SIGN_UP: "/business/auth/signup",
       },
       REGISTRATION: "/business/registration",
+      ADMIN: {
+        DASHBOARD: "/business/admin/dashboard",
+      },
     },
   },
 };

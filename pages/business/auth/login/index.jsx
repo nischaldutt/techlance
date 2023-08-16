@@ -10,7 +10,7 @@ export async function getServerSideProps({ req }) {
   if (response?.user_type === APP_CONSTANTS.USER_TYPE.BUSINESS) {
     return {
       redirect: {
-        destination: URL_CONSTANTS.ROUTES.HOME,
+        destination: URL_CONSTANTS.ROUTES.BUSINESS.ADMIN.DASHBOARD,
         permanent: true,
       },
     };
