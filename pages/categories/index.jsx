@@ -35,8 +35,8 @@ export async function getStaticProps() {
 }
 
 export default function Categories() {
-  const { categories } = useCategories();
-  const { subCategories } = useSubCategories();
+  const categories = useCategories();
+  const subCategories = useSubCategories();
 
   const [categoryId, setCategoryId] = React.useState(null);
   const [currentSubCategories, setCurrentSubCategories] =

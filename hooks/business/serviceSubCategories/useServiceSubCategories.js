@@ -5,7 +5,7 @@ import { getSubCategoriesWithCategoryId } from "@/services";
 
 export default function useServiceSubCategories(categoryId) {
   const {
-    data: response,
+    data: subCategories,
     isSuccess,
     isError,
     isFetching,
@@ -20,9 +20,6 @@ export default function useServiceSubCategories(categoryId) {
   });
 
   if (isSuccess) {
-    const {
-      data: { data: subCategories },
-    } = response;
     return {
       subCategories,
       isSuccess,

@@ -12,7 +12,6 @@ export default function BusinessReviews({ businessId, rating }) {
   const {
     businessReviews,
     isLoading,
-    data,
     isError,
     error,
     hasNextPage,
@@ -21,12 +20,6 @@ export default function BusinessReviews({ businessId, rating }) {
     isFetchingNextPage,
     refetch,
   } = useReviewsByBusinessId(businessId, user?.id);
-
-  const [reviews, setReviews] = useState([]);
-
-  useEffect(() => {
-    setReviews(businessReviews);
-  }, [businessReviews]);
 
   return (
     <div className="py-4 text-gray-700">
@@ -47,7 +40,7 @@ export default function BusinessReviews({ businessId, rating }) {
 
       <Spin spinning={isFetching}>
         <ReviewList
-          reviews={reviews}
+          reviewGroups={businessReviews}
           hasNextPage={hasNextPage}
           fetchNextPage={fetchNextPage}
           isFetchingNextPage={isFetchingNextPage}
@@ -58,7 +51,7 @@ export default function BusinessReviews({ businessId, rating }) {
       <Divider />
 
       {isAuthenticated &&
-        reviews?.[0]?.data?.data?.reviews?.[0]?.userId !== user?.id && (
+        businessReviews?.[0]?.reviews?.[0]?.userId !== user?.id && (
           <CreateReviewForm businessId={businessId} refetch={refetch} />
         )}
     </div>

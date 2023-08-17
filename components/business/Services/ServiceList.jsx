@@ -7,7 +7,7 @@ const ServiceList = ({ services, isFetching }) => {
 
       <Spin spinning={isFetching}>
         <div className="mt-8 h-[50vh] overflow-y-auto">
-          {!services.length ? (
+          {!services?.length ? (
             <Empty description="No services in your business yet!" />
           ) : (
             services?.map((service, index) => (
