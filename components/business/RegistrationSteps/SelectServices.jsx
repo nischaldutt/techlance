@@ -1,9 +1,7 @@
-import { useForm } from "react-hook-form";
 import { Button, Checkbox, Form, List } from "antd";
 
 const SelectServices = () => {
   const [form] = Form.useForm();
-  const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
     console.log({ data });
