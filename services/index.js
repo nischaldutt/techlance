@@ -103,7 +103,6 @@ export async function getAverageBusinessRating(businessId) {
 
     return data;
   } catch (error) {
-    console.log({ error });
     return error;
   }
 }
@@ -115,6 +114,18 @@ export async function getServicesByBusiness(businessId) {
     } = await axiosClient.get(
       `${URL_CONSTANTS.BUSINESS.SERVICES.GET_SERVICES_BY_BUSINESS}/${businessId}`
     );
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function getStates() {
+  try {
+    const {
+      data: { data },
+    } = await axiosClient.get(URL_CONSTANTS.BUSINESS.STATES);
 
     return data;
   } catch (error) {

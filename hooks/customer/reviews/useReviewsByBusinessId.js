@@ -23,8 +23,6 @@ export default function useReviewsByBusinessId(businessId, userId) {
     queryFn: ({ pageParam = 0 }) =>
       getReviewsByBusinessId(pageParam, businessId, userId),
     getNextPageParam: (_lastPage, pages) => {
-      console.log({ _lastPage, pages });
-
       return _lastPage?.reviews?.length < 5
         ? undefined
         : pages.reduce((acc, group) => acc + group?.reviews?.length, 0);

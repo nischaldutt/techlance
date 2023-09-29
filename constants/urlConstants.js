@@ -42,6 +42,7 @@ const URL_CONSTANTS = {
       CREATE_SERVICE: "/service/create",
       GET_SERVICES_BY_BUSINESS: "/service/list",
     },
+    STATES: "business/states/1",
   },
   ROUTES: {
     HOME: "/",

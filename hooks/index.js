@@ -24,3 +24,5 @@ export { default as useServiceSubCategories } from "@/hooks/business/serviceSubC
 
 export { default as useCreateService } from "@/hooks/business/service/useCreateService";
 export { default as useServicesByBusiness } from "@/hooks/business/service/useServicesByBusiness";
+
+export { default as useStates } from "@/hooks/business/states/useStates";
