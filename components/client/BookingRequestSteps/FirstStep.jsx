@@ -20,7 +20,7 @@ const FirstStep = ({ next }) => {
     APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE,
   ]);
 
-  console.log({ cachedBookingScheduleData });
+  // console.log({ cachedBookingScheduleData });
 
   const initial = !cachedBookingScheduleData
     ? {}

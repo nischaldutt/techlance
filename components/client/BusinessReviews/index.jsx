@@ -7,37 +7,19 @@ import { useReviewsByBusinessId } from "@/hooks";
 import ReviewList from "@/components/client/BusinessReviews/ReviewList";
 import CreateReviewForm from "@/components/client/BusinessReviews/CreateReviewForm";
 
-export default function BusinessReviews({ businessId = 76, rating = 4 }) {
+export default function BusinessReviews({ businessId, rating }) {
   const { isAuthenticated, user } = useAuthContext();
   const {
     businessReviews,
     isLoading,
-    data,
     isError,
     error,
     hasNextPage,
     isFetching,
     fetchNextPage,
     isFetchingNextPage,
-  } = useReviewsByBusinessId(businessId);
-
-  const [reviews, setReviews] = useState([]);
-
-  useEffect(() => {
-    setReviews(businessReviews);
-  }, [businessReviews]);
-
-  function addNewReview(newReview) {
-    setReviews((prevReviews) => [newReview, ...prevReviews]);
-  }
-
-  function swapNewReview(newReview) {
-    setReviews((prevReviews) => {
-      return prevReviews.map((pre) => {
-        return pre?.reviewId === newReview?.reviewId ? newReview : pre;
-      });
-    });
-  }
+    refetch,
+  } = useReviewsByBusinessId(businessId, user?.id);
 
   return (
     <div className="py-4 text-gray-700">
@@ -45,28 +27,33 @@ export default function BusinessReviews({ businessId = 76, rating = 4 }) {
         Ratings
       </div>
 
-      <div className="flex gap-4 items-center">
-        <h4 className="text-4xl font-bold">4.5</h4>
-        <Rate className="text-2xl" count={1} value={rating} />
-      </div>
+      {rating ? (
+        <div className="flex gap-4 items-center">
+          <h4 className="text-4xl font-bold">
+            {Number.parseFloat(rating).toFixed(1)}
+          </h4>
+          <Rate className="text-2xl" count={1} value={rating} />
+        </div>
+      ) : null}
 
       <Divider />
 
       <Spin spinning={isFetching}>
         <ReviewList
-          reviews={reviews}
-          swapNewReview={swapNewReview}
+          reviewGroups={businessReviews}
           hasNextPage={hasNextPage}
           fetchNextPage={fetchNextPage}
           isFetchingNextPage={isFetchingNextPage}
+          refetch={refetch}
         />
       </Spin>
 
       <Divider />
 
-      {isAuthenticated && (
-        <CreateReviewForm businessId={businessId} addNewReview={addNewReview} />
-      )}
+      {isAuthenticated &&
+        businessReviews?.[0]?.reviews?.[0]?.userId !== user?.id && (
+          <CreateReviewForm businessId={businessId} refetch={refetch} />
+        )}
     </div>
   );
 }

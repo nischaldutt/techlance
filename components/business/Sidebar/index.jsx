@@ -13,9 +13,10 @@ import {
   AiOutlineTable,
 } from "react-icons/ai";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { FiMapPin, FiSettings } from "react-icons/fi";
+import { FiSettings } from "react-icons/fi";
 import { MdFingerprint } from "react-icons/md";
 import { TiClipboard } from "react-icons/ti";
+import { GrUserWorker } from "react-icons/gr";
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
@@ -155,18 +156,19 @@ export default function Sidebar() {
               </li>
 
               <li className="items-center">
-                <Link href="/business/admin/maps">
+                <Link href="/business/admin/services">
                   <a
                     href="#pablo"
                     className={
                       "text-xs uppercase py-3 font-bold flex gap-2 " +
-                      (router.pathname.indexOf("/business/admin/maps") !== -1
+                      (router.pathname.indexOf("/business/admin/services") !==
+                      -1
                         ? "text-sky-500 hover:text-sky-600"
                         : "text-slate-700 hover:text-slate-500")
                     }
                   >
-                    <FiMapPin size={18} />
-                    Maps
+                    <GrUserWorker size={14} />
+                    Services
                   </a>
                 </Link>
               </li>

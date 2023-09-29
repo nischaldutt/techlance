@@ -23,7 +23,8 @@ const URL_CONSTANTS = {
     REVIEWS: {
       ADD_BUSINESS_REIVEW: "/review",
       EDIT_BUSINESS_REIVEW: "/review",
-      GET_REVIEWS_BY_BUSINESS_ID: "/review",
+      GET_REVIEWS_BY_BUSINESS_ID: "/review/list",
+      GET_AVERAGE_BUSINESS_RATING: "/review/average",
     },
   },
   BUSINESS: {
@@ -37,6 +38,11 @@ const URL_CONSTANTS = {
       ADD_REFERENCES: "/business/references",
       ADD_SERVICES: "/business/services",
     },
+    SERVICES: {
+      CREATE_SERVICE: "/service/create",
+      GET_SERVICES_BY_BUSINESS: "/service/list",
+    },
+    STATES: "business/states/1",
   },
   ROUTES: {
     HOME: "/",
@@ -52,6 +58,9 @@ const URL_CONSTANTS = {
         SIGN_UP: "/business/auth/signup",
       },
       REGISTRATION: "/business/registration",
+      ADMIN: {
+        DASHBOARD: "/business/admin/dashboard",
+      },
     },
   },
 };

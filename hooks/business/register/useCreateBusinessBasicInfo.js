@@ -9,10 +9,15 @@ export default function useCreateBusinessBasicInfo(callback) {
 
   const { mutate: createBusiness, isLoading } = useMutation({
     mutationFn: (basicInfo) => {
-      return axiosClient.post(
-        URL_CONSTANTS.BUSINESS.REGISTRATION.ADD_BASIC_INFO,
-        basicInfo
-      );
+      return basicInfo?.businessId
+        ? axiosClient.put(
+            URL_CONSTANTS.BUSINESS.REGISTRATION.ADD_BASIC_INFO,
+            basicInfo
+          )
+        : axiosClient.post(
+            URL_CONSTANTS.BUSINESS.REGISTRATION.ADD_BASIC_INFO,
+            basicInfo
+          );
     },
     onSuccess: (res) => {
       saveQueryToCache(

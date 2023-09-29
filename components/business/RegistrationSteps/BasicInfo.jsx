@@ -1,8 +1,8 @@
 import { useForm as useReactHookForm, Controller } from "react-hook-form";
-import { Button, Form, Input, Checkbox } from "antd";
+import { Button, Form, Input, Checkbox, Select } from "antd";
 
 import { useAntdMessageContext, useQueryCacheContext } from "@/contexts";
-import { useCreateBusinessBasicInfo } from "@/hooks";
+import { useCreateBusinessBasicInfo, useStates } from "@/hooks";
 import { mergeObjects } from "@/utils";
 import { APP_CONSTANTS } from "@/constants";
 
@@ -22,6 +22,14 @@ const BasinInfo = ({ next }) => {
   const { control, handleSubmit } = useReactHookForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
   const { getQueryFromCache } = useQueryCacheContext();
+
+  const { states, isFetching } = useStates();
+  const statesList = states?.map((state) => {
+    return {
+      value: state?.id,
+      label: state?.name,
+    };
+  });
 
   const cachedBasicInfoData = getQueryFromCache([
     APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
@@ -99,6 +107,30 @@ const BasinInfo = ({ next }) => {
               ]}
             >
               <Input placeholder="eg. 123 BayView Street, Calgary" {...field} />
+            </Form.Item>
+          )}
+        />
+
+        <Controller
+          name="stateId"
+          control={control}
+          render={({ field }) => (
+            <Form.Item
+              name="stateId"
+              label="State"
+              rules={[
+                {
+                  required: true,
+                  message: "Please select state!",
+                },
+              ]}
+            >
+              <Select
+                placeholder="Select State"
+                options={statesList}
+                loading={isFetching}
+                {...field}
+              />
             </Form.Item>
           )}
         />

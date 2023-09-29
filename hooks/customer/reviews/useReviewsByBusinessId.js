@@ -1,46 +1,44 @@
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 
 import { APP_CONSTANTS } from "@/constants";
-import { getReviewsByBusinessId } from "@/services/customerServices";
+import { getReviewsByBusinessId } from "@/services";
 
-export default function useReviewsByBusinessId(businessId) {
-  // const { data, isFetching } = useQuery({
-  //   queryKey: [
-  //     APP_CONSTANTS.QUERY_KEYS.CUSTOMER.REVIEWS.GET_REVIEWS_BY_BUSINESS_ID,
-  //     businessId,
-  //   ],
-  //   queryFn: () => getReviewsByBusinessId(businessId),
-  // });
-
+export default function useReviewsByBusinessId(businessId, userId) {
   const {
     isLoading,
-    data,
+    data: businessReviews,
     isError,
     error,
     hasNextPage,
     isFetching,
     fetchNextPage,
     isFetchingNextPage,
+    refetch,
   } = useInfiniteQuery({
     queryKey: [
       APP_CONSTANTS.QUERY_KEYS.CUSTOMER.REVIEWS.GET_REVIEWS_BY_BUSINESS_ID,
       businessId,
+      userId,
     ],
-    queryFn: ({ pageParam = 1 }) => getReviewsByBusinessId(businessId),
+    queryFn: ({ pageParam = 0 }) =>
+      getReviewsByBusinessId(pageParam, businessId, userId),
     getNextPageParam: (_lastPage, pages) => {
-      return pages.length < 5 ? pages.length + 1 : undefined;
+      return _lastPage?.reviews?.length < 5
+        ? undefined
+        : pages.reduce((acc, group) => acc + group?.reviews?.length, 0);
     },
+    enabled: !!businessId,
   });
 
   return {
-    businessReviews: data?.pages || [],
+    businessReviews: businessReviews?.pages || [],
     isLoading,
-    data,
     isError,
     error,
     hasNextPage,
     isFetching,
     fetchNextPage,
     isFetchingNextPage,
+    refetch,
   };
 }

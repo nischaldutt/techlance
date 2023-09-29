@@ -2,11 +2,17 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { AiFillCar } from "react-icons/ai";
+import { Skeleton } from "antd";
 
-import { getReviewsByBusinessId } from "@/services/customerServices";
+import { useAverageBusinessRating } from "@/hooks";
+import { getAverageBusinessRating } from "@/services";
 import { useAuthContext } from "@/contexts";
 import { APP_CONSTANTS } from "@/constants";
 import {
+  ClientBusinessDetailsAboutSection,
+  ClientBusinessDetailsContactInformation,
+  ClientBusinessDetailsHealthSafetyRules,
+  ClientBusinessDetailsSocialLinks,
   ClientAccordion,
   ClientCarousal,
   ClientGallery,
@@ -16,42 +22,57 @@ import {
   Footer,
 } from "@/components";
 
-import HealthSafetyRules from "@/pages/categories/[dynamicCategorySlug]/HealthSafetyRules";
-import AboutSection from "@/pages/categories/[dynamicCategorySlug]/AboutSection";
-import ContactInformation from "@/pages/categories/[dynamicCategorySlug]/ContactInformation";
-import SocialLinks from "@/pages/categories/[dynamicCategorySlug]/SocialLinks";
-
 import { galleryImages } from "@/data";
 
-// export const getStaticPaths = async () => {
-//   return {
-//     paths: [],
-//     fallback: "blocking",
-//   };
-// };
+export const getStaticPaths = async () => {
+  // todo: fetch first 5 businesses and return businessIds in paths array
 
-// export async function getStaticProps({ params }) {
-//   const queryClient = new QueryClient();
+  return {
+    paths: [
+      {
+        params: { dynamicCategorySlug: "hair-salon", businessId: "98" },
+      },
+    ],
+    fallback: true,
+  };
+};
 
-//   await queryClient.prefetchQuery(
-//     [APP_CONSTANTS.QUERY_KEYS.CUSTOMER.REVIEWS.GET_REVIEWS_BY_BUSINESS_ID, 76],
-//     () => getReviewsByBusinessId(76) // todo: params?.businessId
-//   );
+export async function getStaticProps({ params }) {
+  const queryClient = new QueryClient();
 
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryClient),
-//     },
-//   };
-// }
+  await queryClient.prefetchQuery(
+    [
+      APP_CONSTANTS.QUERY_KEYS.CUSTOMER.REVIEWS.GET_AVERAGE_BUSINESS_RATING,
+      params?.businessId,
+    ],
+    () => getAverageBusinessRating(params?.businessId)
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+}
 
 export default function ServicePage() {
   const router = useRouter();
   const { isAuthenticated, user } = useAuthContext();
-  const { businessId } = router.query; // todo: pass businessId to children
+  const { businessId } = router.query;
+  const averageRating = useAverageBusinessRating(businessId);
+
+  // If the page is not yet generated, this will be displayed
+  // initially until getStaticProps() finishes running
+  if (router.isFallback) {
+    return (
+      <>
+        <Skeleton active />
+        <Skeleton active />
+      </>
+    );
+  }
 
   function bookServiceHandler(serviceId) {
-    console.log({ serviceId });
     router.push(`/bookingRequest/${serviceId}`);
   }
 
@@ -111,18 +132,21 @@ export default function ServicePage() {
             <ClientGallery images={galleryImages} />
           </div>
 
-          <HealthSafetyRules />
+          <ClientBusinessDetailsHealthSafetyRules />
 
-          <ClientBusinessReviews />
+          <ClientBusinessReviews
+            businessId={businessId}
+            rating={averageRating}
+          />
         </div>
 
         <div className="text-gray-700 bg-gray-50 sm:w-4/5 md:w-2/5 2xl:w-[32%]">
           <ClientStaticMap />
 
           <div className="p-4 grid gap-4 sticky-top top-20 z-20">
-            <AboutSection />
-            <ContactInformation />
-            <SocialLinks />
+            <ClientBusinessDetailsAboutSection />
+            <ClientBusinessDetailsContactInformation />
+            <ClientBusinessDetailsSocialLinks />
           </div>
         </div>
       </div>

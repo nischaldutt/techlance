@@ -7,7 +7,7 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 
 import { Footer } from "@/components";
 import { APP_CONSTANTS } from "@/constants";
-import { getCategories, getSubCategories } from "@/services/customerServices";
+import { getCategories, getSubCategories } from "@/services";
 import {
   useCategories,
   useSubCategories,
@@ -35,8 +35,8 @@ export async function getStaticProps() {
 }
 
 export default function Categories() {
-  const { categories } = useCategories();
-  const { subCategories } = useSubCategories();
+  const categories = useCategories();
+  const subCategories = useSubCategories();
 
   const [categoryId, setCategoryId] = React.useState(null);
   const [currentSubCategories, setCurrentSubCategories] =
