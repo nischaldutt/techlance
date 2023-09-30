@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { useForm as useReactHookForm, Controller } from "react-hook-form";
 import { Button, Form, Input, Select } from "antd";
 
 import { useSignup } from "@/hooks";
@@ -11,16 +10,9 @@ const { Option } = Select;
 export default function SignUpForm() {
   const router = useRouter();
   const [form] = Form.useForm();
-  const {
-    control,
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useReactHookForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
 
-  const { mutate: signup, isLoading } = useSignup((isSuccess, message) => {
+  const { signup, isLoading } = useSignup((isSuccess, message) => {
     return isSuccess
       ? (successMessage(message || APP_CONSTANTS.MESSAGES.AUTH.SIGNUP_SUCCESS),
         form.resetFields(),
@@ -30,8 +22,12 @@ export default function SignUpForm() {
 
   function onSubmit(data) {
     const userObj = {
-      user_type: APP_CONSTANTS.USER_TYPE.CUSTOMER,
       ...data,
+      mobile_no: parseInt(data?.mobile),
+      user_type: APP_CONSTANTS.USER_TYPE.CUSTOMER,
+      country_id: 1,
+      is_mobile_verified: 1,
+      is_email_verified: 1,
     };
 
     return signup(userObj);
@@ -53,141 +49,100 @@ export default function SignUpForm() {
           Sign up to your account
         </div>
 
-        <Form
-          name="signup"
-          form={form}
-          layout="vertical"
-          onFinish={handleSubmit(onSubmit)}
-        >
-          <Controller
+        <Form name="signup" form={form} layout="vertical" onFinish={onSubmit}>
+          <Form.Item
             name="firstName"
-            control={control}
-            render={({ field }) => (
-              <Form.Item
-                name="firstName"
-                label="First Name"
-                rules={[
-                  { required: true, message: "Please input your First Name!" },
-                ]}
-              >
-                <Input {...field} />
-              </Form.Item>
-            )}
-          />
+            label="First Name"
+            rules={[
+              { required: true, message: "Please input your First Name!" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-          <Controller
+          <Form.Item
             name="lastName"
-            control={control}
-            render={({ field }) => (
-              <Form.Item
-                name="lastName"
-                label="Last Name"
-                rules={[
-                  { required: true, message: "Please input your Last Name!" },
-                ]}
-              >
-                <Input {...field} />
-              </Form.Item>
-            )}
-          />
+            label="Last Name"
+            rules={[
+              { required: true, message: "Please input your Last Name!" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-          <Controller
+          <Form.Item
             name="email"
-            control={control}
-            render={({ field }) => (
-              <Form.Item
-                name="email"
-                label="Email"
-                rules={[
-                  { required: true, message: "Please input your email!" },
-                  { type: "email", message: "Invalid email" },
-                ]}
-              >
-                <Input {...field} />
-              </Form.Item>
-            )}
-          />
+            label="Email"
+            rules={[
+              { required: true, message: "Please input your email!" },
+              { type: "email", message: "Invalid email" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-          <Controller
+          <Form.Item
             name="mobile"
-            control={control}
-            render={({ field }) => (
-              <Form.Item
-                name="mobile"
-                label="Mobile"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your mobile number!",
-                  },
-                  // todo: enable mobile regex based on country
-                  // {
-                  //   pattern: /^\+1\d{3}\s?\d{3}\s?\d{4}$/i,
-                  //   message: "Invalid mobile number",
-                  // },
-                ]}
-              >
-                <Input {...field} addonBefore={prefixSelector} />
-              </Form.Item>
-            )}
-          />
+            label="Mobile"
+            rules={[
+              {
+                required: true,
+                message: "Please input your mobile number!",
+              },
+              // todo: enable mobile regex based on country
+              // {
+              //   pattern: /^\+1\d{3}\s?\d{3}\s?\d{4}$/i,
+              //   message: "Invalid mobile number",
+              // },
+            ]}
+          >
+            <Input addonBefore={prefixSelector} />
+          </Form.Item>
 
-          <Controller
+          <Form.Item
             name="password"
-            control={control}
-            render={({ field }) => (
-              <Form.Item
-                name="password"
-                label="Password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your password!",
-                  },
-                  {
-                    min: 8,
-                    message: "Password must be at least 8 characters long",
-                  },
-                ]}
-                hasFeedback
-              >
-                <Input.Password {...field} />
-              </Form.Item>
-            )}
-          />
+            label="Password"
+            rules={[
+              {
+                required: true,
+                message: "Please input your password!",
+              },
+              {
+                min: 8,
+                message: "Password must be at least 8 characters long",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input.Password />
+          </Form.Item>
 
-          <Controller
+          <Form.Item
             name="confirm"
-            control={control}
-            render={({ field }) => (
-              <Form.Item
-                name="confirm"
-                label="Confirm Password"
-                dependencies={["password"]}
-                hasFeedback
-                rules={[
-                  {
-                    required: true,
-                    message: "Please confirm your password!",
-                  },
-                  ({ getFieldValue }) => ({
-                    validator(_, value) {
-                      if (!value || getFieldValue("password") === value) {
-                        return Promise.resolve();
-                      }
-                      return Promise.reject(
-                        new Error(
-                          "The two passwords that you entered do not match!"
-                        )
-                      );
-                    },
-                  }),
-                ]}
-              >
-                <Input.Password {...field} />
-              </Form.Item>
-            )}
-          />
+            label="Confirm Password"
+            dependencies={["password"]}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: "Please confirm your password!",
+              },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error(
+                      "The two passwords that you entered do not match!"
+                    )
+                  );
+                },
+              }),
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
 
           <Form.Item>
             <Button
