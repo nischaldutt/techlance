@@ -1,11 +1,10 @@
 const URL_CONSTANTS = {
   GET_USER: "/user",
+  AUTH: {
+    LOGIN: "/auth/login",
+    SIGN_UP: "/auth/signup",
+  },
   CUSTOMER: {
-    AUTH: {
-      LOGIN: "/auth/login",
-      SIGN_UP: "/auth/signup",
-    },
-
     GET_CATEGORIES: "/categories",
     GET_ALL_SUB_CATEGORIES: "/sub-category/filter",
     GET_SUB_CATEGORIES_WITH_CATEGORY_ID: "/sub-category",
@@ -28,10 +27,6 @@ const URL_CONSTANTS = {
     },
   },
   BUSINESS: {
-    AUTH: {
-      LOGIN: "/auth/login",
-      SIGN_UP: "/auth/signup",
-    },
     REGISTRATION: {
       ADD_BASIC_INFO: "/business/basic",
       ADD_INSURANCE: "/business/insurance",
@@ -63,6 +58,8 @@ const URL_CONSTANTS = {
       },
     },
   },
+  SINGLE_FILE_UPLOAD: "/file/upload/",
+  SINGLE_FILE_DELETE: "/file/delete/",
 };
 
 export default URL_CONSTANTS;
