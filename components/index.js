@@ -4,6 +4,7 @@ export { default as Contact } from "@/components/common/Contact";
 export { default as About } from "@/components/common/About";
 export { default as HigherOrderModalComponent } from "@/components/common/Modal";
 export { default as Footer } from "@/components/common/Footer";
+export { default as FileUpload } from "@/components/common/FileUpload";
 
 // client
 export { default as ClientAccordion } from "@/components/client/Accordion";
