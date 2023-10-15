@@ -13,7 +13,10 @@ export function QueryCacheProvider({ children }) {
   }
 
   function getQueryFromCache(key) {
-    return queryClient.getQueryData(key);
+    return queryClient.getQueryData({
+      queryKey: [key],
+      exact: true,
+    });
   }
 
   function removeQueryFromCache(keys) {
