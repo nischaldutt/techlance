@@ -9,9 +9,9 @@ export default function useCreateBusinessReferences(callback) {
 
   const { mutate: createBusinessReferences, isLoading } = useMutation({
     mutationFn: (referenceInfo) => {
-      const { businessId } = getQueryFromCache([
-        APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
-      ]);
+      const { businessId } = getQueryFromCache(
+        APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_BASIC_INFO
+      );
 
       const reqBody = referenceInfo.map((refObj) => {
         return {
@@ -25,18 +25,19 @@ export default function useCreateBusinessReferences(callback) {
         reqBody
       );
     },
-    onSuccess: (res) => {
+    onSuccess: (response) => {
       saveQueryToCache(
         [
           APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION
             .ADD_REFERENCES,
         ],
-        res?.data?.data
+        response?.payload
       );
-      callback(true, res?.data);
+
+      callback(true, response);
     },
     onError: (error) => {
-      callback(false, error?.response?.data?.message);
+      callback(false, error?.payload?.message);
     },
   });
 
