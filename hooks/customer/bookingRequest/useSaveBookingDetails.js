@@ -1,51 +1,41 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
-import axiosClient from "@/libs/axiosClient";
+import { useQueryCacheContext } from "@/contexts";
+import { postRequest, putRequest } from "@/services";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
 export default function useSaveBookingDetails(callback) {
-  const queryClient = useQueryClient();
+  const { getQueryFromCache, saveQueryToCache } = useQueryCacheContext();
 
   const { mutate: saveBookingDetails, isLoading } = useMutation({
-    // todo: fix this
-    mutationFn: (bookingDetailsObj, isUpdateRequest) => {
-      const cachedBookingScheduleData = queryClient.getQueryData([
-        APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE,
-      ]);
-
-      const reqBody = {
-        ...bookingDetailsObj,
-        bookingId: cachedBookingScheduleData?.bookingId,
-      };
+    mutationFn: (reqBody, isUpdateRequest) => {
+      const cachedBookingScheduleInfo = getQueryFromCache(
+        APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE
+      );
 
       return !isUpdateRequest
-        ? axiosClient.post(
+        ? postRequest(
             URL_CONSTANTS.CUSTOMER.BOOKING_REQUEST.SAVE_BOOKING_DETAILS,
-            reqBody
+            { ...reqBody, bookingId: cachedBookingScheduleInfo?.bookingId }
           )
-        : axiosClient.put(
+        : putRequest(
             URL_CONSTANTS.CUSTOMER.BOOKING_REQUEST.UPDATE_BOOKING_DEATILS,
-            reqBody
+            { ...reqBody, bookingId: cachedBookingScheduleInfo?.bookingId }
           );
     },
-    onSuccess: (res) => {
-      queryClient.setQueryData(
+    onSuccess: (response) => {
+      saveQueryToCache(
         [
           APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST
             .SAVE_BOOKING_DETAILS,
         ],
-        (prevData) => {
-          const {
-            data: { data: cachedBookingDetails },
-          } = res;
-          return cachedBookingDetails;
-        }
+        response?.payload
       );
 
-      callback(true, res?.data);
+      callback(true, response);
     },
     onError: (error) => {
-      callback(false, error?.response?.data?.message);
+      callback(false, error?.payload?.message);
     },
   });
 
