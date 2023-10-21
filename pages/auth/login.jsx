@@ -5,9 +5,9 @@ import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 import { ClientLoginForm } from "@/components";
 
 export async function getServerSideProps({ req }) {
-  const response = await getUser(req?.cookies?.token);
+  const user = await getUser(req?.cookies?.token);
 
-  if (response?.user_type === APP_CONSTANTS.USER_TYPE.CUSTOMER) {
+  if (user?.user_type === APP_CONSTANTS.USER_TYPE.CUSTOMER) {
     return {
       redirect: {
         destination: URL_CONSTANTS.ROUTES.HOME,

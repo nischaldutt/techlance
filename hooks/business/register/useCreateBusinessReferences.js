@@ -1,6 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
-import axiosClient from "@/libs/axiosClient";
+import { postRequest } from "@/services";
 import { useQueryCacheContext } from "@/contexts";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
@@ -20,7 +20,7 @@ export default function useCreateBusinessReferences(callback) {
         };
       });
 
-      return axiosClient.post(
+      return postRequest(
         URL_CONSTANTS.BUSINESS.REGISTRATION.ADD_REFERENCES,
         reqBody
       );
