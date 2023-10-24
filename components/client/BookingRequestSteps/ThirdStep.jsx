@@ -1,26 +1,28 @@
-import { useQueryClient } from "@tanstack/react-query";
-import dayjs from "dayjs";
 import { Button, Divider, Form, Input, Space, Switch, Image } from "antd";
 
 import { ClientDateTimeInputs } from "@/components";
-import { useAntdMessageContext } from "@/contexts";
+import { useAntdMessageContext, useQueryCacheContext } from "@/contexts";
 import { useConfirmBooking } from "@/hooks";
 import { APP_CONSTANTS } from "@/constants";
 
 const { TextArea } = Input;
 
 const ThirdStep = ({ previous, done }) => {
-  const queryClient = useQueryClient();
   const [form] = Form.useForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
+  const { getQueryFromCache } = useQueryCacheContext();
 
-  const cachedBookingScheduleData = queryClient.getQueryData([
-    APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE,
-  ]);
+  const cachedBookingScheduleData = getQueryFromCache(
+    APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE
+  );
 
-  const cachedBookingDetails = queryClient.getQueryData([
-    APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_BOOKING_DETAILS,
-  ]);
+  const cachedBookingDetails = getQueryFromCache(
+    APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_BOOKING_DETAILS
+  );
+
+  const uploadedImages = !cachedBookingDetails?.images
+    ? []
+    : cachedBookingDetails?.images?.map((image) => image?.imageUrl);
 
   const { confirmBooking, isLoading } = useConfirmBooking(
     (isSuccess, response) => {
@@ -126,16 +128,9 @@ const ThirdStep = ({ previous, done }) => {
           }}
         >
           <div className="flex gap-4">
-            <Image
-              alt=""
-              width={200}
-              src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-            />
-            <Image
-              alt=""
-              width={200}
-              src="https://gw.alipayobjects.com/zos/antfincdn/aPkFc8Sj7n/method-draw-image.svg"
-            />
+            {uploadedImages?.map((image) => {
+              return <Image key={image} alt="" width={200} src={image} />;
+            })}
           </div>
         </Image.PreviewGroup>
 

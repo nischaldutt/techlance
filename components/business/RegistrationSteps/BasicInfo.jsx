@@ -1,4 +1,3 @@
-import { useForm as useReactHookForm, Controller } from "react-hook-form";
 import { Button, Form, Input, Checkbox, Select } from "antd";
 
 import { useAntdMessageContext, useQueryCacheContext } from "@/contexts";
@@ -19,10 +18,10 @@ const smallFormItemLayout = {
 
 const BasinInfo = ({ next }) => {
   const [form] = Form.useForm();
-  const { control, handleSubmit } = useReactHookForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
   const { getQueryFromCache } = useQueryCacheContext();
 
+  // fetching states on the client rather than on the server
   const { states, isFetching } = useStates();
   const statesList = states?.map((state) => {
     return {
@@ -31,9 +30,9 @@ const BasinInfo = ({ next }) => {
     };
   });
 
-  const cachedBasicInfoData = getQueryFromCache([
-    APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
-  ]);
+  const cachedBasicInfo = getQueryFromCache(
+    APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_BASIC_INFO
+  );
 
   const { createBusiness, isLoading } = useCreateBusinessBasicInfo(
     (isSuccess, response) => {
@@ -48,8 +47,8 @@ const BasinInfo = ({ next }) => {
   );
 
   function onSubmit(basicInfo) {
-    return cachedBasicInfoData
-      ? createBusiness(mergeObjects(cachedBasicInfoData, basicInfo))
+    return cachedBasicInfo
+      ? createBusiness(mergeObjects(cachedBasicInfo, basicInfo))
       : createBusiness(basicInfo);
   }
 
@@ -59,201 +58,147 @@ const BasinInfo = ({ next }) => {
         name="basicInfo"
         form={form}
         layout="vertical"
-        onFinish={handleSubmit(onSubmit)}
+        onFinish={onSubmit}
         autoComplete="off"
-        initialValues={cachedBasicInfoData}
+        initialValues={cachedBasicInfo}
         requiredMark="optional"
       >
-        <Controller
+        <Form.Item
+          label="Business Name"
           name="name"
-          control={control}
-          render={({ field }) => (
-            <Form.Item
-              label="Business Name"
-              name="name"
-              rules={[
-                {
-                  required: true,
-                  message: "Business name is required!",
-                },
-                {
-                  min: 3,
-                  message: "Business name must be atleast 3 characters long!",
-                },
-              ]}
-            >
-              <Input placeholder="eg. Techlance" {...field} />
-            </Form.Item>
-          )}
-        />
+          rules={[
+            {
+              required: true,
+              message: "Business name is required!",
+            },
+            {
+              min: 3,
+              message: "Business name must be atleast 3 characters long!",
+            },
+          ]}
+        >
+          <Input placeholder="eg. Techlance" />
+        </Form.Item>
 
-        <Controller
+        <Form.Item
+          label="Business Address"
           name="address"
-          control={control}
-          render={({ field }) => (
-            <Form.Item
-              label="Business Address"
-              name="address"
-              rules={[
-                {
-                  required: true,
-                  message: "Business address is required!",
-                },
-                {
-                  min: 10,
-                  message:
-                    "Business address must be at least 10 characters long!",
-                },
-              ]}
-            >
-              <Input placeholder="eg. 123 BayView Street, Calgary" {...field} />
-            </Form.Item>
-          )}
-        />
+          rules={[
+            {
+              required: true,
+              message: "Business address is required!",
+            },
+            {
+              min: 10,
+              message: "Business address must be at least 10 characters long!",
+            },
+          ]}
+        >
+          <Input placeholder="eg. 123 BayView Street, Calgary" />
+        </Form.Item>
 
-        <Controller
+        <Form.Item
           name="stateId"
-          control={control}
-          render={({ field }) => (
-            <Form.Item
-              name="stateId"
-              label="State"
-              rules={[
-                {
-                  required: true,
-                  message: "Please select state!",
-                },
-              ]}
-            >
-              <Select
-                placeholder="Select State"
-                options={statesList}
-                loading={isFetching}
-                {...field}
-              />
-            </Form.Item>
-          )}
-        />
+          label="State"
+          rules={[
+            {
+              required: true,
+              message: "Please select state!",
+            },
+          ]}
+        >
+          <Select
+            placeholder="Select State"
+            options={statesList}
+            loading={isFetching}
+          />
+        </Form.Item>
 
-        <Controller
+        <Form.Item
+          {...smallFormItemLayout}
+          label="Units/Suites"
           name="unit"
-          control={control}
-          render={({ field }) => (
-            <Form.Item
-              {...smallFormItemLayout}
-              label="Units/Suites"
-              name="unit"
-              rules={[
-                {
-                  pattern: APP_CONSTANTS.REGEXES.BUSINESS_UNITS,
-                  message: "Invalid Units",
-                },
-              ]}
-            >
-              <Input placeholder="eg. 4" {...field} />
-            </Form.Item>
-          )}
-        />
+          rules={[
+            {
+              pattern: APP_CONSTANTS.REGEXES.BUSINESS_UNITS,
+              message: "Invalid Units",
+            },
+          ]}
+        >
+          <Input placeholder="eg. 4" />
+        </Form.Item>
 
-        <Controller
+        <Form.Item
+          {...smallFormItemLayout}
+          label="HST Number"
           name="hst"
-          control={control}
-          render={({ field }) => (
-            <Form.Item
-              {...smallFormItemLayout}
-              label="HST Number"
-              name="hst"
-              rules={[
-                {
-                  required: true,
-                  message: "HST required!",
-                },
-                {
-                  pattern: APP_CONSTANTS.REGEXES.BUSINESS_HST,
-                  message: "Invalid HST!",
-                },
-              ]}
-            >
-              <Input placeholder="eg. 12345" {...field} />
-            </Form.Item>
-          )}
-        />
+          rules={[
+            {
+              required: true,
+              message: "HST required!",
+            },
+            {
+              pattern: APP_CONSTANTS.REGEXES.BUSINESS_HST,
+              message: "Invalid HST!",
+            },
+          ]}
+        >
+          <Input placeholder="eg. 12345" />
+        </Form.Item>
 
-        <Controller
+        <Form.Item
+          label="Website"
           name="website"
-          control={control}
-          render={({ field }) => (
-            <Form.Item
-              label="Website"
-              name="website"
-              rules={[
-                {
-                  pattern: APP_CONSTANTS.REGEXES.WEBSITE_URL,
-                  message: "Invalid URL!",
-                },
-              ]}
-            >
-              <Input addonBefore="https://" {...field} />
-            </Form.Item>
-          )}
-        />
+          rules={[
+            {
+              pattern: APP_CONSTANTS.REGEXES.WEBSITE_URL,
+              message: "Invalid URL!",
+            },
+          ]}
+        >
+          <Input addonBefore="https://" />
+        </Form.Item>
 
-        <Controller
-          name="discoverDescription"
-          control={control}
-          render={({ field }) => (
-            <Form.Item
-              label="Where did you learn about us?"
-              name="discoverDescription"
-            >
-              <TextArea
-                rows={4}
-                placeholder="eg. Tell us about where did you learn about us?"
-                minLength={6}
-                {...field}
-              />
-            </Form.Item>
-          )}
-        />
+        <Form.Item
+          label="Where did you learn about us?"
+          name="discoverDescription" // todo_: ask to change the field name same in both req and res
+        >
+          <TextArea
+            rows={4}
+            placeholder="eg. Tell us about where did you learn about us?"
+            minLength={6}
+          />
+        </Form.Item>
 
-        <Controller
+        <Form.Item
+          label={
+            <p className="text-justify">
+              By checking this box you represent and warrant that you hold all
+              required or industry standard insurance, workers compensation, and
+              workplace safety, to adequately cover property damage, bodily
+              injury, theft, property loss in amounts sufficient for your
+              liability under your contract with the Requesting User.
+            </p>
+          }
           name="industryStandardAgreement"
-          control={control}
-          render={({ field }) => (
-            <Form.Item
-              label={
-                <p className="text-justify">
-                  By checking this box you represent and warrant that you hold
-                  all required or industry standard insurance, workers
-                  compensation, and workplace safety, to adequately cover
-                  property damage, bodily injury, theft, property loss in
-                  amounts sufficient for your liability under your contract with
-                  the Requesting User.
-                </p>
-              }
-              name="industryStandardAgreement"
-              valuePropName="checked"
-              rules={[
-                { required: true, message: "" },
-                { type: "boolean", message: "Invalid value!" },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (value) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(
-                      new Error(
-                        "Please accept the Industry Standard agreement!"
-                      )
-                    );
-                  },
-                }),
-              ]}
-            >
-              <Checkbox {...field}>I agree and acknowledge</Checkbox>
-            </Form.Item>
-          )}
-        />
+          valuePropName="checked"
+          rules={[
+            { required: true, message: "" },
+            { type: "boolean", message: "Invalid value!" },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(
+                  new Error("Please accept the Industry Standard agreement!")
+                );
+              },
+            }),
+          ]}
+        >
+          <Checkbox>I agree and acknowledge</Checkbox>
+        </Form.Item>
 
         <Form.Item>
           <Button

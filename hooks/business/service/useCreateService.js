@@ -1,21 +1,21 @@
 import { useMutation } from "@tanstack/react-query";
 
-import axiosClient from "@/libs/axiosClient";
+import { postRequest } from "@/services";
 import { URL_CONSTANTS } from "@/constants";
 
 export default function useCreateService(callback) {
   const { mutate: createService, isLoading } = useMutation({
     mutationFn: (reqBody) => {
-      return axiosClient.post(
+      return postRequest(
         URL_CONSTANTS.BUSINESS.SERVICES.CREATE_SERVICE,
         reqBody
       );
     },
-    onSuccess: (data) => {
-      callback(true, data?.data?.message);
+    onSuccess: (response) => {
+      callback(true, response?.payload?.message);
     },
     onError: (error) => {
-      callback(false, error?.response?.data?.message);
+      callback(false, error?.payload?.message);
     },
   });
 

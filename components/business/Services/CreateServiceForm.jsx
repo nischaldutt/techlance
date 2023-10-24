@@ -1,57 +1,19 @@
 import { useState } from "react";
-import {
-  Button,
-  Input,
-  InputNumber,
-  Form,
-  Select,
-  Col,
-  Row,
-  Upload,
-} from "antd";
-import { AiOutlineCloudUpload } from "react-icons/ai";
+import { Button, Input, InputNumber, Form, Select, Col, Row } from "antd";
 
+import { FileUpload } from "@/components";
 import { useServiceSubCategories, useCreateService } from "@/hooks";
 import { useAntdMessageContext } from "@/contexts/AntdMessageContext";
-import { APP_CONSTANTS } from "@/constants";
-
-const { Dragger } = Upload;
-
-const props = {
-  name: "files",
-  multiple: true,
-  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-  onChange(info) {
-    console.log({ info });
-
-    const { status } = info.file;
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log({ dropped: e.dataTransfer.files });
-  },
-};
-
-const normFile = (e) => {
-  if (Array.isArray(e)) {
-    return e;
-  }
-
-  return e?.fileList;
-};
+import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
 const CreateServiceForm = ({ categories, refetchServices }) => {
   const [form] = Form.useForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
 
   const [categoryId, setCategoryId] = useState();
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [isFileUploading, setIsFileUploading] = useState(false);
+
   const { subCategories, isSuccess, isFetching } =
     useServiceSubCategories(categoryId);
 
@@ -83,7 +45,8 @@ const CreateServiceForm = ({ categories, refetchServices }) => {
       status: true,
       price: data?.price,
       subCategoryId: data?.subCategoryId,
-      businessId: 98,
+      businessId: APP_CONSTANTS.DUMMY_BUSINESS_ID,
+      files: uploadedFiles,
     };
 
     return createService(reqBody);
@@ -190,23 +153,18 @@ const CreateServiceForm = ({ categories, refetchServices }) => {
         <Form.Item
           name="files"
           valuePropName="fileList"
-          getValueFromEvent={normFile}
           label={
             <h3 className="text-base lg:text-xl font-bold">Upload Photos</h3>
           }
         >
-          <Dragger {...props}>
-            <p className="ant-upload-drag-icon flex justify-center">
-              <AiOutlineCloudUpload className="text-6xl" />
-            </p>
-            <p className="ant-upload-text">
-              Click or drag file to this area to upload
-            </p>
-            <p className="ant-upload-hint">
-              Support for a single or bulk upload. Strictly prohibit from
-              uploading company data or other band files
-            </p>
-          </Dragger>
+          <FileUpload
+            uploadUrl={`${process.env.NEXT_PUBLIC_BACKEND_API}${URL_CONSTANTS.SINGLE_FILE_UPLOAD}`}
+            limit={5}
+            getUploadedFiles={(files, isUploading) => {
+              setUploadedFiles(files);
+              setIsFileUploading(isUploading);
+            }}
+          />
         </Form.Item>
 
         <Form.Item className="py-4">
@@ -215,6 +173,7 @@ const CreateServiceForm = ({ categories, refetchServices }) => {
             htmlType="submit"
             name="submit"
             loading={isLoading}
+            disabled={isFileUploading}
           >
             Create Service
           </Button>

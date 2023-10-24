@@ -1,4 +1,3 @@
-import { useForm as useReactHookForm, Controller } from "react-hook-form";
 import { Button, Form, Input } from "antd";
 
 import { useAntdMessageContext, useQueryCacheContext } from "@/contexts";
@@ -7,15 +6,16 @@ import { APP_CONSTANTS } from "@/constants";
 
 const { TextArea } = Input;
 
+// todo_: ask to send the error in the response when a single user that already has business tries to create another business
 const ReferenceInfo = ({ previous, done }) => {
   const [referenceForm1] = Form.useForm();
   const [referenceForm2] = Form.useForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
   const { getQueryFromCache } = useQueryCacheContext();
 
-  const cachedRefrenceInfo = getQueryFromCache([
-    APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_REFERENCES,
-  ]);
+  const cachedRefrenceInfo = getQueryFromCache(
+    APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_REFERENCES
+  );
 
   const { createBusinessReferences, isLoading } = useCreateBusinessReferences(
     (isSuccess, response) => {
@@ -30,208 +30,178 @@ const ReferenceInfo = ({ previous, done }) => {
   );
 
   function onSubmit() {
-    const referenceInfo = [
-      referenceForm1.getFieldsValue(),
-      referenceForm2.getFieldsValue(),
-    ];
+    let referenceInfo = [];
 
-    return createBusinessReferences(referenceInfo);
+    referenceForm1
+      .validateFields()
+      .then((firstReferenceValues) => {
+        referenceInfo.push(firstReferenceValues);
+
+        if (!!referenceForm2.getFieldValue("fullName")) {
+          referenceForm2
+            .validateFields()
+            .then((secondReferenceValues) => {
+              referenceInfo.push(secondReferenceValues);
+              // return console.log({ sec: referenceInfo });
+              return createBusinessReferences(referenceInfo);
+            })
+            .catch((secondRefError) => {
+              console.log(
+                "error in validating second reference",
+                secondRefError
+              );
+            });
+        } else {
+          // return console.log({ first: referenceInfo });
+          return createBusinessReferences(referenceInfo);
+        }
+      })
+      .catch((firstRefError) => {
+        console.log("error in validating first reference", firstRefError);
+      });
   }
 
   return (
     <section className="w-96">
       <ReferenceForm
-        formLabel="1st Reference"
+        formLabel="1st Reference*"
         name="referenceInfo1"
         form={referenceForm1}
-        onSubmit={onSubmit}
-        previous={previous}
-        isLoading={isLoading}
         initialValues={cachedRefrenceInfo?.[0] || {}}
       />
 
       <ReferenceForm
-        formLabel="2nd Reference"
+        formLabel="2nd Reference (Optional)"
         name="referenceInfo2"
         form={referenceForm2}
-        onSubmit={onSubmit}
-        previous={previous}
-        isLoading={isLoading}
         initialValues={cachedRefrenceInfo?.[1] || {}}
       />
+
+      <div className="flex justify-between">
+        <Button
+          type="primary"
+          size="large"
+          disabled={isLoading}
+          onClick={() => previous()}
+        >
+          Previous
+        </Button>
+
+        <Button
+          type="primary"
+          htmlType="submit"
+          size="large"
+          name="submit"
+          loading={isLoading}
+          onClick={onSubmit}
+        >
+          Save & Continue
+        </Button>
+      </div>
     </section>
   );
 };
 
 export default ReferenceInfo;
 
-function ReferenceForm({
-  formLabel,
-  name,
-  form,
-  onSubmit,
-  previous,
-  isLoading,
-  initialValues,
-}) {
-  const { control, handleSubmit } = useReactHookForm();
-
+function ReferenceForm({ formLabel, name, form, initialValues }) {
   return (
     <Form
       name={name}
       form={form}
       layout="vertical"
-      onFinish={handleSubmit(onSubmit)}
       autoComplete="off"
       initialValues={initialValues}
       requiredMark="optional"
+      validateTrigger="onBlur"
     >
       <h1 className="text-lg font-bold pb-4">{formLabel}</h1>
 
-      <Controller
+      <Form.Item
+        label="Full Name"
         name="fullName"
-        control={control}
-        render={({ field }) => (
-          <Form.Item
-            label="Full Name"
-            name="fullName"
-            rules={[
-              {
-                required: true,
-                message: "Name",
-              },
-              {
-                min: 3,
-                message: "Name must be at least 3 characters long!",
-              },
-            ]}
-          >
-            <Input placeholder="eg. John Doe" {...field} />
-          </Form.Item>
-        )}
-      />
-
-      <Controller
+        rules={[
+          {
+            required: true,
+            message: "Name",
+          },
+          {
+            min: 3,
+            message: "Name must be at least 3 characters long!",
+          },
+        ]}
+      >
+        <Input placeholder="eg. John Doe" />
+      </Form.Item>
+      <Form.Item
+        label="Relationship"
         name="relationship"
-        control={control}
-        render={({ field }) => (
-          <Form.Item
-            label="Relationship"
-            name="relationship"
-            rules={[
-              {
-                required: true,
-                message: "Relationship",
-              },
-              {
-                min: 3,
-                message: "Relationship must be at least 3 characters long",
-              },
-            ]}
-          >
-            <Input placeholder="eg. Business Partner" {...field} />
-          </Form.Item>
-        )}
-      />
-
-      <Controller
+        rules={[
+          {
+            required: true,
+            message: "Relationship",
+          },
+          {
+            min: 3,
+            message: "Relationship must be at least 3 characters long",
+          },
+        ]}
+      >
+        <Input placeholder="eg. Business Partner" />
+      </Form.Item>
+      <Form.Item
+        label="Company"
         name="company"
-        control={control}
-        render={({ field }) => (
-          <Form.Item
-            label="Company"
-            name="company"
-            rules={[
-              {
-                required: true,
-                message: "Company name is required!",
-              },
-            ]}
-          >
-            <Input placeholder="eg. The Beetles" {...field} />
-          </Form.Item>
-        )}
-      />
-
-      <Controller
+        rules={[
+          {
+            required: true,
+            message: "Company name is required!",
+          },
+        ]}
+      >
+        <Input placeholder="eg. The Beetles" />
+      </Form.Item>
+      <Form.Item
+        label="Email"
         name="email"
-        control={control}
-        render={({ field }) => (
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: "test@gmail.com",
-              },
-              { type: "email", message: "Invalid email" },
-            ]}
-          >
-            <Input placeholder="eg. john.doe@gmail.com" {...field} />
-          </Form.Item>
-        )}
-      />
-
-      <Controller
+        rules={[
+          {
+            required: true,
+            message: "test@gmail.com",
+          },
+          { type: "email", message: "Invalid email" },
+        ]}
+      >
+        <Input placeholder="eg. john.doe@gmail.com" />
+      </Form.Item>
+      <Form.Item
+        label="Phone"
         name="phone"
-        control={control}
-        render={({ field }) => (
-          <Form.Item
-            label="Phone"
-            name="phone"
-            rules={[
-              {
-                required: true,
-                message: "Phone is required!",
-              },
-            ]}
-          >
-            <Input placeholder="eg. 1234567890" {...field} />
-          </Form.Item>
-        )}
-      />
+        rules={[
+          {
+            required: true,
+            message: "Phone is required!",
+          },
+        ]}
+      >
+        <Input placeholder="eg. 1234567890" />
+      </Form.Item>
 
-      <Controller
+      <Form.Item
+        label="Description"
         name="description"
-        control={control}
-        render={({ field }) => (
-          <Form.Item label="Description" name="description">
-            <TextArea
-              {...field}
-              rows={4}
-              placeholder="Tell us how you know each other and the reason why you chose this person as your reference."
-            />
-          </Form.Item>
-        )}
-      />
-
-      {name === "referenceInfo2" && (
-        <div className="flex justify-between">
-          <Form.Item>
-            <Button
-              type="primary"
-              size="large"
-              disabled={isLoading}
-              onClick={() => previous()}
-            >
-              Previous
-            </Button>
-          </Form.Item>
-
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              size="large"
-              name="submit"
-              loading={isLoading}
-            >
-              Save & Continue
-            </Button>
-          </Form.Item>
-        </div>
-      )}
+        rules={[
+          {
+            required: true,
+            message: "Description is required!",
+          },
+        ]}
+      >
+        <TextArea
+          rows={4}
+          placeholder="Tell us how you know each other and the reason why you chose this person as your reference."
+        />
+      </Form.Item>
     </Form>
   );
 }

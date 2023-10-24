@@ -13,9 +13,9 @@ import {
 } from "@/components";
 
 export async function getServerSideProps({ req }) {
-  const response = await getUser(req?.cookies?.token);
+  const user = await getUser(req?.cookies?.token);
 
-  if (response?.user_type === APP_CONSTANTS.USER_TYPE.BUSINESS) {
+  if (user?.user_type === APP_CONSTANTS.USER_TYPE.BUSINESS) {
     return {
       props: {},
     };

@@ -30,7 +30,10 @@ export const getStaticPaths = async () => {
   return {
     paths: [
       {
-        params: { dynamicCategorySlug: "hair-salon", businessId: "98" },
+        params: {
+          dynamicCategorySlug: "hair-salon",
+          businessId: APP_CONSTANTS.DUMMY_BUSINESS_ID.toString(),
+        },
       },
     ],
     fallback: true,

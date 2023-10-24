@@ -1,54 +1,35 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { Button, Divider, Form, Input, message, Upload } from "antd";
-import { AiOutlineCloudUpload } from "react-icons/ai";
+import { useState } from "react";
+import { Button, Divider, Form, Input } from "antd";
 
-import { useAntdMessageContext } from "@/contexts";
+import { FileUpload } from "@/components";
+import { useAntdMessageContext, useQueryCacheContext } from "@/contexts";
 import { useSaveBookingDetails } from "@/hooks";
-import { APP_CONSTANTS } from "@/constants";
+import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
-const { Dragger } = Upload;
 const { TextArea } = Input;
 
-const props = {
-  name: "files",
-  multiple: true,
-  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-  onChange(info) {
-    console.log({ info });
-
-    const { status } = info.file;
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log({ dropped: e.dataTransfer.files });
-  },
-};
-
-const normFile = (e) => {
-  if (Array.isArray(e)) {
-    return e;
-  }
-  return e?.fileList;
-};
-
 const SecondStep = ({ previous, next }) => {
-  const queryClient = useQueryClient();
   const [form] = Form.useForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
+  const { getQueryFromCache } = useQueryCacheContext();
 
-  const cachedBookingDetails = queryClient.getQueryData([
-    APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_BOOKING_DETAILS,
-  ]);
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [isFileUploading, setIsFileUploading] = useState(false);
 
-  // console.log({ cachedBookingDetails });
+  const cachedBookingDetails = getQueryFromCache(
+    APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_BOOKING_DETAILS
+  );
 
+  const uploadedImages = !cachedBookingDetails
+    ? []
+    : cachedBookingDetails?.images?.map((image) => {
+        return {
+          response: { data: image },
+          thumbUrl: image?.imageUrl,
+        };
+      });
+
+  console.log({ cachedBookingDetails });
   const { saveBookingDetails, isLoading } = useSaveBookingDetails(
     (isSuccess, response) => {
       return isSuccess
@@ -61,10 +42,19 @@ const SecondStep = ({ previous, next }) => {
     }
   );
 
-  const onSubmit = (bookingDetailsObj) => {
+  const onSubmit = (data) => {
+    const reqBody = {
+      taskDescription: data?.taskDescription,
+      files: uploadedFiles.length
+        ? uploadedFiles
+        : cachedBookingDetails?.images,
+      serviceId: APP_CONSTANTS.DUMMY_SERVICE_ID,
+      businessId: APP_CONSTANTS.DUMMY_BUSINESS_ID,
+    };
+
     return cachedBookingDetails
-      ? saveBookingDetails(bookingDetailsObj, true)
-      : saveBookingDetails(bookingDetailsObj, false);
+      ? saveBookingDetails(reqBody, true)
+      : saveBookingDetails(reqBody, false);
   };
 
   return (
@@ -75,7 +65,7 @@ const SecondStep = ({ previous, next }) => {
         layout="vertical"
         onFinish={onSubmit}
         autoComplete="off"
-        initialValues={{}}
+        initialValues={cachedBookingDetails || {}}
         className="flex flex-col gap-4"
         requiredMark="optional"
       >
@@ -103,23 +93,19 @@ const SecondStep = ({ previous, next }) => {
         <Form.Item
           name="files"
           valuePropName="fileList"
-          getValueFromEvent={normFile}
           label={
             <h3 className="text-base lg:text-xl font-bold">Upload Photos</h3>
           }
         >
-          <Dragger {...props}>
-            <p className="ant-upload-drag-icon flex justify-center">
-              <AiOutlineCloudUpload className="text-6xl" />
-            </p>
-            <p className="ant-upload-text">
-              Click or drag file to this area to upload
-            </p>
-            <p className="ant-upload-hint">
-              Support for a single or bulk upload. Strictly prohibit from
-              uploading company data or other band files
-            </p>
-          </Dragger>
+          <FileUpload
+            images={uploadedImages}
+            uploadUrl={`${process.env.NEXT_PUBLIC_BACKEND_API}${URL_CONSTANTS.SINGLE_FILE_UPLOAD}`}
+            limit={5}
+            getUploadedFiles={(files, isUploading) => {
+              setUploadedFiles(files);
+              setIsFileUploading(isUploading);
+            }}
+          />
         </Form.Item>
 
         <div className="flex justify-between">
@@ -127,7 +113,7 @@ const SecondStep = ({ previous, next }) => {
             <Button
               type="primary"
               size="large"
-              disabled={isLoading}
+              disabled={isFileUploading || isLoading}
               onClick={() => previous()}
             >
               Previous
@@ -141,6 +127,7 @@ const SecondStep = ({ previous, next }) => {
               size="large"
               name="submit"
               loading={isLoading}
+              disabled={isFileUploading}
             >
               Next
             </Button>

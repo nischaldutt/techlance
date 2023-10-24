@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useForm as useReactHookForm, Controller } from "react-hook-form";
 import { Button, Form, Input } from "antd";
 
 import { useAuthContext, useAntdMessageContext } from "@/contexts";
@@ -9,7 +8,6 @@ import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 export default function LoginForm() {
   const router = useRouter();
   const [form] = Form.useForm();
-  const { control, handleSubmit } = useReactHookForm();
   const { login, isLoading } = useAuthContext();
   const { successMessage, errorMessage } = useAntdMessageContext();
 
@@ -38,47 +36,30 @@ export default function LoginForm() {
           Signin to your account
         </div>
 
-        <Form
-          name="login"
-          form={form}
-          layout="vertical"
-          onFinish={handleSubmit(onSubmit)}
-        >
-          <Controller
+        <Form name="login" form={form} layout="vertical" onFinish={onSubmit}>
+          <Form.Item
             name="email"
-            control={control}
-            render={({ field }) => (
-              <Form.Item
-                name="email"
-                label="Email"
-                rules={[
-                  { required: true, message: "Please input your email!" },
-                  { type: "email", message: "Invalid email" },
-                ]}
-              >
-                <Input {...field} />
-              </Form.Item>
-            )}
-          />
+            label="Email"
+            rules={[
+              { required: true, message: "Please input your email!" },
+              { type: "email", message: "Invalid email" },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-          <Controller
+          <Form.Item
             name="password"
-            control={control}
-            render={({ field }) => (
-              <Form.Item
-                name="password"
-                label="Password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your password!",
-                  },
-                ]}
-              >
-                <Input.Password {...field} />
-              </Form.Item>
-            )}
-          />
+            label="Password"
+            rules={[
+              {
+                required: true,
+                message: "Please input your password!",
+              },
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
 
           <Form.Item>
             <Button

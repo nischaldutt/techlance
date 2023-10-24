@@ -23,7 +23,10 @@ export async function getStaticProps() {
 
 export default function Services() {
   const response = useServiceCategories();
-  const { services, isFetching, refetch } = useServicesByBusiness(98); // todo: connect businessId here
+  const { services, isFetching, refetch } = useServicesByBusiness(
+    APP_CONSTANTS.DUMMY_BUSINESS_ID
+  ); // todo: connect businessId here
+  // todo_: service/list/144 is not responding with services, ask to fix
 
   const categories = response?.map((category) => {
     return {

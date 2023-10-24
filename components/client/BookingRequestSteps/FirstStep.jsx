@@ -1,33 +1,30 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { Button, Form, Input, Space, Switch } from "antd";
 import dayjs from "dayjs";
+import { Button, Form, Input, Space, Switch } from "antd";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { GrSubtractCircle } from "react-icons/gr";
 
 import { ClientDateTimeInputs } from "@/components";
-import { useAntdMessageContext } from "@/contexts";
+import { useAntdMessageContext, useQueryCacheContext } from "@/contexts";
 import { useCreateBookingSchedule } from "@/hooks";
 import { APP_CONSTANTS } from "@/constants";
 
 const { TextArea } = Input;
 
 const FirstStep = ({ next }) => {
-  const queryClient = useQueryClient();
   const [form] = Form.useForm();
   const { successMessage, errorMessage } = useAntdMessageContext();
+  const { getQueryFromCache } = useQueryCacheContext();
 
-  const cachedBookingScheduleData = queryClient.getQueryData([
-    APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE,
-  ]);
+  const cachedBookingScheduleInfo = getQueryFromCache(
+    APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE
+  );
 
-  // console.log({ cachedBookingScheduleData });
-
-  const initial = !cachedBookingScheduleData
+  const initial = !cachedBookingScheduleInfo
     ? {}
     : {
-        earliestDateAvailable: false,
+        earliestDateAvailable: true,
         description: "initial",
-        timeSlots: cachedBookingScheduleData?.availableDates.map((slot) => {
+        timeSlots: cachedBookingScheduleInfo?.availableDates.map((slot) => {
           return {
             date: dayjs(slot.bookingDate, "YYYY-MM-DD"),
             timeIds: [2, 3],
@@ -55,18 +52,20 @@ const FirstStep = ({ next }) => {
       };
     });
 
-    const bookingScheduleObj = {
+    const reqBody = {
       earliestDateAvailable,
       description,
       timeSlots: formattedTimeSlots,
+      serviceId: APP_CONSTANTS.DUMMY_SERVICE_ID,
+      businessId: APP_CONSTANTS.DUMMY_BUSINESS_ID,
     };
 
-    return cachedBookingScheduleData
+    return cachedBookingScheduleInfo
       ? createBookingSchedule({
-          ...bookingScheduleObj,
-          bookingId: cachedBookingScheduleData?.bookingId,
+          ...reqBody,
+          bookingId: cachedBookingScheduleInfo?.bookingId,
         })
-      : createBookingSchedule(bookingScheduleObj);
+      : createBookingSchedule(reqBody);
   };
 
   return (

@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Divider, Rate, Spin } from "antd";
 
 import { useAuthContext } from "@/contexts";
@@ -19,7 +18,7 @@ export default function BusinessReviews({ businessId, rating }) {
     fetchNextPage,
     isFetchingNextPage,
     refetch,
-  } = useReviewsByBusinessId(businessId, user?.id);
+  } = useReviewsByBusinessId(businessId);
 
   return (
     <div className="py-4 text-gray-700">
