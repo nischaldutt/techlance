@@ -1,38 +1,34 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
-import axiosClient from "@/libs/axiosClient";
+import { useQueryCacheContext } from "@/contexts";
+import { postRequest, putRequest } from "@/services";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
 export default function useCreateBookingSchedule(callback) {
-  const queryClient = useQueryClient();
+  const { saveQueryToCache } = useQueryCacheContext();
 
   const { mutate: createBookingSchedule, isLoading } = useMutation({
-    mutationFn: (bookingScheduleObj) => {
-      return !bookingScheduleObj?.bookingId
-        ? axiosClient.post(
+    mutationFn: (reqBody) => {
+      return !reqBody?.bookingId
+        ? postRequest(
             URL_CONSTANTS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE,
-            bookingScheduleObj
+            reqBody
           )
-        : axiosClient.put(
+        : putRequest(
             URL_CONSTANTS.CUSTOMER.BOOKING_REQUEST.UPDATE_SCHEDULE,
-            bookingScheduleObj
+            reqBody
           );
     },
-    onSuccess: (res) => {
-      queryClient.setQueryData(
+    onSuccess: (response) => {
+      saveQueryToCache(
         [APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE],
-        (prevData) => {
-          const {
-            data: { data: cachedBookingScheduleData },
-          } = res;
-          return cachedBookingScheduleData;
-        }
+        response?.payload
       );
 
-      callback(true, res?.data);
+      callback(true, response);
     },
     onError: (error) => {
-      callback(false, error?.response?.data?.message);
+      callback(false, error?.payload?.message);
     },
   });
 

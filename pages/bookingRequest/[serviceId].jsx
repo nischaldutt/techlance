@@ -1,20 +1,35 @@
 import React from "react";
 import Head from "next/head";
-import { useQueryClient } from "@tanstack/react-query";
 import { Divider, Steps, Button, Result } from "antd";
 
-import { ProtectedRoute } from "@/contexts/AuthContext";
-import { APP_CONSTANTS } from "@/constants";
-import { Footer, ClientJobRateCard } from "@/components";
+import { getUser } from "@/services";
+import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
+import {
+  Footer,
+  ClientJobRateCard,
+  ClientBookingRequestFirstStep,
+  ClientBookingRequestSecondStep,
+  ClientBookingRequestThirdStep,
+} from "@/components";
 
-import FirstStep from "@/pages/bookingRequest/formSteps/FirstStep";
-import SecondStep from "@/pages/bookingRequest/formSteps/SecondStep";
-import ThirdStep from "@/pages/bookingRequest/formSteps/ThirdStep";
+export async function getServerSideProps({ req }) {
+  const user = await getUser(req?.cookies?.token);
 
-// todo: implement getServerSideProps to fetch and prerender the page or redirect based on user session
+  if (user?.user_type === APP_CONSTANTS.USER_TYPE.CUSTOMER) {
+    return {
+      props: {},
+    };
+  }
+
+  return {
+    redirect: {
+      destination: URL_CONSTANTS.ROUTES.CUSTOMER.AUTH.LOGIN,
+      permanent: true,
+    },
+  };
+}
+
 export default function ServiceBooking() {
-  const queryClient = useQueryClient();
-
   const [formStage, setFormStage] = React.useState(0);
   const [isDone, setIsDone] = React.useState(false);
 
@@ -27,37 +42,25 @@ export default function ServiceBooking() {
   }
 
   function done() {
-    // perform cache clean up after successfull business creation
-    // queryClient.removeQueries({
-    //   queryKey: APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_BASIC_INFO,
-    //   exact: true,
-    // });
-
-    // queryClient.removeQueries({
-    //   queryKey: APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_INSURANCE,
-    //   exact: true,
-    // });
-
-    // queryClient.removeQueries({
-    //   queryKey: APP_CONSTANTS.QUERY_KEYS.BUSINESS.BUSINESS_REGISTRATION.ADD_REFERENCES,
-    //   exact: true,
-    // });
-
     setIsDone(true);
   }
 
   const steps = [
     {
       title: "Schedule",
-      content: <FirstStep next={next} />,
+      content: <ClientBookingRequestFirstStep next={next} />,
     },
     {
       title: "Job Details",
-      content: <SecondStep previous={previous} next={next} />,
+      content: (
+        <ClientBookingRequestSecondStep previous={previous} next={next} />
+      ),
     },
     {
       title: "Confirm",
-      content: <ThirdStep previous={previous} done={done} />,
+      content: (
+        <ClientBookingRequestThirdStep previous={previous} done={done} />
+      ),
     },
   ];
 

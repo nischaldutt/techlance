@@ -1,19 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { APP_CONSTANTS } from "@/constants";
-
-import { getCategories } from "@/services/customerServices";
+import { getCategories } from "@/services";
 
 export default function useCategories() {
-  const {
-    data: {
-      data: { data: categories },
-    },
-  } = useQuery({
+  const { data: categories } = useQuery({
     queryKey: [APP_CONSTANTS.QUERY_KEYS.CUSTOMER.CATEGORIES],
     queryFn: getCategories,
     staleTime: Infinity,
   });
 
-  return { categories };
+  return categories;
 }

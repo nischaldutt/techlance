@@ -1,39 +1,33 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
-import axiosClient from "@/libs/axiosClient";
+import { postRequest } from "@/services";
+import { useQueryCacheContext } from "@/contexts";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
 export default function useConfirmBooking(callback) {
-  const queryClient = useQueryClient();
+  const { getQueryFromCache, saveQueryToCache } = useQueryCacheContext();
 
   const { mutate: confirmBooking, isLoading } = useMutation({
     mutationFn: () => {
-      const cachedBookingScheduleData = queryClient.getQueryData([
-        APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE,
-      ]);
+      const cachedBookingScheduleData = getQueryFromCache(
+        APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.SAVE_SCHEDULE
+      );
 
-      const reqBody = { bookingId: cachedBookingScheduleData?.bookingId };
-
-      return axiosClient.post(
+      return postRequest(
         URL_CONSTANTS.CUSTOMER.BOOKING_REQUEST.CONFIRM_BOOKING,
-        reqBody
+        { bookingId: cachedBookingScheduleData?.bookingId }
       );
     },
-    onSuccess: (res) => {
-      queryClient.setQueryData(
+    onSuccess: (response) => {
+      saveQueryToCache(
         [APP_CONSTANTS.QUERY_KEYS.CUSTOMER.BOOKING_REQUEST.CONFIRM_BOOKING],
-        (prevData) => {
-          const {
-            data: { data: cachedConfirmedBookingData },
-          } = res;
-          return cachedConfirmedBookingData;
-        }
+        response?.payload
       );
 
-      callback(true, res?.data);
+      callback(true, response);
     },
     onError: (error) => {
-      callback(false, error?.response?.data?.message);
+      callback(false, error?.payload?.message);
     },
   });
 

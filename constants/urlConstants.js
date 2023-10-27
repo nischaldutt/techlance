@@ -1,10 +1,10 @@
 const URL_CONSTANTS = {
+  GET_USER: "/user",
+  AUTH: {
+    LOGIN: "/auth/login",
+    SIGN_UP: "/auth/signup",
+  },
   CUSTOMER: {
-    AUTH: {
-      LOGIN: "/auth/login",
-      SIGN_UP: "/auth/signup",
-    },
-
     GET_CATEGORIES: "/categories",
     GET_ALL_SUB_CATEGORIES: "/sub-category/filter",
     GET_SUB_CATEGORIES_WITH_CATEGORY_ID: "/sub-category",
@@ -22,22 +22,22 @@ const URL_CONSTANTS = {
     REVIEWS: {
       ADD_BUSINESS_REIVEW: "/review",
       EDIT_BUSINESS_REIVEW: "/review",
+      GET_REVIEWS_BY_BUSINESS_ID: "/review/list",
+      GET_AVERAGE_BUSINESS_RATING: "/review/average",
     },
   },
   BUSINESS: {
-    AUTH: {
-      LOGIN: "/auth/login",
-      SIGN_UP: "/auth/signup",
-    },
     REGISTRATION: {
       ADD_BASIC_INFO: "/business/basic",
       ADD_INSURANCE: "/business/insurance",
       ADD_REFERENCES: "/business/references",
       ADD_SERVICES: "/business/services",
     },
-    DASHBOARD: {
-      HOME: "/business/admin/dashboard",
+    SERVICES: {
+      CREATE_SERVICE: "/service/create",
+      GET_SERVICES_BY_BUSINESS: "/service/list",
     },
+    STATES: "business/states/1",
   },
   ROUTES: {
     HOME: "/",
@@ -53,11 +53,13 @@ const URL_CONSTANTS = {
         SIGN_UP: "/business/auth/signup",
       },
       REGISTRATION: "/business/registration",
-      DASHBOARD: {
-        HOME: "/business/admin/dashboard",
+      ADMIN: {
+        DASHBOARD: "/business/admin/dashboard",
       },
     },
   },
+  SINGLE_FILE_UPLOAD: "/file/upload/",
+  SINGLE_FILE_DELETE: "/file/delete/",
 };
 
 export default URL_CONSTANTS;

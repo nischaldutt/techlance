@@ -1,4 +1,5 @@
 import { Space, Form, DatePicker, Checkbox, Divider } from "antd";
+import dayjs from "dayjs";
 
 export default function DateTimeInputs({
   name,
@@ -22,6 +23,11 @@ export default function DateTimeInputs({
           <DatePicker
             className="w-36 h-10 text-lg"
             format="YYYY-MM-DD"
+            disabledDate={(currentDate) => {
+              return (
+                currentDate < dayjs() || currentDate > dayjs().add(15, "day")
+              );
+            }}
             isDisabled={isDisabled}
           />
         </Form.Item>

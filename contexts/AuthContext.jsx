@@ -1,8 +1,8 @@
-import { useRouter } from "next/router";
 import { createContext, useState, useEffect, useContext } from "react";
 import Cookies from "js-cookie";
 
 import axiosClient from "@/libs/axiosClient";
+import { getUser, postRequest } from "@/services";
 import { APP_CONSTANTS, URL_CONSTANTS } from "@/constants";
 
 const AuthContext = createContext(null);
@@ -16,8 +16,15 @@ export function AuthProvider({ children }) {
       const token = Cookies.get("token");
 
       if (token) {
-        // console.log("Got a token in the cookies");
         axiosClient.defaults.headers.Authorization = `Bearer ${token}`;
+        const response = await getUser(token);
+
+        if (response !== APP_CONSTANTS.MESSAGES.AUTH.UNAUTHORISED) {
+          setUser(response);
+        } else {
+          Cookies.remove("token");
+          delete axiosClient.defaults.headers.Authorization;
+        }
       }
       setIsLoading(false);
     }
@@ -30,30 +37,24 @@ export function AuthProvider({ children }) {
   const login = async (userObj, callback) => {
     try {
       setIsLoading(true);
-      const loginEndpoint =
-        userObj?.user_type === APP_CONSTANTS.USER_TYPE.CUSTOMER
-          ? URL_CONSTANTS.CUSTOMER.AUTH.LOGIN
-          : URL_CONSTANTS.BUSINESS.AUTH.LOGIN;
+      const { payload, message } = await postRequest(
+        URL_CONSTANTS.AUTH.LOGIN,
+        userObj
+      );
 
-      const response = await axiosClient.post(loginEndpoint, userObj);
-
-      const {
-        data: { data: authenticatedUser },
-      } = response;
-
-      if (authenticatedUser?.token) {
-        Cookies.set("token", authenticatedUser?.token, {
+      if (payload?.token) {
+        Cookies.set("token", payload?.token, {
           expires: APP_CONSTANTS.AUTH_TOKEN_VALIDITY,
         });
-        axiosClient.defaults.headers.Authorization = `Bearer ${authenticatedUser?.token}`;
-        setUser(authenticatedUser);
+        axiosClient.defaults.headers.Authorization = `Bearer ${payload?.token}`;
+        setUser(payload);
       }
 
       setIsLoading(false);
-      callback(true, response?.data?.message);
+      callback(true, message);
     } catch (error) {
       setIsLoading(false);
-      callback(false, error?.response?.data?.message);
+      callback(false, error?.payload?.message);
     }
   };
 
@@ -83,18 +84,3 @@ export function AuthProvider({ children }) {
 export function useAuthContext() {
   return useContext(AuthContext);
 }
-
-export const ProtectedRoute = ({ userType, children }) => {
-  const router = useRouter();
-  const { isAuthenticated, isTokenPresent } = useAuthContext();
-
-  useEffect(() => {
-    if (!isAuthenticated || !isTokenPresent) {
-      userType === APP_CONSTANTS.USER_TYPE.BUSINESS
-        ? router.push(URL_CONSTANTS.ROUTES.BUSINESS.AUTH.LOGIN)
-        : router.push(URL_CONSTANTS.ROUTES.CUSTOMER.AUTH.LOGIN);
-    }
-  }, [router, isAuthenticated, isTokenPresent, userType]);
-
-  return children;
-};

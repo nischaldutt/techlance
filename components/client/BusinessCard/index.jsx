@@ -1,11 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import { APP_CONSTANTS } from "@/constants";
+
 const BusinessCard = () => {
   return (
     <div className="flex justify-center w-[275px] mx-2">
       <div className="rounded-lg bg-white max-w-sm">
-        <Link href="/categories/hair-salon/salon1">
+        <Link
+          href={`/categories/hair-salon/${APP_CONSTANTS.DUMMY_BUSINESS_ID}`}
+        >
           <a data-mdb-ripple="true" data-mdb-ripple-color="light">
             <div className="relative">
               <div className="absolute right-0 rounded-tr-lg rounded-bl-lg z-10 bg-[rgba(0,0,0,0.5)] text-white text-center p-1">

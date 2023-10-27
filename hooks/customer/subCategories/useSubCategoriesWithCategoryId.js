@@ -2,11 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 
 import { APP_CONSTANTS } from "@/constants";
 
-import { getSubCategoriesWithCategoryId } from "@/services/customerServices";
+import { getSubCategoriesWithCategoryId } from "@/services";
 
 export default function useSubCategoriesWithCategoryId(categoryId) {
   const {
-    data: response,
+    data: subCategoriesWithCategoryId,
     isSuccess,
     isError,
     isFetching,
@@ -21,9 +21,6 @@ export default function useSubCategoriesWithCategoryId(categoryId) {
   });
 
   if (isSuccess) {
-    const {
-      data: { data: subCategoriesWithCategoryId },
-    } = response;
     return {
       subCategoriesWithCategoryId,
       isSuccess,

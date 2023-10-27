@@ -3,10 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { ClientServiceListItem } from "@/components";
+import { APP_CONSTANTS } from "@/constants";
 
 const ServiceInfo = () => {
   return (
-    <Link href="/categories/hair-salon/salon1">
+    <Link href={`/categories/hair-salon/${APP_CONSTANTS.DUMMY_BUSINESS_ID}`}>
       <div className="border-b border-gray-300 py-1 cursor-pointer">
         <div className="text-xl font-bold text-gray-800">New Era Cuts</div>
         <div className="text-gray-700 text-xs py-1">
@@ -26,7 +27,9 @@ const ServiceSearchCard = ({ bookServiceHandler }) => {
             <div className="font-bold text-lg">5.0</div>
             <div className="text-[11px]">568 Reviews</div>
           </div>
-          <Link href="/categories/hair-salon/salon1">
+          <Link
+            href={`/categories/hair-salon/${APP_CONSTANTS.DUMMY_BUSINESS_ID}`}
+          >
             <div className="w-[340px] h-[226px]">
               <Image
                 className="rounded-lg"
