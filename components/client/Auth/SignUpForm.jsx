@@ -51,7 +51,7 @@ export default function SignUpForm() {
 
         <Form name="signup" form={form} layout="vertical" onFinish={onSubmit}>
           <Form.Item
-            name="firstName"
+            name="first_name"
             label="First Name"
             rules={[
               { required: true, message: "Please input your First Name!" },
@@ -61,7 +61,7 @@ export default function SignUpForm() {
           </Form.Item>
 
           <Form.Item
-            name="lastName"
+            name="last_name"
             label="Last Name"
             rules={[
               { required: true, message: "Please input your Last Name!" },
