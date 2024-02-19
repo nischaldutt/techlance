@@ -1,3 +1,15 @@
+<div>
+  <h1 align="center">
+    <a href="https://github.com/nischaldutt/techlance/">Techlance</a>
+  </h1>
+
+  <h4 align="center">
+    A web platform that connects homeowners with service providers in real time, based on proximity and availability.
+  </h4>
+</div>
+
+## [Open in Visual Studio Code 👨‍💻](https://vscode.dev/github.com/nischaldutt/techlance/)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
