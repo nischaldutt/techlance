@@ -4,7 +4,7 @@
   </h1>
 
   <h4 align="center">
-    A web platform that connects homeowners with service providers in real time, based on proximity and availability.
+    A web platform that connects homeowners with service providers in real time.
   </h4>
 </div>
 
