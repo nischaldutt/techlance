@@ -1,6 +1,6 @@
 <div>
   <h1 align="center">
-    <a href="https://github.com/nischaldutt/techlance/">Techlance</a>
+    <a href="https://techlance.vercel.app/">Techlance</a>
   </h1>
 
   <h4 align="center">
